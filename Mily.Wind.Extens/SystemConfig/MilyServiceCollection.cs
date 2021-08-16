@@ -23,20 +23,25 @@ namespace Mily.Wind.Extens.SystemConfig
                 opt.SuppressConsumesConstraintForFormFileParameters = true;
             });
 
-            services.AddControllers().AddNewtonsoftJson(opt =>
+            services.AddControllers(opt =>
+            {
+                opt.Filters.Add(typeof(MilyFilter));
+                opt.RespectBrowserAcceptHeader = true;
+            }).AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                });
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            });
 
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(opt => {
+            }).AddJwtBearer(opt =>
+            {
                 opt.SaveToken = true;
                 opt.RequireHttpsMetadata = false;
                 opt.TokenValidationParameters = new TokenValidationParameters

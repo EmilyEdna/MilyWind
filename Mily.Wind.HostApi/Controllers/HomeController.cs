@@ -21,11 +21,22 @@ namespace Mily.Wind.HostApi.Controllers
             IMainLogic logic = new MainLogic();
             return new JsonResult(logic.GetUserList());
         }
+
         [HttpGet]
-        public ActionResult Login(int id) 
+        [AllowAnonymous]
+        public ActionResult Create()
         {
             IMainLogic logic = new MainLogic();
-           var user = logic.GetUser(id);
+            var user = logic.CreateUser();
+            return new JsonResult(user);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Login(int id)
+        {
+            IMainLogic logic = new MainLogic();
+            var user = logic.GetUser(id);
 
             //从数据库验证用户名，密码
             //验证通过 否则 返回Unauthorized

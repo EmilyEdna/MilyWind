@@ -1,4 +1,5 @@
 ﻿using Mily.Wind.Extens.Enumeration;
+using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
 using Mily.Wind.SugarEntity.System;
 using SqlSugar;
@@ -16,14 +17,20 @@ namespace Mily.Wind.SugarContext
     public abstract class ContextEvent
     {
         public MongoEntity Mongo { get; private set; }
+        internal virtual void PreExecute<T>(T entity) where T : BasicEntity, new()
+        {
+            entity.IsDeleted = false;
+            entity.Created = DateTime.Now;
+            entity.TenantId = 0;
+        }
         internal virtual void BeforeExecute<T>(T entity, MongoHandleLogEnum handle) where T: BasicEntity, new()
         {
             Mongo = new MongoEntity
             {
                 HandleLog = handle.ToAttr<MongoHandleLogEnum, DescriptionAttribute>(handle.ToString()).Description,
                 HandleTime = DateTime.Now,
-                TenantId = Caches.RedisCacheGet<MilyUser>("1").TenantId,
-                UserId =Caches.RedisCacheGet<MilyUser>("1").Id,
+                TenantId = MilySession.GetSession<MilyUser>()?.TenantId,
+                UserId = MilySession.GetSession<MilyUser>()?.Id,
                 TargetTable = ((SugarTable)entity.GetType().GetCustomAttributes(typeof(SugarTable), false).FirstOrDefault()).TableName
             };
         }

@@ -19,8 +19,7 @@ namespace Mily.Wind.Extens.SystemConfig
 
         public async Task Invoke(HttpContext Context) 
         {
-            //var securityToken = Context.GetTokenAsync("Bearer", "access_token").Result;
-            //JwtSecurityToken Token = new JwtSecurityToken(securityToken);
+            await _request(Context);
         }
     }
 }

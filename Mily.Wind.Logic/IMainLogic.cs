@@ -12,5 +12,6 @@ namespace Mily.Wind.Logic
     {
         List<MilyUser> GetUserList();
         MilyUser GetUser(int id);
+        MilyUser CreateUser();
     }
 }

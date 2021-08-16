@@ -9,10 +9,10 @@ namespace Mily.Wind.SugarEntity
 {
     public class MongoEntity
     {
-        public int UserId { get; set; }
-        public int TenantId { get; set; }
+        public int? UserId { get; set; }
+        public int? TenantId { get; set; }
         public string TargetTable { get; set; }
         public string HandleLog { get; set; }
-        public DateTime HandleTime { get; set; }
+        public DateTime? HandleTime { get; set; }
     }
 }

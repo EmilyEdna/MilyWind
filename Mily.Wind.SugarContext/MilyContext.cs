@@ -1,4 +1,5 @@
-﻿using Mily.Wind.SugarEntity;
+﻿using Mily.Wind.Extens.Enumeration;
+using Mily.Wind.SugarEntity;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -42,10 +43,11 @@ namespace Mily.Wind.SugarContext
             return db;
         }
 
-        public T Insert<T>(T entity) where T : BasicEntity, new()
+        public T Insert<T>(T entity, bool migration = false) where T : BasicEntity, new()
         {
-            BeforeExecute(entity, Extens.Enumeration.MongoHandleLogEnum.Create);
-            var ret = Context().Insertable(entity).ExecuteReturnEntity();
+            PreExecute(entity);
+            BeforeExecute(entity, MongoHandleLogEnum.Create);
+            var ret = Context(migration).Insertable(entity).ExecuteReturnEntity();
             AfterExecute();
             return ret;
         }
