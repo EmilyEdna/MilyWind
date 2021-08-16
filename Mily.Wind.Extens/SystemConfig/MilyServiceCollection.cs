@@ -36,8 +36,7 @@ namespace Mily.Wind.Extens.SystemConfig
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(opt =>
-            {
+            }).AddJwtBearer(opt => {
                 opt.SaveToken = true;
                 opt.RequireHttpsMetadata = false;
                 opt.TokenValidationParameters = new TokenValidationParameters
@@ -46,9 +45,8 @@ namespace Mily.Wind.Extens.SystemConfig
                     ValidateAudience = true,
                     ValidAudience = "MilyWind",
                     ValidIssuer = "MilyWind",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MilyWind"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This MilyWind is the latest micro service project .")),
                 };
-                opt.SecurityTokenValidators.Add(new VerifyToken());
             });
 
             return services;
