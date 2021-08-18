@@ -16,7 +16,11 @@ namespace Mily.Wind.Extens.SystemConfig
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
-
+            MilyResult.Instance(opt =>
+            {
+                opt.Result = (context.Result as ObjectResult).Value;
+                opt.HttpCode = context.HttpContext.Response.StatusCode;
+            });
         }
 
         public void OnActionExecuting(ActionExecutingContext context)

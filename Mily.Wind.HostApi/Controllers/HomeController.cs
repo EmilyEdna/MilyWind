@@ -16,24 +16,24 @@ namespace Mily.Wind.HostApi.Controllers
     {
         [HttpGet]
         [Authorize]
-        public ActionResult Get()
+        public ActionResult<object> Get()
         {
             IMainLogic logic = new MainLogic();
-            return new JsonResult(logic.GetUserList());
+            return logic.GetUserList();
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Create()
+        public ActionResult<object> Create()
         {
             IMainLogic logic = new MainLogic();
             var user = logic.CreateUser();
-            return new JsonResult(user);
+            return user;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login(int id)
+        public ActionResult<object> Login(int id)
         {
             IMainLogic logic = new MainLogic();
             var user = logic.GetUser(id);
@@ -59,11 +59,11 @@ namespace Mily.Wind.HostApi.Controllers
                    );
 
             //返回token和过期时间
-            return Ok(new
+            return new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo
-            });
+            };
         }
     }
 }
