@@ -33,7 +33,7 @@ namespace Mily.Wind.HostApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult<object> Login(int id)
+        public ActionResult<object> Login(long id)
         {
             IMainLogic logic = new MainLogic();
             var user = logic.GetUser(id);

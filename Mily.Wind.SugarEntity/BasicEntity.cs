@@ -8,8 +8,8 @@ namespace Mily.Wind.SugarEntity
         /// <summary>
         /// 主键
         /// </summary>
-        [SugarColumn(IsPrimaryKey = true, ColumnDescription = "主键", IsIdentity = true)]
-        public int Id { get; set; }
+        [SugarColumn(IsPrimaryKey = true, ColumnDescription = "主键")]
+        public long Id { get; set; }
         /// <summary>
         /// 逻辑删除
         /// </summary>

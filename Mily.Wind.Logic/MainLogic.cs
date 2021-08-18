@@ -14,7 +14,7 @@ namespace Mily.Wind.Logic
             return Context().Queryable<MilyUser>().ToList();
         }
 
-        public MilyUser GetUser(int id)
+        public MilyUser GetUser(long id)
         {
             var User = Context().Queryable<MilyUser>().Where(t => t.Id == id).First();
             if (User != null) Caches.RedisCacheSet($"{User.Id}{User.Name}", User, 120);
