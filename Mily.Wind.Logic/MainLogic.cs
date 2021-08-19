@@ -28,7 +28,7 @@ namespace Mily.Wind.Logic
                 Name = "lzh",
                 EncryptPassword = "1"
             };
-            return base.Insert(user,true);
+            return base.Insert(user, true);
         }
     }
 }

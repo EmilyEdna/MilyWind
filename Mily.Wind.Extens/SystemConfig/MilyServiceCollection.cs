@@ -39,10 +39,11 @@ namespace Mily.Wind.Extens.SystemConfig
                 opt.RespectBrowserAcceptHeader = true;
             }).AddNewtonsoftJson(opt =>
             {
-                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                opt.SerializerSettings.Converters.Add(new MilyJsonConvert());
             });
 
             services.AddAuthentication(opt =>
