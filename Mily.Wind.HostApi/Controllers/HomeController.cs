@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Mily.Wind.Logic;
+using Mily.Wind.Extens.SystemConfig;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,52 +12,28 @@ namespace Mily.Wind.HostApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class HomeController : Controller
+    public class HomeController : BasicController
     {
         [HttpGet]
         [Authorize]
         public ActionResult<object> Get()
         {
-            IMainLogic logic = new MainLogic();
-            return logic.GetUserList();
+            return MainLogic.GetUserList();
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult<object> Create()
         {
-            IMainLogic logic = new MainLogic();
-            var user = logic.CreateUser();
-            return user;
+            return MainLogic.CreateUser();
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult<object> Login(long id)
         {
-            IMainLogic logic = new MainLogic();
-            var user = logic.GetUser(id);
-
-            //从数据库验证用户名，密码
-            //验证通过 否则 返回Unauthorized
-
-            //创建claim
-            var authClaims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub,user.Name),
-                new Claim(JwtRegisteredClaimNames.NameId,user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
-            };
-            IdentityModelEventSource.ShowPII = true;
-            //签名秘钥 可以放到json文件中
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This MilyWind is the latest micro service project ."));
-            var token = new JwtSecurityToken(
-                   issuer: "MilyWind",
-                   audience: "MilyWind",
-                   expires: DateTime.Now.AddHours(2),
-                   claims: authClaims,
-                   signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                   );
-
+            var user = MainLogic.GetUser(id);
+            var token = MilyJwtSecurity.JwtToken(new string[] { user.Name, user.Id.ToString() });
             //返回token和过期时间
             return new
             {

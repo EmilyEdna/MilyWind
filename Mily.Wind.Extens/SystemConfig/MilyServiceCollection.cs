@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using DryIoc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Mily.Wind.Extens.InternalInterface;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -11,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.CacheFramework;
+using XExten.Advance.StaticFramework;
 
 namespace Mily.Wind.Extens.SystemConfig
 {
@@ -65,6 +68,28 @@ namespace Mily.Wind.Extens.SystemConfig
                 };
             });
 
+            services.RegistIoc();
+
+            return services;
+        }
+
+        public static IServiceCollection RegistIoc(this IServiceCollection services)
+        {
+            IContainer ioc = new Container();
+            var AllAssemblies = SyncStatic.Assembly("Mily.Wind");
+
+            var LogicServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILogic)))).ToList();
+
+            LogicServices.ForEach(item =>
+            {
+                if (item.IsClass)
+                {
+                    var interfaces = item.GetInterfaces().Where(imp => imp.GetInterfaces().Contains(typeof(ILogic))).FirstOrDefault();
+                    var impl = Activator.CreateInstance(item).GetType();
+                    ioc.Register(interfaces, impl, Reuse.Transient);
+                }
+            });
+            MilyDryIoc.SetContainer(ioc);
             return services;
         }
     }
