@@ -10,6 +10,6 @@ namespace Mily.Wind.HostApi
 {
     public class BasicController: Controller
     {
-        protected IMainLogic MainLogic = MilyDryIoc.GetService<IMainLogic>();
+        protected IMainLogic MainLogic = MilyUtily.GetService<IMainLogic>();
     }
 }

@@ -21,7 +21,7 @@ namespace Mily.Wind.HostApi.Controllers
             return MainLogic.GetUserList();
         }
 
-        [HttpGet]
+        [HttpPut]
         [AllowAnonymous]
         public ActionResult<object> Create()
         {

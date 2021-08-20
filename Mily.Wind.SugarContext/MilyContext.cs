@@ -1,4 +1,6 @@
-﻿using Mily.Wind.Extens.Enumeration;
+﻿using Microsoft.Extensions.Configuration;
+using Mily.Wind.Extens.Enumeration;
+using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
 using SqlSugar;
 using System;
@@ -18,8 +20,8 @@ namespace Mily.Wind.SugarContext
             SqlSugarClient db = new SqlSugarClient(new ConnectionConfig
             {
                 IsAutoCloseConnection = true,
-                DbType = DbType.Sqlite,
-                ConnectionString = $"DataSource={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DataBase", "Alm.db")}"
+                DbType = DbType.MySql,
+                ConnectionString = MilyUtily.Configuration.GetConnectionString("MySql")
             });
             db.Aop.OnLogExecuting = (sql, pars) =>
             {

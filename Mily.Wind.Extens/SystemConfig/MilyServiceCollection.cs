@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -75,7 +76,7 @@ namespace Mily.Wind.Extens.SystemConfig
 
         public static IServiceCollection RegistIoc(this IServiceCollection services)
         {
-            IContainer ioc = new Container();
+            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
             var AllAssemblies = SyncStatic.Assembly("Mily.Wind");
 
             var LogicServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILogic)))).ToList();
@@ -89,7 +90,8 @@ namespace Mily.Wind.Extens.SystemConfig
                     ioc.Register(interfaces, impl, Reuse.Transient);
                 }
             });
-            MilyDryIoc.SetContainer(ioc);
+           
+            MilyUtily.SetContainer(ioc);
             return services;
         }
     }
