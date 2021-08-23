@@ -1,4 +1,6 @@
 ﻿using DotNetCore.CAP;
+using DotNetCore.CAP.Processor;
+using DotNetCore.CAP.Transport;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.CacheFramework;
+using XExten.Advance.LinqFramework;
 using XExten.Advance.StaticFramework;
 
 namespace Mily.Wind.Extens.SystemConfig
@@ -96,7 +99,14 @@ namespace Mily.Wind.Extens.SystemConfig
             services.AddCap(opt =>
             {
                 opt.UseMongoDB(Configuration.GetConnectionString("Mongo"));
-                opt.UseRabbitMQ(Configuration.GetConnectionString("RabbitMQ"));
+                opt.UseRabbitMQ(t =>
+                {
+                    t.HostName = Configuration["RabbitMQ:HostName"];
+                    t.Port = Configuration["RabbitMQ:Port"].AsInt();
+                    t.VirtualHost = Configuration["RabbitMQ:VirtualHost"];
+                    t.UserName = Configuration["RabbitMQ:Name"];
+                    t.Password = Configuration["RabbitMQ:Pwd"];
+                });
                 opt.UseDashboard();
             });
             return services;

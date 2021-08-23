@@ -14,11 +14,18 @@ namespace Mily.Wind.HostApi.Controllers
     [Route("[controller]/[action]")]
     public class HomeController : BasicController
     {
+        public DotNetCore.CAP.ICapPublisher Cab { get; set; }
+        public HomeController(DotNetCore.CAP.ICapPublisher Cabs)
+        {
+            Cab = Cabs;
+        }
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult<object> Get()
         {
-            return MainLogic.GetUserList();
+            var data = MainLogic.GetUserList();
+           new  Extens.CAPUtity.MilyCAP().Publisher("Test", data[0]);
+            return data;
         }
 
         [HttpPut]

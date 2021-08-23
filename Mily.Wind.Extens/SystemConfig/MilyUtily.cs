@@ -15,11 +15,16 @@ namespace Mily.Wind.Extens.SystemConfig
     public class MilyUtily
     {
         private static readonly ConcurrentDictionary<string, IContainer> current = new ConcurrentDictionary<string, IContainer>();
-        public static IConfiguration Configuration => GetService<IConfiguration>();
-        public static T GetService<T>()
+        public static IConfiguration Configuration => GetServiceByContainer<IConfiguration>();
+        public static T GetServiceByContainer<T>()
         {
             current.TryGetValue(nameof(MilyUtily), out IContainer container);
             return container.Resolve<T>();
+        }
+        public static T GetServiceByMsIoc<T>()
+        {
+            current.TryGetValue(nameof(MilyUtily), out IContainer container);
+           return container.GetService<T>();
         }
         internal static void SetContainer(IContainer container)
         {
