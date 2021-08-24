@@ -5,9 +5,11 @@ using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.InternalInterface;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -67,7 +69,15 @@ namespace Mily.Wind.Extens.SystemConfig
                 opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 opt.SerializerSettings.Converters.Add(new MilyJsonConvert());
-            });
+            }).AddControllersAsServices();
+
+            //2.找出默认的Activator
+            var DefaultActivator = services.FirstOrDefault(m => m.ServiceType == typeof(IControllerActivator));
+            //3.移除默认Activator
+            services.Remove(DefaultActivator);
+            //4.把自己自定义的Activator添加进去
+            services.AddTransient<IControllerActivator, MilyControllerActivator>();
+
             return services;
         }
 
@@ -114,7 +124,7 @@ namespace Mily.Wind.Extens.SystemConfig
 
         public static IServiceCollection RegistIoc(this IServiceCollection services)
         {
-            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
+          
             var AllAssemblies = SyncStatic.Assembly("Mily.Wind");
 
             var LogicServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILogic)))).ToList();
@@ -124,9 +134,9 @@ namespace Mily.Wind.Extens.SystemConfig
             {
                 if (item.IsClass)
                 {
-                    var interfaces = item.GetInterface(nameof(ICapSubscribe), true);
+                    var interfaces = item.GetInterfaces().Where(imp => imp.GetInterfaces().Contains(typeof(ICapSubscribe))).FirstOrDefault();
                     var impl = Activator.CreateInstance(item).GetType();
-                    ioc.Register(interfaces, impl, Reuse.Transient);
+                    services.AddSingleton(interfaces, impl);
                 }
             });
 
@@ -136,11 +146,11 @@ namespace Mily.Wind.Extens.SystemConfig
                 {
                     var interfaces = item.GetInterfaces().Where(imp => imp.GetInterfaces().Contains(typeof(ILogic))).FirstOrDefault();
                     var impl = Activator.CreateInstance(item).GetType();
-                    ioc.Register(interfaces, impl, Reuse.Transient);
+                    services.AddSingleton(interfaces, impl);
                 }
             });
-
-            MilyUtily.SetContainer(ioc);
+            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
+            IocManager.SetContainer(ioc);
             return services;
         }
     }

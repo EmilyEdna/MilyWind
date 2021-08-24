@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.Enumeration;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
@@ -21,7 +22,7 @@ namespace Mily.Wind.SugarContext
             {
                 IsAutoCloseConnection = true,
                 DbType = DbType.MySql,
-                ConnectionString = MilyUtily.Configuration.GetConnectionString("MySql")
+                ConnectionString = IocManager.Configuration.GetConnectionString("MySql")
             });
             db.Aop.OnLogExecuting = (sql, pars) =>
             {

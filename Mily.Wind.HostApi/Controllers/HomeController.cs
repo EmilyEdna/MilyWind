@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DotNetCore.CAP;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Mily.Wind.Extens.CAPUtity;
+using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.SystemConfig;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,18 +17,13 @@ namespace Mily.Wind.HostApi.Controllers
     [Route("[controller]/[action]")]
     public class HomeController : BasicController
     {
-        public DotNetCore.CAP.ICapPublisher Cab { get; set; }
-        public HomeController(DotNetCore.CAP.ICapPublisher Cabs)
-        {
-            Cab = Cabs;
-        }
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult<object> Get()
         {
-            var data = MainLogic.GetUserList();
-           new  Extens.CAPUtity.MilyCAP().Publisher("Test", data[0]);
-            return data;
+            MilyCAP.Publisher("Test", "1");
+            return MainLogic.GetUserList();
         }
 
         [HttpPut]
