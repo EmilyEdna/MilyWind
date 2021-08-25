@@ -1,4 +1,5 @@
 ﻿
+using Mily.Wind.Extens.AOPUtity;
 using Mily.Wind.SugarContext;
 using Mily.Wind.SugarEntity.System;
 using System;
@@ -7,20 +8,25 @@ using XExten.Advance.CacheFramework;
 
 namespace Mily.Wind.Logic
 {
+    [Interceptor]
     public class MainLogic : MilyContext, IMainLogic
     {
-        public List<MilyUser> GetUserList()
+        [Actions]
+        public virtual List<MilyUser> GetUserList()
         {
             return Context().Queryable<MilyUser>().ToList();
         }
 
-        public MilyUser GetUser(long id)
+        [Actions]
+        public virtual MilyUser GetUser(long id)
         {
             var User = Context().Queryable<MilyUser>().Where(t => t.Id == id).First();
             if (User != null) Caches.RedisCacheSet($"{User.Id}{User.Name}", User, 120);
             return User;
         }
-        public MilyUser CreateUser()
+
+        [Actions]
+        public virtual MilyUser CreateUser()
         {
             MilyUser user = new MilyUser
             {

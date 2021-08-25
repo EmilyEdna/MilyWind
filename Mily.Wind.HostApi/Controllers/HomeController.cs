@@ -1,15 +1,7 @@
-﻿using DotNetCore.CAP;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Mily.Wind.Extens.CAPUtity;
-using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.SystemConfig;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace Mily.Wind.HostApi.Controllers
 {
@@ -23,7 +15,7 @@ namespace Mily.Wind.HostApi.Controllers
         /// 查询
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Authorize]
+        [HttpGet, AllowAnonymous]
         public ActionResult<object> Get()
         {
             return MainLogic.GetUserList();

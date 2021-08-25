@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XExten.Advance.AopFramework;
 using XExten.Advance.CacheFramework;
 using XExten.Advance.LinqFramework;
 using XExten.Advance.StaticFramework;
@@ -140,16 +141,17 @@ namespace Mily.Wind.Extens.SystemConfig
                 }
             });
 
+            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
             LogicServices.ForEach(item =>
             {
                 if (item.IsClass)
                 {
                     var interfaces = item.GetInterfaces().Where(imp => imp.GetInterfaces().Contains(typeof(ILogic))).FirstOrDefault();
-                    var impl = Activator.CreateInstance(item).GetType();
-                    services.AddSingleton(interfaces, impl);
+                    ioc.Register(interfaces, AopProxy.CreateProxyOfRealize(interfaces, item).GetType(), Reuse.Singleton);
                 }
             });
-            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
+          
+        
             IocManager.SetContainer(ioc);
             return services;
         }
