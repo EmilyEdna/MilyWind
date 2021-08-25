@@ -13,28 +13,36 @@ using System.Text;
 
 namespace Mily.Wind.HostApi.Controllers
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
+    /// <summary>
+    /// 首页
+    /// </summary>
+    [ApiController, Route("[controller]/[action]"), ApiExplorerSettings(GroupName ="v1")]
     public class HomeController : BasicController
     {
-
-        [HttpGet]
-        [AllowAnonymous]
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Authorize]
         public ActionResult<object> Get()
         {
-            MilyCAP.Publisher("Test", "1");
             return MainLogic.GetUserList();
         }
-
-        [HttpPut]
-        [AllowAnonymous]
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut, AllowAnonymous]
         public ActionResult<object> Create()
         {
             return MainLogic.CreateUser();
         }
-
-        [HttpGet]
-        [AllowAnonymous]
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet, AllowAnonymous]
         public ActionResult<object> Login(long id)
         {
             var user = MainLogic.GetUser(id);

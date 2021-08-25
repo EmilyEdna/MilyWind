@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mily.Wind.HostApi</name>
+    </assembly>
+    <members>
+        <member name="T:Mily.Wind.HostApi.Controllers.HomeController">
+            <summary>
+            首页
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Get">
+            <summary>
+            查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Create">
+            <summary>
+            注册
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Login(System.Int64)">
+            <summary>
+            登录
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

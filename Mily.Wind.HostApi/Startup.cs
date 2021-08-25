@@ -25,13 +25,12 @@ namespace Mily.Wind.HostApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mily.Wind.HostApi", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                c.AddSecurityDefinition("JwtBearer", new OpenApiSecurityScheme()
                 {
-                    Description = "在下框中输入请求头中需要添加Jwt授权Token：Bearer Token",
+                    Description = "在下框中输入请求头中需要添加Jwt授权Token",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    BearerFormat = "JWT",
+                    Type = SecuritySchemeType.Http,
                     Scheme = "Bearer"
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -41,6 +40,7 @@ namespace Mily.Wind.HostApi
                       Array.Empty<string>()
                     }
                 });
+                c.IncludeXmlComments("Mily.Wind.HostApi.xml", false);
             });
         }
 
