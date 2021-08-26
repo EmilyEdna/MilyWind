@@ -52,6 +52,8 @@ namespace Mily.Wind.HostApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mily.Wind.HostApi v1"));
             }
+            app.UseStaticFiles();
+
             app.UseMiddleware<MilyMiddleWare>();
 
             app.UseRouting();

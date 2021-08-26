@@ -1,8 +1,8 @@
 ﻿using Mily.Wind.Extens.Enumeration;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
-using Mily.Wind.SugarEntity.Mogo;
 using Mily.Wind.SugarEntity.System;
+using Mily.Wind.VMod.Mogo;
 using SqlSugar;
 using System;
 using System.Collections.Generic;

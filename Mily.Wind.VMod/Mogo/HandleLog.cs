@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mily.Wind.SugarEntity.Mogo
+namespace Mily.Wind.VMod.Mogo
 {
     public class HandleLog
     {

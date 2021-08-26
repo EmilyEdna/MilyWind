@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Logic", "Mily.Win
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Extens", "Mily.Wind.Extens\Mily.Wind.Extens.csproj", "{A780B42F-5FCB-4BDF-84E0-D98DE093D058}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.VMod", "Mily.Wind.VMod\Mily.Wind.VMod.csproj", "{92E10118-BCB5-4678-B233-876665B61401}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A780B42F-5FCB-4BDF-84E0-D98DE093D058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A780B42F-5FCB-4BDF-84E0-D98DE093D058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A780B42F-5FCB-4BDF-84E0-D98DE093D058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92E10118-BCB5-4678-B233-876665B61401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E10118-BCB5-4678-B233-876665B61401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E10118-BCB5-4678-B233-876665B61401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E10118-BCB5-4678-B233-876665B61401}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{AE58347E-00A4-419C-B1E8-1A1DD5D3B4E8} = {1C7B4FBA-9EB8-4063-A788-B752999273D6}
 		{3AF6D444-37CA-4E51-8692-E6D578A0E0E1} = {2175F3AE-12BA-46B2-93A4-0783EE18929B}
 		{A780B42F-5FCB-4BDF-84E0-D98DE093D058} = {B4D60C2E-496C-4272-989A-B653D4010154}
+		{92E10118-BCB5-4678-B233-876665B61401} = {B4D60C2E-496C-4272-989A-B653D4010154}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E82065E-2222-4621-A155-6C9A991F71E5}
