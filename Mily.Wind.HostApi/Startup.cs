@@ -25,6 +25,7 @@ namespace Mily.Wind.HostApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mily.Wind.HostApi", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Mily.Wind.HostApi", Version = "v2" });
                 c.AddSecurityDefinition("JwtBearer", new OpenApiSecurityScheme()
                 {
                     Description = "在下框中输入请求头中需要添加Jwt授权Token",
@@ -50,7 +51,11 @@ namespace Mily.Wind.HostApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mily.Wind.HostApi v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mily.Wind.HostApi v1");
+                    c.SwaggerEndpoint("/swagger/v2/swagger.json", "Mily.Wind.HostApi v2");
+                });
             }
             app.UseStaticFiles();
 

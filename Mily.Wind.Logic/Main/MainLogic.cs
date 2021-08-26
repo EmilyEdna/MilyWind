@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using XExten.Advance.CacheFramework;
 
-namespace Mily.Wind.Logic
+namespace Mily.Wind.Logic.Main
 {
     [Interceptor]
     public class MainLogic : MilyContext, IMainLogic
@@ -26,8 +26,9 @@ namespace Mily.Wind.Logic
         }
 
         [Actions]
-        public virtual MilyUser CreateUser()
+        public virtual MilyUser CreateUser(MilyUser u)
         {
+            throw new ArgumentException("参数错误");
             MilyUser user = new MilyUser
             {
                 Password = "1",

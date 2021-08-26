@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mily.Wind.Extens.SystemConfig;
+using Mily.Wind.SugarEntity.System;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Mily.Wind.HostApi.Controllers
@@ -27,7 +28,13 @@ namespace Mily.Wind.HostApi.Controllers
         [HttpPut, AllowAnonymous]
         public ActionResult<object> Create()
         {
-            return MainLogic.CreateUser();
+            MilyUser user = new MilyUser
+            {
+                Password = "1",
+                Name = "lzh",
+                EncryptPassword = "1"
+            };
+            return MainLogic.CreateUser(user);
         }
         /// <summary>
         /// 登录

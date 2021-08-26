@@ -25,7 +25,7 @@ namespace Mily.Wind.Extens.AOPUtity
                      EntityName = obj.GetType().Name,
                      Trace = ex.StackTrace,
                      ErrorMsg = ex.Message,
-                     CreatedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                     CreatedTime = DateTime.Now,
                      Invoken = methodName,
                      Param = parameters.ToList()
                  };

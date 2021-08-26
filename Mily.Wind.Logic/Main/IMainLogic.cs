@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mily.Wind.Logic
+namespace Mily.Wind.Logic.Main
 {
     public interface IMainLogic: ILogic
     {
         List<MilyUser> GetUserList();
         MilyUser GetUser(long id);
-        MilyUser CreateUser();
+        MilyUser CreateUser(MilyUser u);
     }
 }

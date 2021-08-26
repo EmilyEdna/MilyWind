@@ -1,12 +1,8 @@
 ﻿using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using Mily.Wind.Extens.DependencyInjection;
-using Mily.Wind.Extens.SystemConfig;
-using Mily.Wind.Logic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Mily.Wind.Logic.Excepted;
+using Mily.Wind.Logic.Main;
 
 namespace Mily.Wind.HostApi
 {
@@ -25,5 +21,6 @@ namespace Mily.Wind.HostApi
         }
 
         protected IMainLogic MainLogic = IocManager.GetService<IMainLogic>();
+        protected ILogLogic LogLogic = IocManager.GetService<ILogLogic>();
     }
 }
