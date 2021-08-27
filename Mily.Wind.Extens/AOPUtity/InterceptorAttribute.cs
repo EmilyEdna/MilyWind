@@ -1,4 +1,5 @@
-﻿using Mily.Wind.VMod.Mogo;
+﻿using Mily.Wind.VMod.Enums;
+using Mily.Wind.VMod.Mogo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,14 @@ namespace Mily.Wind.Extens.AOPUtity
                  var Log = new ExceptionLog
                  {
                      EntityName = obj.GetType().Name,
-                     Trace = ex.StackTrace,
+                     StackTrace = ex.StackTrace,
                      ErrorMsg = ex.Message,
                      CreatedTime = DateTime.Now,
                      Invoken = methodName,
-                     Param = parameters.ToList()
+                     Param = parameters.ToList(),
+                     LogLv = LogLevelEnum.Error
                  };
-                 Caches.MongoDBCacheSet(Log) ;
+                 Caches.MongoDBCacheSet(Log);
                  //写日志
                  return null;
              });

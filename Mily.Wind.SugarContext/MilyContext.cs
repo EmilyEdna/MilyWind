@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Mily.Wind.Extens.DependencyInjection;
-using Mily.Wind.Extens.Enumeration;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
+using Mily.Wind.VMod.Enums;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -49,7 +49,7 @@ namespace Mily.Wind.SugarContext
         public T Insert<T>(T entity, bool migration = false) where T : BasicEntity, new()
         {
             PreExecute(entity);
-            BeforeExecute(entity, MongoHandleLogEnum.Create);
+            BeforeExecute(entity, HandleLogEnum.Create);
             var ret = Context(migration).Insertable(entity).ExecuteReturnEntity();
             AfterExecute();
             return ret;

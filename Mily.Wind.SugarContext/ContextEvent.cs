@@ -1,7 +1,7 @@
-﻿using Mily.Wind.Extens.Enumeration;
-using Mily.Wind.Extens.SystemConfig;
+﻿using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
 using Mily.Wind.SugarEntity.System;
+using Mily.Wind.VMod.Enums;
 using Mily.Wind.VMod.Mogo;
 using SqlSugar;
 using System;
@@ -25,11 +25,11 @@ namespace Mily.Wind.SugarContext
             entity.Created = DateTime.Now;
             entity.TenantId = 0;
         }
-        internal virtual void BeforeExecute<T>(T entity, MongoHandleLogEnum handle) where T: BasicEntity, new()
+        internal virtual void BeforeExecute<T>(T entity, HandleLogEnum handle) where T: BasicEntity, new()
         {
             Mongo = new HandleLog
             {
-                HandleLogs = handle.ToAttr<MongoHandleLogEnum, DescriptionAttribute>(handle.ToString()).Description,
+                HandleLogs = handle.ToAttr<HandleLogEnum, DescriptionAttribute>(handle.ToString()).Description,
                 HandleTime = DateTime.Now,
                 TenantId = MilySession.GetSession<MilyUser>()?.TenantId,
                 UserId = MilySession.GetSession<MilyUser>()?.Id,

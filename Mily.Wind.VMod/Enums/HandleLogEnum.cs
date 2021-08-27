@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mily.Wind.Extens.Enumeration
+namespace Mily.Wind.VMod.Enums
 {
-    public enum MongoHandleLogEnum
+    public enum HandleLogEnum
     {
         [Description("创建")]
         Create,
