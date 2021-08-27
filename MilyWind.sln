@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Logic", "Mily.Win
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Extens", "Mily.Wind.Extens\Mily.Wind.Extens.csproj", "{A780B42F-5FCB-4BDF-84E0-D98DE093D058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.VMod", "Mily.Wind.VMod\Mily.Wind.VMod.csproj", "{92E10118-BCB5-4678-B233-876665B61401}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.VMod", "Mily.Wind.VMod\Mily.Wind.VMod.csproj", "{92E10118-BCB5-4678-B233-876665B61401}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptConsole", "ScriptConsole\ScriptConsole.csproj", "{E3DF7F8B-C48F-45F4-9093-DB128574835D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{92E10118-BCB5-4678-B233-876665B61401}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92E10118-BCB5-4678-B233-876665B61401}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92E10118-BCB5-4678-B233-876665B61401}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3DF7F8B-C48F-45F4-9093-DB128574835D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3DF7F8B-C48F-45F4-9093-DB128574835D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3DF7F8B-C48F-45F4-9093-DB128574835D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3DF7F8B-C48F-45F4-9093-DB128574835D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

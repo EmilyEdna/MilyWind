@@ -17,7 +17,6 @@ namespace Mily.Wind.Logic.Excepted
         [Actions]
         public virtual LogOutput GetLogPage(LogInput input)
         {
-
             var data = Caches.MongoDBCachesGet<ExceptionLog>(t => t.EntityName != null).ToList();
             var detail = data.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize).ToList();
             return new LogOutput

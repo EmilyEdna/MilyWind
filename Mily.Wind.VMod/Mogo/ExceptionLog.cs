@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Mily.Wind.VMod.Mogo
 {
     public class ExceptionLog
     {
+        public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
         public string Invoken { get; set; }
         public string Trace { get; set; }
         public DateTime CreatedTime { get; set; }
