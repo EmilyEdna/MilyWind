@@ -30,9 +30,9 @@ namespace Mily.Wind.Extens.SystemConfig
         private static IConfiguration Configuration { get; set; }
         public static IConfiguration RegisterConfiguration(this IConfiguration configuration)
         {
-            Caches.RedisConnectionString = configuration.GetConnectionString("Redis");
+            /*Caches.RedisConnectionString = configuration.GetConnectionString("Redis");
             Caches.DbName = configuration.GetConnectionString("MongoName");
-            Caches.MongoDBConnectionString = configuration.GetConnectionString("Mongo");
+            Caches.MongoDBConnectionString = configuration.GetConnectionString("Mongo");*/
             Configuration = configuration;
             return configuration;
         }
@@ -43,7 +43,7 @@ namespace Mily.Wind.Extens.SystemConfig
 
             services.RegistJwt();
 
-            services.RegistCap();
+            //services.RegistCap();
 
             services.RegistIoc();
 
@@ -129,29 +129,37 @@ namespace Mily.Wind.Extens.SystemConfig
             var AllAssemblies = SyncStatic.Assembly("Mily.Wind");
 
             var LogicServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILogic)))).ToList();
+            var LogServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILog)))).ToList();
             var CapServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ICapSubscribe)))).ToList();
-
+            //Cap
             CapServices.ForEach(item =>
             {
                 if (item.IsClass)
                 {
                     var interfaces = item.GetInterfaces().Where(imp => imp.GetInterfaces().Contains(typeof(ICapSubscribe))).FirstOrDefault();
-                    var impl = Activator.CreateInstance(item).GetType();
-                    services.AddSingleton(interfaces, impl);
+                    services.AddSingleton(interfaces, item);
                 }
             });
-
-            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
+            //日志
+            LogServices.ForEach(item =>
+            {
+                if (item.IsClass)
+                {
+                    var interfaces = item.GetInterfaces().Where(imp => imp==typeof(ILog)).FirstOrDefault();
+                    services.AddSingleton(interfaces, item);
+                }
+            });
+            //服务
             LogicServices.ForEach(item =>
             {
                 if (item.IsClass)
                 {
                     var interfaces = item.GetInterfaces().Where(imp => imp.GetInterfaces().Contains(typeof(ILogic))).FirstOrDefault();
-                    ioc.Register(interfaces, AopProxy.CreateProxyOfRealize(interfaces, item).GetType(), Reuse.Singleton);
+                    services.AddSingleton(interfaces, AopProxy.CreateProxyOfRealize(interfaces, item).GetType());
                 }
             });
-          
-        
+
+            IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
             IocManager.SetContainer(ioc);
             return services;
         }

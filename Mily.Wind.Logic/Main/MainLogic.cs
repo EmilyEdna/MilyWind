@@ -1,5 +1,7 @@
 ﻿
 using Mily.Wind.Extens.AOPUtity;
+using Mily.Wind.Extens.DependencyInjection;
+using Mily.Wind.Extens.InternalInterface;
 using Mily.Wind.SugarContext;
 using Mily.Wind.SugarEntity.System;
 using System;
@@ -11,6 +13,8 @@ namespace Mily.Wind.Logic.Main
     [Interceptor]
     public class MainLogic : MilyContext, IMainLogic
     {
+        public ILog LogClient => IocManager.GetService<ILog>();
+
         [Actions]
         public virtual List<MilyUser> GetUserList()
         {
