@@ -15,7 +15,7 @@ namespace ScriptConsole
             {
                 IsAutoCloseConnection = true,
                 DbType = DbType.MySql,
-                ConnectionString = ""
+                ConnectionString = "Server=rm-8vbc2h2n4o772g40yxo.mysql.zhangbei.rds.aliyuncs.com; Database=yls_shop_test; User=releaseu_test;Password=eI5H7xGpEmIE;charset=utf8"
             });
             db.Aop.OnLogExecuting = (sql, pars) =>
             {

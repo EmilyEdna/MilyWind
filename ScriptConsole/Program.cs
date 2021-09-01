@@ -47,7 +47,7 @@ namespace ScriptConsole
             });
             sms.ForEach(item => {
                 item.Sort = item.Id = CreateGenId();
-                Thread.Sleep(50);
+                Thread.Sleep(10);
                 Console.WriteLine(item.Sort);
             });
             var dbc = db.Context();
