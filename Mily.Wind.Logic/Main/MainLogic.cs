@@ -32,7 +32,7 @@ namespace Mily.Wind.Logic.Main
         [Actions]
         public virtual MilyUser CreateUser(MilyUser u)
         {
-            throw new ArgumentException("参数错误");
+            //throw new ArgumentException("参数错误");
             MilyUser user = new MilyUser
             {
                 Password = "1",

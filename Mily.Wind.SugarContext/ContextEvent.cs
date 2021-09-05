@@ -20,7 +20,7 @@ namespace Mily.Wind.SugarContext
         public HandleLog Mongo { get; private set; }
         internal virtual void PreExecute<T>(T entity) where T : BasicEntity, new()
         {
-            entity.Id = MilySnowIdGen.CreateGenId();
+            entity.Id = MilySnowIdGen.IdGen.CreateId();
             entity.IsDeleted = false;
             entity.Created = DateTime.Now;
             entity.TenantId = 0;
