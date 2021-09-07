@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
 using Mily.Wind.VMod.Mogo.Output;
@@ -24,7 +25,7 @@ namespace Mily.Wind.HostApi.Controllers
         [HttpGet, AllowAnonymous]
         public ActionResult<LogOutput> GetLogPage(LogInput input)
         {
-            return LogLogic.GetLogPage(input);
+            return LogLogic.GetLogPage(input).Result.Transfer<LogOutput>();
         }
 
 

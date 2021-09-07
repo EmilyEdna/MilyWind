@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.VMod.Mogo.Output
 {
-    public class LogOutput
+    public class LogOutput : IVMCastle
     {
         public int Total { get; set; }
         public List<ExceptionLog> Detail { get; set; }
+        public string DSCode { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Mily.Wind.VMod;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,11 +17,9 @@ namespace Mily.Wind.Extens.SystemConfig
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            context.Result = new ObjectResult(MilyResult.Instance(opt =>
-            {
-                opt.Result = (context.Result as ObjectResult).Value;
-                opt.HttpCode = context.HttpContext.Response.StatusCode;
-            }));
+            var ret = (context.Result as ObjectResult).Value;
+            var gtype = ret.GetType();
+
         }
 
         public void OnActionExecuting(ActionExecutingContext context)

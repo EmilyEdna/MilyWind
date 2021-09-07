@@ -1,4 +1,5 @@
 ﻿using Mily.Wind.Extens.InternalInterface;
+using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity.System;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Mily.Wind.Logic.Main
 {
     public interface IMainLogic: ILogic
     {
-        List<MilyUser> GetUserList();
-        MilyUser GetUser(long id);
-        MilyUser CreateUser(MilyUser u);
+        MilyResult GetUserList();
+        MilyResult GetUser(long id);
+        MilyResult CreateUser();
     }
 }

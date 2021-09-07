@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.StaticFramework;
@@ -48,9 +49,29 @@ namespace Mily.Wind.SugarContext
 
         public T Insert<T>(T entity, bool migration = false) where T : BasicEntity, new()
         {
-            PreExecute(entity);
             BeforeExecute(entity, HandleLogEnum.Create);
-            var ret = Context(migration).Insertable(entity).ExecuteReturnEntity();
+            var ret = Context(migration).Insertable(entity).CallEntityMethod(t => t.CreateAction(0)).ExecuteReturnEntity();
+            AfterExecute();
+            return ret;
+        }
+
+        public bool Alter<T>(T entity, Expression<Func<T, bool>> expression = null, bool migration = false) where T : BasicEntity, new()
+        {
+            BeforeExecute(entity, HandleLogEnum.Update);
+            IUpdateable<T> alter = Context(migration).Updateable(entity);
+            bool ret;
+            if (expression != null)
+                ret = alter.Where(expression).ExecuteCommandHasChange();
+            else
+                ret = alter.ExecuteCommandHasChange();
+            AfterExecute();
+            return ret;
+        }
+
+        public bool Delete<T>(T entity, Expression<Func<T, bool>> expression, bool migration = false) where T : BasicEntity, new()
+        {
+            BeforeExecute(entity, HandleLogEnum.Update);
+            bool ret = Context(migration).Updateable(entity).CallEntityMethod(t => t.DeleteAction()).Where(expression).ExecuteCommandHasChange();
             AfterExecute();
             return ret;
         }

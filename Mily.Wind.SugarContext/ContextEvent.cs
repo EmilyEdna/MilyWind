@@ -18,13 +18,6 @@ namespace Mily.Wind.SugarContext
     public abstract class ContextEvent
     {
         public HandleLog Mongo { get; private set; }
-        internal virtual void PreExecute<T>(T entity) where T : BasicEntity, new()
-        {
-            entity.Id = MilySnowIdGen.IdGen.CreateId();
-            entity.IsDeleted = false;
-            entity.Created = DateTime.Now;
-            entity.TenantId = 0;
-        }
         internal virtual void BeforeExecute<T>(T entity, HandleLogEnum handle) where T: BasicEntity, new()
         {
             Mongo = new HandleLog

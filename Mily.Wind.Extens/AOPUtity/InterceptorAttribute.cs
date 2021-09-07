@@ -1,4 +1,7 @@
-﻿using Mily.Wind.VMod.Enums;
+﻿using AutoMapper;
+using Mily.Wind.Extens.SystemConfig;
+using Mily.Wind.VMod;
+using Mily.Wind.VMod.Enums;
 using Mily.Wind.VMod.Mogo;
 using System;
 using System.Collections.Generic;
@@ -7,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.AopFramework.AopAttribute;
 using XExten.Advance.CacheFramework;
+using XExten.Advance.LinqFramework;
 using XExten.Advance.StaticFramework;
 
 namespace Mily.Wind.Extens.AOPUtity
@@ -18,7 +22,21 @@ namespace Mily.Wind.Extens.AOPUtity
         {
             return SyncStatic.TryCatch(() =>
              {
-                 return base.Invoke(obj, methodName, parameters);
+                 MilyResult ret = (MilyResult)base.Invoke(obj, methodName, parameters);
+                 ret.Result = ret.MapType switch
+                 {
+                     MapperEnum.Collection => ret.Result.ToMapper(ret.Source, ret.MapTo, ret.MapsTo),
+                     MapperEnum.Class => ret.Result.ToMapper(ret.MapTo),
+                     _ => throw new NotImplementedException("未实现"),
+                 };
+                 if (ret.Result.GetType() == ret.MapTo)
+                     (ret.Result as IVMCastle).DSCode = ret.Code;
+                 if (ret.Result.GetType() == ret.MapsTo)
+                     foreach (var item in (ret.Result as dynamic))
+                     {
+                         (item as IVMCastle).DSCode = ret.Code;
+                     }
+                 return ret;
              }, ex =>
              {
                  var Log = new ExceptionLog
@@ -31,9 +49,9 @@ namespace Mily.Wind.Extens.AOPUtity
                      Param = parameters.ToList(),
                      LogLv = LogLevelEnum.Error
                  };
-                 Caches.MongoDBCacheSet(Log);
+                 //Caches.MongoDBCacheSet(Log);
                  //写日志
-                 return null;
+                 return MilyResult.Error();
              });
 
         }
