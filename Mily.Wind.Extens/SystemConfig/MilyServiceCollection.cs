@@ -30,9 +30,9 @@ namespace Mily.Wind.Extens.SystemConfig
         private static IConfiguration Configuration { get; set; }
         public static IConfiguration RegisterConfiguration(this IConfiguration configuration)
         {
-            //Caches.RedisConnectionString = configuration.GetConnectionString("Redis");
-            //Caches.DbName = configuration.GetConnectionString("MongoName");
-            //Caches.MongoDBConnectionString = configuration.GetConnectionString("Mongo");
+            Caches.RedisConnectionString = configuration.GetConnectionString("Redis");
+            Caches.DbName = configuration.GetConnectionString("MongoName");
+            Caches.MongoDBConnectionString = configuration.GetConnectionString("Mongo");
             Configuration = configuration;
             return configuration;
         }
@@ -43,7 +43,7 @@ namespace Mily.Wind.Extens.SystemConfig
 
             services.RegistJwt();
 
-            //services.RegistCap();
+            services.RegistCap();
 
             services.RegistIoc();
 
