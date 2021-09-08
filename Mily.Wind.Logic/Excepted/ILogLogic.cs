@@ -6,6 +6,6 @@ namespace Mily.Wind.Logic.Excepted
 {
     public interface ILogLogic: ILogic
     {
-        MilyResult GetLogPage(LogInput input);
+        MilyMapperResult GetLogPage(LogInput input);
     }
 }

@@ -17,13 +17,13 @@ namespace Mily.Wind.Logic.Excepted
         public ILog LogClient => IocManager.GetService<ILog>();
 
         [Actions]
-        public virtual MilyResult GetLogPage(LogInput input)
+        public virtual MilyMapperResult GetLogPage(LogInput input)
         {
             var query = MongoDbCaches.Query<ExceptionLog>().AsQueryable();
             if (input.Start.HasValue && input.End.HasValue)
                 query = query.Where(t => t.CreatedTime >= input.Start && t.CreatedTime < input.End);
             var detail = query.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize).ToList();
-            return MilyResult.Success<LogOutput, LogOutput>(MapperEnum.Class, new LogOutput
+            return MilyMapperResult.Success<LogOutput, LogOutput>(MapperEnum.Class, new LogOutput
             {
                 Detail = detail,
                 Total = query.Count()

@@ -11,8 +11,8 @@ namespace Mily.Wind.Logic.Main
 {
     public interface IMainLogic: ILogic
     {
-        MilyResult GetUserList();
-        MilyResult GetUser(long id);
-        MilyResult CreateUser();
+        MilyMapperResult GetUserList();
+        MilyMapperResult GetUser(long id);
+        MilyMapperResult CreateUser();
     }
 }

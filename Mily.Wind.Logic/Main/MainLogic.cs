@@ -19,21 +19,21 @@ namespace Mily.Wind.Logic.Main
         public ILog LogClient => IocManager.GetService<ILog>();
 
         [Actions]
-        public virtual MilyResult GetUserList()
+        public virtual MilyMapperResult GetUserList()
         {
-            return MilyResult.Success<MilyUser, MilyUserVM>(MapperEnum.Collection, Context().Queryable<MilyUser>().ToList());
+            return MilyMapperResult.Success<MilyUser, MilyUserVM>(MapperEnum.Collection, Context().Queryable<MilyUser>().ToList());
         }
 
         [Actions]
-        public virtual MilyResult GetUser(long id)
+        public virtual MilyMapperResult GetUser(long id)
         {
             var User = Context().Queryable<MilyUser>().Where(t => t.Id == id).First();
             if (User != null) Caches.RedisCacheSet($"{User.Id}{User.Name}", User, 120);
-            return MilyResult.Success<MilyUser, MilyUserVM>(MapperEnum.Class, User);
+            return MilyMapperResult.Success<MilyUser, MilyUserVM>(MapperEnum.Class, User);
         }
 
         [Actions]
-        public virtual MilyResult CreateUser()
+        public virtual MilyMapperResult CreateUser()
         {
             throw new ArgumentException("参数错误");
             MilyUser user = new MilyUser
@@ -42,7 +42,7 @@ namespace Mily.Wind.Logic.Main
                 Name = "lzh",
                 EncryptPassword = "1"
             };
-            return MilyResult.Success<MilyUser, MilyUserVM>(MapperEnum.Class, base.Insert(user));
+            return MilyMapperResult.Success<MilyUser, MilyUserVM>(MapperEnum.Class, base.Insert(user));
         }
     }
 }

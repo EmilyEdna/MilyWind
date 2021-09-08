@@ -2,13 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Mily.Wind.VMod;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XExten.Advance.LinqFramework;
 
 namespace Mily.Wind.Extens.SystemConfig
@@ -17,9 +12,8 @@ namespace Mily.Wind.Extens.SystemConfig
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            var ret = (context.Result as ObjectResult).Value;
-            var gtype = ret.GetType();
-
+            var ret = ((context.Result as ObjectResult).Value as dynamic);
+            ret.SetHttpCode(ret.Code);
         }
 
         public void OnActionExecuting(ActionExecutingContext context)

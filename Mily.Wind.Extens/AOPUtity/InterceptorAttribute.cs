@@ -22,7 +22,7 @@ namespace Mily.Wind.Extens.AOPUtity
         {
             return SyncStatic.TryCatch(() =>
              {
-                 MilyResult ret = (MilyResult)base.Invoke(obj, methodName, parameters);
+                 MilyMapperResult ret = (MilyMapperResult)base.Invoke(obj, methodName, parameters);
                  ret.Result = ret.MapType switch
                  {
                      MapperEnum.Collection => ret.Result.ToMapper(ret.Source, ret.MapTo, ret.MapsTo),
@@ -49,9 +49,9 @@ namespace Mily.Wind.Extens.AOPUtity
                      Param = parameters.ToList(),
                      LogLv = LogLevelEnum.Error
                  };
-                 Caches.MongoDBCacheSet(Log);
+                 //Caches.MongoDBCacheSet(Log);
                  //写日志
-                 return MilyResult.Error();
+                 return MilyMapperResult.Error();
              });
 
         }

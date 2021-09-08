@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Mily.Wind.Extens.SystemConfig
 {
-    public class MilyResult
+    public class MilyMapperResult
     {
         public string Code { get; set; }
         public object Result { get; set; }
@@ -22,16 +22,16 @@ namespace Mily.Wind.Extens.SystemConfig
         public Type Source { get; set; }
         [JsonIgnore]
         public MapperEnum MapType { get; set; }
-        public static MilyResult Instance(Action<MilyResult> action)
+        public static MilyMapperResult Instance(Action<MilyMapperResult> action)
         {
-            MilyResult result = new MilyResult();
+            MilyMapperResult result = new MilyMapperResult();
             action(result);
-            if (result.Code!= DSConst.DS002&&result.MapType == MapperEnum.Collection && result.MapsTo == null)
+            if (result.Code != DSConst.DS002 && result.MapType == MapperEnum.Collection && result.MapsTo == null)
                 throw new ArgumentNullException($"{nameof(MapsTo)} can't be null");
             return result;
         }
 
-        public static MilyResult Success<T, K>(MapperEnum mapper, object data)
+        public static MilyMapperResult Success<T, K>(MapperEnum mapper, object data)
         {
             return Instance(t =>
              {
@@ -44,12 +44,21 @@ namespace Mily.Wind.Extens.SystemConfig
              });
         }
 
-        public static MilyResult Error()
+        public static MilyMapperResult Error()
         {
             return Instance(t =>
             {
                 t.Code = DSConst.DS002;
                 t.Result = new DefaultVM();
+            });
+        }
+
+        public static MilyMapperResult DefaultSuccess(object data)
+        {
+            return Instance(t =>
+            {
+                t.Code = DSConst.DS001;
+                t.Result = data;
             });
         }
     }

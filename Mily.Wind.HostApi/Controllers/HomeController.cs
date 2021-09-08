@@ -20,18 +20,28 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<List<MilyUserVM>> Get()
+        public ActionResult<MilyCtrlResult<List<MilyUserVM>>> Get()
         {
-            return MainLogic.GetUserList().Result.Transfers<MilyUserVM>();
+            var data = MainLogic.GetUserList();
+            return MilyCtrlResult<List<MilyUserVM>>.CreateResult(t =>
+             {
+                 t.Code = data.Code;
+                 t.Result = data.Result.Transfers<MilyUserVM>();
+             });
         }
         /// <summary>
         /// 注册
         /// </summary>
         /// <returns></returns>
         [HttpPut, AllowAnonymous]
-        public ActionResult<List<MilyUserVM>> Create()
+        public ActionResult<MilyCtrlResult<MilyUserVM>> Create()
         {
-            return MainLogic.CreateUser().Result.Transfers<MilyUserVM>();
+            var data = MainLogic.CreateUser();
+            return MilyCtrlResult<MilyUserVM>.CreateResult(t =>
+            {
+                t.Code = data.Code;
+                t.Result = data.Result.Transfer<MilyUserVM>();
+            });
         }
         /// <summary>
         /// 登录
@@ -39,17 +49,21 @@ namespace Mily.Wind.HostApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet, AllowAnonymous]
-        public ActionResult<object> Login(long id)
+        public ActionResult<MilyCtrlResult<object>> Login(long id)
         {
-
-            var user = MainLogic.GetUser(id).Result.Transfer<MilyUserVM>();
+            var data = MainLogic.GetUser(id);
+            var user = data.Result.Transfer<MilyUserVM>();
             var token = MilyJwtSecurity.JwtToken(new string[] { user?.Name, user?.Id.ToString() });
             //返回token和过期时间
-            return new
+            return MilyCtrlResult<object>.CreateResult(t =>
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
-            };
+                t.Code = data.Code;
+                t.Result = new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                };
+            });
         }
     }
 }
