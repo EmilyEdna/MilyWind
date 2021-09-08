@@ -12,7 +12,7 @@ namespace Mily.Wind.Extens.SystemConfig
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            var ret = ((context.Result as ObjectResult).Value as dynamic);
+            var ret = (context.Result as ObjectResult).Value as dynamic;
             ret.SetHttpCode(ret.Code);
         }
 
