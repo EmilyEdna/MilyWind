@@ -17,9 +17,9 @@ namespace Mily.Wind.SugarContext
 {
     public class MilyContext : ContextEvent
     {
-        public SqlSugarClient Context(bool migration = false)
+        public SqlSugarScope Context(bool migration = false)
         {
-            SqlSugarClient db = new SqlSugarClient(new ConnectionConfig
+            SqlSugarScope db = new SqlSugarScope(new ConnectionConfig
             {
                 IsAutoCloseConnection = true,
                 DbType = DbType.MySql,

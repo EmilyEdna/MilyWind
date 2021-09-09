@@ -49,7 +49,7 @@ namespace Mily.Wind.Extens.AOPUtity
                      Param = parameters.ToList(),
                      LogLv = LogLevelEnum.Error
                  };
-                 //Caches.MongoDBCacheSet(Log);
+                 Caches.MongoDBCacheSet(Log);
                  //写日志
                  return MilyMapperResult.Error();
              });

@@ -10,6 +10,7 @@ using Mily.Wind.VMod.Enums;
 using System;
 using System.Collections.Generic;
 using XExten.Advance.CacheFramework;
+using XExten.Advance.LinqFramework;
 
 namespace Mily.Wind.Logic.Main
 {
@@ -33,16 +34,10 @@ namespace Mily.Wind.Logic.Main
         }
 
         [Actions]
-        public virtual MilyMapperResult CreateUser()
+        public virtual MilyMapperResult CreateUser(MilyUserVM input)
         {
-            throw new ArgumentException("参数错误");
-            MilyUser user = new MilyUser
-            {
-                Password = "1",
-                Name = "lzh",
-                EncryptPassword = "1"
-            };
-            return MilyMapperResult.Success<MilyUser, MilyUserVM>(MapperEnum.Class, base.Insert(user));
+            var User = base.Insert(input.ToMapper<MilyUser>().SetEncryptPassword());
+            return MilyMapperResult.Success<MilyUser, MilyUserVM>(MapperEnum.Class, User);
         }
     }
 }

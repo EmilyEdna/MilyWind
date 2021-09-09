@@ -17,6 +17,10 @@ namespace Mily.Wind.VMod.DataTransferObj
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password { get; set; }
+        /// <summary>
         /// 系统代码
         /// </summary>
         public string DSCode { get; set; }

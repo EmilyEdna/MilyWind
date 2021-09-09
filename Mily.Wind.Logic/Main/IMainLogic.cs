@@ -1,6 +1,7 @@
 ﻿using Mily.Wind.Extens.InternalInterface;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity.System;
+using Mily.Wind.VMod.DataTransferObj;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Mily.Wind.Logic.Main
     {
         MilyMapperResult GetUserList();
         MilyMapperResult GetUser(long id);
-        MilyMapperResult CreateUser();
+        MilyMapperResult CreateUser(MilyUserVM input);
     }
 }

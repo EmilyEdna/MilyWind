@@ -34,9 +34,9 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<MilyUserVM>> Create()
+        public ActionResult<MilyCtrlResult<MilyUserVM>> Create(MilyUserVM input)
         {
-            var data = MainLogic.CreateUser();
+            var data = MainLogic.CreateUser(input);
             return MilyCtrlResult<MilyUserVM>.CreateResult(t =>
             {
                 t.Code = data.Code;

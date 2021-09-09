@@ -15,7 +15,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Create">
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Create(Mily.Wind.VMod.DataTransferObj.MilyUserVM)">
             <summary>
             注册
             </summary>

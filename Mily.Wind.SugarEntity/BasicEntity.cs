@@ -19,8 +19,8 @@ namespace Mily.Wind.SugarEntity
         /// <summary>
         /// 删除时间
         /// </summary>
-        [SugarColumn(IsNullable = true, ColumnDataType = "DATETIME", ColumnDescription = "创建时间")]
-        public DateTime DeletedAt { get; set; }
+        [SugarColumn(IsNullable = true, ColumnDataType = "DATETIME", ColumnDescription = "删除时间")]
+        public DateTime? DeletedAt { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
