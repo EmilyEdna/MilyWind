@@ -63,6 +63,7 @@ namespace Mily.Wind.Extens.SystemConfig
             {
                 opt.Filters.Add(typeof(MilyFilter));
                 opt.RespectBrowserAcceptHeader = true;
+                opt.Conventions.Add(new MilyModelBinding());
             }).AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
