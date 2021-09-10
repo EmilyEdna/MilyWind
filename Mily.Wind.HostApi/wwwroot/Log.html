@@ -1,31 +1,228 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
     <script src="file/jquery.min.js"></script>
+    <script src="file/laydate.js"></script>
     <script src="file/bootstrap.min.js"></script>
     <link href="file/bootstrap.min.css" rel="stylesheet" />
+    <link href="file/theme/default/laydate.css" rel="stylesheet" />
+    <script>
+        $(document).ready(() => {
+            option.Init();
+        });
+        var option = {
+            SearchData: {
+                Start: null,
+                End: null,
+                LogLv: 1,
+                PageIndex: 0,
+                PageSize: 20
+            },
+            Init: () => {
+                option.InitDom();
+                option.InitEvent.Search(option.SearchData);
+            },
+            InitDom: () => {
+                laydate.render({
+                    elem: '#Star',
+                    type: 'datetime',
+                    theme: '#393D49'
+                });
+                laydate.render({
+                    elem: '#End',
+                    type: 'datetime',
+                    theme: '#393D49'
+                });
+                $("#Search").on("click", (e) => {
+                    var req = {
+                        Start: $("#Star").val(),
+                        End: $("#End").val(),
+                        LogLv: $("#LogLV").find("option:selected").val(),
+                        PageIndex: 0,
+                        PageSize: 20
+                    };
+                    option.InitEvent.Search(req);
+                });
+            },
+            InitEvent: {
+                Enum: (e) => {
+                    switch (e) {
+                        case 0: return "Debug";
+                        case 1: return "Info";
+                        case 2: return "Warning";
+                        case 3: return "Error";
+                        default: return "Info";
+                    }
+                },
+                Delete: (e) => {
+                    $.ajax({
+                        url: `/Log/DeleteLog?Id=${e}`,
+                        type: "delete",
+                        async: false,
+                        success: (res) => {
+                            option.InitEvent.Search(option.SearchData);
+                        }
+                    });
+                },
+                Copy: (e) => {
+                    $("#copy").attr("type", "text").val($(e).data().stack).select();
+                    document.execCommand("copy");
+                    $("#copy").val("").attr("type", "hidden");
+                },
+                Search: (e) => {
+                    $("tbody").html("");
+                    $.ajax({
+                        url: "/Log/GetLogPage",
+                        data: JSON.stringify(e),
+                        type: "post",
+                        async: false,
+                        contentType: "application/json",
+                        success: res => {
+                            if (res.HttpCode != 200)
+                                throw new Error("服务器异常");
+                            var val = res.Result.Detail;
+                            let total = Math.ceil(res.Result.Total / e.PageSize);
+                            let page = total == 0 ? 0 : Math.ceil(e.PageIndex / e.PageSize) + 1;
+                            $("#TotalPage").text(total);
+                            $("#CurrentPage").val(page)
+                            $.each(val, (_, item) => {
+                                $("tbody").append(option.Template.replace("{Method}", item.Invoken)
+                                    .replace("{Entity}", item.EntityName)
+                                    .replace("{Time}", item.CreatedTime)
+                                    .replace("{Msg}", item.ErrorMsg)
+                                    .replace("{Param}", item.Param.replace('\\', ''))
+                                    .replace("{Lv}", option.InitEvent.Enum(item.LogLv))
+                                    .replace("{Id}", item.Id)
+                                    .replace("{Stack}", item.StackTrace)
+                                    .replace("{Stack}", item.StackTrace));
+                            });
+                        }
+                    })
+                },
+                Next: () => {
+                    let page = Number($("#CurrentPage").val()) + 1;
+                    if (page > Number($("#TotalPage").text()))
+                        throw new Error("页码不能大于总页数");
+                    $("#CurrentPage").val(page);
+                    var req = {
+                        Start: $("#Star").val(),
+                        End: $("#End").val(),
+                        LogLv: $("#LogLV").find("option:selected").val(),
+                        PageIndex: $("#CurrentPage").val() - 1,
+                        PageSize: 20
+                    };
+                    option.InitEvent.Search(req);
+                },
+                Last: () => {
+                    let page = Number($("#CurrentPage").val()) - 1;
+                    if (page <= 0)
+                        throw new Error("页码不能小于等于0");
+                    $("#CurrentPage").val(page);
+                    var req = {
+                        Start: $("#Star").val(),
+                        End: $("#End").val(),
+                        LogLv: $("#LogLV").find("option:selected").val(),
+                        PageIndex: $("#CurrentPage").val() - 1,
+                        PageSize: 20
+                    };
+                    option.InitEvent.Search(req);
+                },
+                Ret: () => {
+                    let page = Number($("#CurrentPage").val());
+                    if (page - 1 < 0)
+                        throw new Error("页码不能小于0");
+                    if (page + 1 > Number($("#TotalPage").text()))
+                        throw new Error("页码不能大于总页数");
+                    var req = {
+                        Start: $("#Star").val(),
+                        End: $("#End").val(),
+                        LogLv: $("#LogLV").find("option:selected").val(),
+                        PageIndex: $("#CurrentPage").val() - 1,
+                        PageSize: 20
+                    };
+                    option.InitEvent.Search(req);
+                }
+            },
+            Template: `<tr>
+                                                                        <td class="text-center">{Method}</td>
+                                                                        <td class="text-center">{Entity}</td>
+                                                                        <td class="text-center">{Time}</td>
+                                                                        <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
+                                                                        <td class="text-center" style="color:blue;">{Lv}</td>
+                                                                        <td class="text-center" style="color:darkorange;">{Param}</td>
+                                                                        <td class="text-center">
+                                                                            <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
+                                                                            <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
+                                                                        </td>
+                                                                     </tr>>`
+        };
+    </script>
     <title>日志面板</title>
 </head>
 <body>
+    <input type="hidden" id="copy" />
     <div class="container-fluid">
-        <div class="row">
+        <h4 class="text-center" style="color:deeppink;">分布式日志中心</h4>
+        <div class="row" style="margin-top:30px;">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <span class="input-group-addon">开始时间</span>
+                    <input type="text" class="form-control" id="Star">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <span class="input-group-addon">结束时间</span>
+                    <input type="text" class="form-control" id="End">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <span class="input-group-addon">日志级别</span>
+                    <select class="form-control" id="LogLV">
+                        <option value="0" selected="selected">Debug</option>
+                        <option value="1">Info</option>
+                        <option value="2">Warning</option>
+                        <option value="3">Error</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <button class="form-control btn btn-primary" style="outline: none;" id="Search">查询</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:30px;">
             <div class="col-md-12">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <tr>
-                            <th>调用方法</th>
-                            <th>参数名称</th>
-                            <th>日期时间</th>
-                            <th>错误日志</th>
-                            <th>相关参数</th>
-                            <th>堆栈信息</th>
+                            <th class="text-center">调用方法</th>
+                            <th class="text-center">参数名称</th>
+                            <th class="text-center">日期时间</th>
+                            <th class="text-center">错误日志</th>
+                            <th class="text-center">日志级别</th>
+                            <th class="text-center">相关参数</th>
+                            <th class="text-center">相关操作</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-9"></div>
+            <div class="col-sm-3">
+                <button class="btn btn-info" style="outline: none;" onclick="option.InitEvent.Last()">上一页</button>
+                <input style="border: none; width: 30px; color: deeppink; font-size: 18px; outline:none" type="text" value="" class="text-center" id="CurrentPage" />
+                <b>/</b>
+                <span style="color:deeppink;font-size:18px;" class="text-center" id="TotalPage"></span>
+                <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Next()">下一页</button>
+                <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Ret()">跳转</button>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>

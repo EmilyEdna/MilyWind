@@ -27,6 +27,7 @@ namespace Mily.Wind.Extens.AOPUtity
                  {
                      MapperEnum.Collection => ret.Result.ToMapper(ret.Source, ret.MapTo, ret.MapsTo),
                      MapperEnum.Class => ret.Result.ToMapper(ret.MapTo),
+                     MapperEnum.DefaultSuccess => ret.Result,
                      _ => throw new NotImplementedException("未实现"),
                  };
                  if (ret.Result.GetType() == ret.MapTo)

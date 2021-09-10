@@ -1,5 +1,7 @@
 ﻿using Mily.Wind.VMod.Enums;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,11 @@ namespace Mily.Wind.VMod.Mogo
 {
     public class ExceptionLog
     {
-        public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
+        /// <summary>
+        /// Id
+        /// </summary>
+        [BsonId(IdGenerator =typeof(GuidGenerator))]
+        public Guid Id { get; set; } 
         /// <summary>
         /// 执行方法
         /// </summary>
@@ -22,6 +28,7 @@ namespace Mily.Wind.VMod.Mogo
         /// <summary>
         /// 日志时间
         /// </summary>
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime CreatedTime { get; set; }
         /// <summary>
         /// 实体参数名称

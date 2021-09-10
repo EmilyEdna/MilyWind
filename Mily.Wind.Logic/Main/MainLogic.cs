@@ -35,7 +35,6 @@ namespace Mily.Wind.Logic.Main
         [Actions]
         public virtual MilyMapperResult CreateUser(MilyUserVMInput input)
         {
-            throw new Exception("请求错误");
             var User = base.Insert(input.ToMapper<MilyUser>().SetEncryptPassword());
             return MilyMapperResult.Success<MilyUser, MilyUserVMOutput>(MapperEnum.Class, User);
         }

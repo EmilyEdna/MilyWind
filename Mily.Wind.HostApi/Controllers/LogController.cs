@@ -33,5 +33,21 @@ namespace Mily.Wind.HostApi.Controllers
                 t.Result = data;
             });
         }
+
+        /// <summary>
+        /// 删除日志
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpDelete,AllowAnonymous]
+        public ActionResult<MilyCtrlResult<bool>> DeleteLog(Guid Id) 
+        {
+            var res = LogLogic.DeleteLog(Id);
+            return MilyCtrlResult<bool>.CreateResult(t =>
+            {
+                t.Code = res.Code;
+                t.Result = (bool)res.Result;
+            });
+        }
     }
 }

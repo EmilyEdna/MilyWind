@@ -40,5 +40,12 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.LogController.DeleteLog(System.Guid)">
+            <summary>
+            删除日志
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

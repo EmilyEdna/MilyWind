@@ -6,6 +6,7 @@ using Mily.Wind.VMod.Enums;
 using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
 using Mily.Wind.VMod.Mogo.Output;
+using System;
 using System.Linq;
 using XExten.Advance.CacheFramework.MongoDbCache;
 
@@ -19,16 +20,25 @@ namespace Mily.Wind.Logic.Excepted
         [Actions]
         public virtual MilyMapperResult GetLogPage(LogInput input)
         {
-            var query = MongoDbCaches.Query<ExceptionLog>().AsQueryable();
-            if (input.Start.HasValue && input.End.HasValue)
-                query = query.Where(t => t.CreatedTime >= input.Start && t.CreatedTime < input.End);
-            var detail = query.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize).ToList();
+            var query = MongoDbCaches.Query<ExceptionLog>()
+                .Where(t => t.LogLv >= (LogLevelEnum)input.LogLv)
+                .AsQueryable();
+            if (input.Start.HasValue)
+                query = query.Where(t => t.CreatedTime >= input.Start);
+            if (input.End.HasValue)
+                query = query.Where(t => t.CreatedTime < input.End);
+            var detail = query.Skip(input.PageIndex * input.PageSize).Take(input.PageSize).ToList();
             return MilyMapperResult.Success<LogOutput, LogOutput>(MapperEnum.Class, new LogOutput
             {
                 Detail = detail,
                 Total = query.Count()
             });
-
+        }
+        [Actions]
+        public virtual MilyMapperResult DeleteLog(Guid Id)
+        {
+            var res = MongoDbCaches.Delete<ExceptionLog>(t => t.Id == Id) > 0;
+            return MilyMapperResult.DefaultSuccess(res);
         }
     }
 }

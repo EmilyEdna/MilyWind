@@ -57,6 +57,7 @@ namespace Mily.Wind.Extens.SystemConfig
         {
             return Instance(t =>
             {
+                t.MapType = MapperEnum.DefaultSuccess;
                 t.Code = DSConst.DS001;
                 t.Result = data;
             });

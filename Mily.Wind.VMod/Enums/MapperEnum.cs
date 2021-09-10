@@ -14,6 +14,8 @@ namespace Mily.Wind.VMod.Enums
         [Description("创建")]
         Collection,
         [Description("创建")]
-        Class
+        Class,
+        [Description("默认成功")]
+        DefaultSuccess
     }
 }

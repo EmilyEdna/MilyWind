@@ -103,6 +103,11 @@
             </summary>
             <param name="code"></param>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.Invoken">
             <summary>
             执行方法
@@ -136,6 +141,31 @@
         <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogLv">
             <summary>
             日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.Start">
+            <summary>
+            起始时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.End">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.LogLv">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.PageSize">
+            <summary>
+            每页数量
             </summary>
         </member>
     </members>
