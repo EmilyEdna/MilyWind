@@ -30,7 +30,7 @@ namespace Mily.Wind.VMod.Mogo
         /// <summary>
         /// 参数值
         /// </summary>
-        public List<object> Param { get; set; } 
+        public string Param { get; set; } 
         /// <summary>
         /// 错误信息
         /// </summary>

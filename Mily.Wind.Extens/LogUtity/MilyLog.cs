@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.CacheFramework;
+using XExten.Advance.LinqFramework;
 
 namespace Mily.Wind.Extens.LogUtity
 {
@@ -19,7 +20,7 @@ namespace Mily.Wind.Extens.LogUtity
                 ErrorMsg = Message,
                 CreatedTime = DateTime.Now,
                 Invoken = Invoken,
-                Param = Param,
+                Param = Param.ToJson(),
                 LogLv = Lv
             };
             Caches.MongoDBCacheSet(Log);
@@ -31,7 +32,7 @@ namespace Mily.Wind.Extens.LogUtity
                 ErrorMsg = Message,
                 CreatedTime = DateTime.Now,
                 Invoken = Invoken,
-                Param = Param,
+                Param = Param.ToJson(),
                 LogLv = Lv
             };
             await Caches.MongoDBCacheSetAsync(Log);

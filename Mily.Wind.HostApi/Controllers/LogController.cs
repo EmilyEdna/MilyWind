@@ -23,12 +23,15 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet, AllowAnonymous]
-        public ActionResult<LogOutput> GetLogPage(LogInput input)
+        [HttpPost, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<LogOutput>> GetLogPage(LogInput input)
         {
-            return LogLogic.GetLogPage(input).Result.Transfer<LogOutput>();
+            var data = LogLogic.GetLogPage(input).Result.Transfer<LogOutput>();
+            return MilyCtrlResult<LogOutput>.CreateResult(t =>
+            {
+                t.Code = data.DSCode;
+                t.Result = data;
+            });
         }
-
-
     }
 }

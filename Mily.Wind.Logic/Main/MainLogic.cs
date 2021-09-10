@@ -7,6 +7,7 @@ using Mily.Wind.SugarEntity.System;
 using Mily.Wind.VMod.DataTransferObj.Input;
 using Mily.Wind.VMod.DataTransferObj.Output;
 using Mily.Wind.VMod.Enums;
+using System;
 using XExten.Advance.CacheFramework;
 using XExten.Advance.LinqFramework;
 
@@ -34,6 +35,7 @@ namespace Mily.Wind.Logic.Main
         [Actions]
         public virtual MilyMapperResult CreateUser(MilyUserVMInput input)
         {
+            throw new Exception("请求错误");
             var User = base.Insert(input.ToMapper<MilyUser>().SetEncryptPassword());
             return MilyMapperResult.Success<MilyUser, MilyUserVMOutput>(MapperEnum.Class, User);
         }

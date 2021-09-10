@@ -46,7 +46,7 @@ namespace Mily.Wind.Extens.AOPUtity
                      ErrorMsg = ex.Message,
                      CreatedTime = DateTime.Now,
                      Invoken = methodName,
-                     Param = parameters.ToList(),
+                     Param = parameters.ToJson(),
                      LogLv = LogLevelEnum.Error
                  };
                  Caches.MongoDBCacheSet(Log);
