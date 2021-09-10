@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mily.Wind.VMod.DataTransferObj
+namespace Mily.Wind.VMod.DataTransferObj.Input
 {
-    public class MilyUserVM : IVMCastle
+    public class MilyUserVMInput
     {
         /// <summary>
         /// PK
@@ -20,9 +20,5 @@ namespace Mily.Wind.VMod.DataTransferObj
         /// 密码
         /// </summary>
         public string Password { get; set; }
-        /// <summary>
-        /// 系统代码
-        /// </summary>
-        public string DSCode { get; set; }
     }
 }

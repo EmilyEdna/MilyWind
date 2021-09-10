@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mily.Wind.VMod</name>
+    </assembly>
+    <members>
+        <member name="P:Mily.Wind.VMod.ACStatic.AC001">
+            <summary>
+            API
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.ACStatic.AC002">
+            <summary>
+            XML秒速
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.DSCode">
+            <summary>
+            系统代码
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.DS001">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.DS002">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.Logics">
+            <summary>
+            业务
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.Logs">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="T:Mily.Wind.VMod.MilyCtrlResult`1">
+            <summary>
+            结果集
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Mily.Wind.VMod.MilyCtrlResult`1.Result">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.MilyCtrlResult`1.Code">
+            <summary>
+            系统代码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.MilyCtrlResult`1.HttpCode">
+            <summary>
+            Http状态码
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.VMod.MilyCtrlResult`1.CreateResult(System.Action{Mily.Wind.VMod.MilyCtrlResult{`0}})">
+            <summary>
+            创建结果
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.VMod.MilyCtrlResult`1.SetHttpCode(System.String)">
+            <summary>
+            设置错误码
+            </summary>
+            <param name="code"></param>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.Invoken">
+            <summary>
+            执行方法
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.StackTrace">
+            <summary>
+            堆栈
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.CreatedTime">
+            <summary>
+            日志时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.EntityName">
+            <summary>
+            实体参数名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.Param">
+            <summary>
+            参数值
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.ErrorMsg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogLv">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mily.Wind.Extens.SystemConfig;
+using Mily.Wind.VMod;
 using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
 using Mily.Wind.VMod.Mogo.Output;
@@ -14,7 +15,7 @@ namespace Mily.Wind.HostApi.Controllers
     /// <summary>
     /// 日志系统
     /// </summary>
-    [ApiController, Route("[controller]/[action]"), ApiExplorerSettings(GroupName = "v2")]
+    [ApiController, Route("[controller]/[action]"), ApiExplorerSettings(GroupName = DSConst.Logs)]
     public class LogController : BasicController
     {
         /// <summary>

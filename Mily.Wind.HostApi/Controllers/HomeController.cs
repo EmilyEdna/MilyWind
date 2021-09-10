@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mily.Wind.Extens.SystemConfig;
-using Mily.Wind.SugarEntity.System;
-using Mily.Wind.VMod.DataTransferObj;
+using Mily.Wind.VMod;
+using Mily.Wind.VMod.DataTransferObj.Input;
+using Mily.Wind.VMod.DataTransferObj.Output;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using XExten.Advance.LinqFramework;
 
 namespace Mily.Wind.HostApi.Controllers
 {
     /// <summary>
     /// 首页
     /// </summary>
-    [ApiController, Route("[controller]/[action]"), ApiExplorerSettings(GroupName = "v1")]
+    [ApiController, Route("[controller]/[action]"), ApiExplorerSettings(GroupName = DSConst.Logics)]
     public class HomeController : BasicController
     {
         /// <summary>
@@ -20,13 +20,13 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<MilyCtrlResult<List<MilyUserVM>>> Get()
+        public ActionResult<MilyCtrlResult<List<MilyUserVMOutput>>> Get()
         {
             var data = MainLogic.GetUserList();
-            return MilyCtrlResult<List<MilyUserVM>>.CreateResult(t =>
+            return MilyCtrlResult<List<MilyUserVMOutput>>.CreateResult(t =>
              {
                  t.Code = data.Code;
-                 t.Result = data.Result.Transfers<MilyUserVM>();
+                 t.Result = data.Result.Transfers<MilyUserVMOutput>();
              });
         }
         /// <summary>
@@ -34,13 +34,13 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<MilyUserVM>> Create(MilyUserVM input)
+        public ActionResult<MilyCtrlResult<MilyUserVMOutput>> Create(MilyUserVMInput input)
         {
             var data = MainLogic.CreateUser(input);
-            return MilyCtrlResult<MilyUserVM>.CreateResult(t =>
+            return MilyCtrlResult<MilyUserVMOutput>.CreateResult(t =>
             {
                 t.Code = data.Code;
-                t.Result = data.Result.Transfer<MilyUserVM>();
+                t.Result = data.Result.Transfer<MilyUserVMOutput>();
             });
         }
         /// <summary>
@@ -52,7 +52,7 @@ namespace Mily.Wind.HostApi.Controllers
         public ActionResult<MilyCtrlResult<object>> Login(long id)
         {
             var data = MainLogic.GetUser(id);
-            var user = data.Result.Transfer<MilyUserVM>();
+            var user = data.Result.Transfer<MilyUserVMOutput>();
             var token = MilyJwtSecurity.JwtToken(new string[] { user?.Name, user?.Id.ToString() });
             //返回token和过期时间
             return MilyCtrlResult<object>.CreateResult(t =>

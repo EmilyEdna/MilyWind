@@ -4,12 +4,36 @@
         <name>Mily.Wind.HostApi</name>
     </assembly>
     <members>
+        <member name="T:Mily.Wind.HostApi.Controllers.HomeController">
+            <summary>
+            首页
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Get">
+            <summary>
+            查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Create(Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput)">
+            <summary>
+            注册
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.HomeController.Login(System.Int64)">
+            <summary>
+            登录
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Mily.Wind.HostApi.Controllers.LogController">
             <summary>
             日志系统
             </summary>
         </member>
-        <member name="M:Mily.Wind.HostApi.Controllers.LogController.t(Mily.Wind.HostApi.Controllers.a)">
+        <member name="M:Mily.Wind.HostApi.Controllers.LogController.GetLogPage(Mily.Wind.VMod.Mogo.Input.LogInput)">
             <summary>
             获取日志
             </summary>

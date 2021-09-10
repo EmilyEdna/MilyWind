@@ -5,8 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Mily.Wind.Extens.SystemConfig;
+using Mily.Wind.VMod;
 using System;
-
+using System.IO;
 
 namespace Mily.Wind.HostApi
 {
@@ -24,8 +25,11 @@ namespace Mily.Wind.HostApi
             services.RegisterService();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mily.Wind.HostApi", Version = "v1" });
-                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Mily.Wind.HostApi", Version = "v2" });
+                c.TagActionsBy(t => new string[] { t.HttpMethod });
+                foreach (var item in ACStatic.AC001)
+                {
+                    c.SwaggerDoc(item.Key, new OpenApiInfo { Title = item.Value });
+                }
                 c.AddSecurityDefinition("JwtBearer", new OpenApiSecurityScheme()
                 {
                     Description = "在下框中输入请求头中需要添加Jwt授权Token",
@@ -41,7 +45,10 @@ namespace Mily.Wind.HostApi
                       Array.Empty<string>()
                     }
                 });
-                c.IncludeXmlComments("Mily.Wind.HostApi.xml", false);
+                ACStatic.AC002.ForEach(item =>
+                {
+                    c.IncludeXmlComments(item, false);
+                });
             });
         }
 
@@ -53,8 +60,10 @@ namespace Mily.Wind.HostApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mily.Wind.HostApi v1");
-                    c.SwaggerEndpoint("/swagger/v2/swagger.json", "Mily.Wind.HostApi v2");
+                    foreach (var item in ACStatic.AC001.Keys)
+                    {
+                        c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
+                    }
                 });
             }
             app.UseStaticFiles();

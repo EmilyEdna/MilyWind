@@ -32,7 +32,7 @@ namespace Mily.Wind.Extens.AOPUtity
                  if (ret.Result.GetType() == ret.MapTo)
                      (ret.Result as IVMCastle).DSCode = ret.Code;
                  if (ret.Result.GetType() == ret.MapsTo)
-                     foreach (var item in (ret.Result as dynamic))
+                     foreach (var item in ret.Result as dynamic)
                      {
                          (item as IVMCastle).DSCode = ret.Code;
                      }
