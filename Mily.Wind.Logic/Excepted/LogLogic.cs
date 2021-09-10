@@ -28,7 +28,7 @@ namespace Mily.Wind.Logic.Excepted
             if (input.End.HasValue)
                 query = query.Where(t => t.CreatedTime < input.End);
             var detail = query.OrderByDescending(t=>t.CreatedTime).Skip(input.PageIndex * input.PageSize).Take(input.PageSize).ToList();
-            return MilyMapperResult.Success<LogOutput, LogOutput>(MapperEnum.Class, new LogOutput
+            return MilyMapperResult.Success<LogOutput>(MapperEnum.Class, new LogOutput
             {
                 Detail = detail,
                 Total = query.Count()

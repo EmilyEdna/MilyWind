@@ -22,6 +22,7 @@ namespace Mily.Wind.Extens.SystemConfig
         public Type Source { get; set; }
         [JsonIgnore]
         public MapperEnum MapType { get; set; }
+
         public static MilyMapperResult Instance(Action<MilyMapperResult> action)
         {
             MilyMapperResult result = new MilyMapperResult();
@@ -44,12 +45,16 @@ namespace Mily.Wind.Extens.SystemConfig
              });
         }
 
-        public static MilyMapperResult Error()
+        public static MilyMapperResult Success<T>(MapperEnum mapper, object data)
         {
             return Instance(t =>
             {
-                t.Code = DSConst.DS002;
-                t.Result = new DefaultVM();
+                t.Code = DSConst.DS001;
+                t.MapTo = typeof(T);
+                t.MapsTo = typeof(List<T>);
+                t.Source = typeof(T);
+                t.MapType = mapper;
+                t.Result = data;
             });
         }
 
@@ -60,6 +65,15 @@ namespace Mily.Wind.Extens.SystemConfig
                 t.MapType = MapperEnum.DefaultSuccess;
                 t.Code = DSConst.DS001;
                 t.Result = data;
+            });
+        }
+
+        public static MilyMapperResult DefaultError()
+        {
+            return Instance(t =>
+            {
+                t.Code = DSConst.DS002;
+                t.Result = new DefaultVM();
             });
         }
     }

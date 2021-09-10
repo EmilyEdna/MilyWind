@@ -52,7 +52,7 @@ namespace Mily.Wind.Extens.AOPUtity
                  };
                  Caches.MongoDBCacheSet(Log);
                  //写日志
-                 return MilyMapperResult.Error();
+                 return MilyMapperResult.DefaultError();
              });
 
         }
