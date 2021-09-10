@@ -145,17 +145,17 @@
                 }
             },
             Template: `<tr>
-                                                                        <td class="text-center">{Method}</td>
-                                                                        <td class="text-center">{Entity}</td>
-                                                                        <td class="text-center">{Time}</td>
-                                                                        <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
-                                                                        <td class="text-center" style="color:blue;">{Lv}</td>
-                                                                        <td class="text-center" style="color:darkorange;">{Param}</td>
-                                                                        <td class="text-center">
-                                                                            <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
-                                                                            <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
-                                                                        </td>
-                                                                     </tr>>`
+                                   <td class="text-center">{Method}</td>
+                                   <td class="text-center">{Entity}</td>
+                                   <td class="text-center">{Time}</td>
+                                   <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
+                                   <td class="text-center" style="color:blue;">{Lv}</td>
+                                   <td class="text-center" style="color:darkorange;">{Param}</td>
+                                   <td class="text-center">
+                                       <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
+                                       <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
+                                   </td>
+                               </tr>>`
         };
     </script>
     <title>日志面板</title>
@@ -169,13 +169,13 @@
             <div class="col-sm-2">
                 <div class="input-group">
                     <span class="input-group-addon">开始时间</span>
-                    <input type="text" class="form-control" id="Star">
+                    <input type="text" class="form-control" id="Star" placeholder="开始时间">
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="input-group">
                     <span class="input-group-addon">结束时间</span>
-                    <input type="text" class="form-control" id="End">
+                    <input type="text" class="form-control" id="End" placeholder="结束时间">
                 </div>
             </div>
             <div class="col-sm-2">
@@ -216,7 +216,7 @@
             <div class="col-sm-9"></div>
             <div class="col-sm-3">
                 <button class="btn btn-info" style="outline: none;" onclick="option.InitEvent.Last()">上一页</button>
-                <input style="border: none; width: 30px; color: deeppink; font-size: 18px; outline:none" type="text" value="" class="text-center" id="CurrentPage" />
+                <input style="border: none; width: 30px; color: deeppink; font-size: 18px; outline:none" type="text" value="" placeholder="当前页" class="text-center" id="CurrentPage" />
                 <b>/</b>
                 <span style="color:deeppink;font-size:18px;" class="text-center" id="TotalPage"></span>
                 <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Next()">下一页</button>

@@ -43,8 +43,8 @@ namespace Mily.Wind.Extens.AOPUtity
                  var Log = new ExceptionLog
                  {
                      EntityName = obj.GetType().Name,
-                     StackTrace = ex.StackTrace,
-                     ErrorMsg = ex.Message,
+                     StackTrace = ex.InnerException != null ? ex.InnerException.StackTrace : ex.StackTrace,
+                     ErrorMsg = ex.InnerException != null ? ex.InnerException.Message : ex.Message,
                      CreatedTime = DateTime.Now,
                      Invoken = methodName,
                      Param = parameters.ToJson(),
