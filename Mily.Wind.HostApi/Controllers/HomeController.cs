@@ -19,7 +19,7 @@ namespace Mily.Wind.HostApi.Controllers
         /// 查询
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult<MilyCtrlResult<List<MilyUserVMOutput>>> Get()
         {
             var data = MainLogic.GetUserList();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Mily.Wind.Extens.DependencyInjection;
+using Mily.Wind.Extens.InternalInterface;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarEntity;
 using Mily.Wind.VMod.Enums;
@@ -17,6 +18,8 @@ namespace Mily.Wind.SugarContext
 {
     public class MilyContext : ContextEvent
     {
+        public ILog LogClient => IocManager.GetService<ILog>();
+
         public SqlSugarScope Context(bool migration = false)
         {
             SqlSugarScope db = new SqlSugarScope(new ConnectionConfig

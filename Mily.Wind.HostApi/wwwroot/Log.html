@@ -145,17 +145,17 @@
                 }
             },
             Template: `<tr>
-                                   <td class="text-center">{Method}</td>
-                                   <td class="text-center">{Entity}</td>
-                                   <td class="text-center">{Time}</td>
-                                   <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
-                                   <td class="text-center" style="color:blue;">{Lv}</td>
-                                   <td class="text-center" style="color:darkorange;">{Param}</td>
-                                   <td class="text-center">
-                                       <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
-                                       <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
-                                   </td>
-                               </tr>>`
+                                       <td class="text-center">{Method}</td>
+                                       <td class="text-center">{Entity}</td>
+                                       <td class="text-center">{Time}</td>
+                                       <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
+                                       <td class="text-center" style="color:blue;">{Lv}</td>
+                                       <td class="text-center" style="color:darkorange;">{Param}</td>
+                                       <td class="text-center">
+                                           <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
+                                           <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
+                                       </td>
+                                   </tr>>`
         };
     </script>
     <title>日志面板</title>
@@ -182,10 +182,11 @@
                 <div class="input-group">
                     <span class="input-group-addon">日志级别</span>
                     <select class="form-control" id="LogLV">
-                        <option value="0" selected="selected">Debug</option>
-                        <option value="1">Info</option>
-                        <option value="2">Warning</option>
-                        <option value="3">Error</option>
+                        <option value="" selected="selected">全部</option>
+                        <option value="0" class="text-primary">调试</option>
+                        <option value="1" class="text-info">消息</option>
+                        <option value="2" class="text-warning">警告</option>
+                        <option value="3" class="text-danger">错误</option>
                     </select>
                 </div>
             </div>

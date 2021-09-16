@@ -15,14 +15,12 @@ namespace Mily.Wind.Logic.Excepted
     [Interceptor]
     public class LogLogic : ILogLogic
     {
-        public ILog LogClient => IocManager.GetService<ILog>();
-
         [Actions]
         public virtual MilyMapperResult GetLogPage(LogInput input)
         {
-            var query = MongoDbCaches.Query<ExceptionLog>()
-                .Where(t => t.LogLv >= (LogLevelEnum)input.LogLv)
-                .AsQueryable();
+            var query = MongoDbCaches.Query<ExceptionLog>().AsQueryable();
+            if (input.LogLv.HasValue)
+                query = query.Where(t => t.LogLv == (LogLevelEnum)input.LogLv.Value);
             if (input.Start.HasValue)
                 query = query.Where(t => t.CreatedTime >= input.Start);
             if (input.End.HasValue)

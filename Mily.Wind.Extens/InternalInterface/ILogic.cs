@@ -9,6 +9,5 @@ namespace Mily.Wind.Extens.InternalInterface
 {
     public interface ILogic
     {
-         ILog LogClient { get; }
     }
 }

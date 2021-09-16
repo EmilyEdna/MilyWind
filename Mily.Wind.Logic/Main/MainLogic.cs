@@ -16,8 +16,6 @@ namespace Mily.Wind.Logic.Main
     [Interceptor]
     public class MainLogic : MilyContext, IMainLogic
     {
-        public ILog LogClient => IocManager.GetService<ILog>();
-
         [Actions]
         public virtual MilyMapperResult GetUserList()
         {

@@ -19,7 +19,7 @@ namespace Mily.Wind.VMod.Mogo.Input
         /// <summary>
         /// 日志级别
         /// </summary>
-        public int LogLv { get; set; }
+        public int? LogLv { get; set; }
         /// <summary>
         /// 页码
         /// </summary>
