@@ -48,7 +48,8 @@ namespace Mily.Wind.Extens.AOPUtity
                      CreatedTime = DateTime.Now,
                      Invoken = methodName,
                      Param = parameters.ToJson(),
-                     LogLv = LogLevelEnum.Error
+                     LogLv = LogLevelEnum.Error,
+                     TraceId = ACStatic.AC003,
                  };
                  Caches.MongoDBCacheSet(Log);
                  //写日志

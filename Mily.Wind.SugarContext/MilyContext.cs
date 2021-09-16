@@ -50,6 +50,62 @@ namespace Mily.Wind.SugarContext
             return db;
         }
 
+        public T Trans<T>(Func<SqlSugarScope,T> action, bool migration = false) where T : new()
+        {
+            var db = Context(migration);
+            return SyncStatic.TryCatch(() =>
+             {
+                 db.BeginTran();
+                 var result = action(db);
+                 throw new Exception();
+                 db.CommitTran();
+                 return result;
+             }, ex =>
+             {
+                 LogClient.WriteErrorLog(ex.Message, ex);
+                 db.RollbackTran();
+                 return default;
+             });
+        }
+
+        public T InsertTrans<T>(T entity, bool migration = false) where T : BasicEntity, new()
+        {
+            return Trans(db =>
+             {
+                 BeforeExecute(entity, HandleLogEnum.Create);
+                 var ret = db.Insertable(entity).CallEntityMethod(t => t.CreateAction(0)).ExecuteReturnEntity();
+                 AfterExecute();
+                 return ret;
+             }, migration);
+        }
+
+        public bool AlterTrans<T>(T entity, Expression<Func<T, bool>> expression = null, bool migration = false) where T : BasicEntity, new()
+        {
+            return Trans(db =>
+            {
+                BeforeExecute(entity, HandleLogEnum.Update);
+                IUpdateable<T> alter = db.Updateable(entity);
+                bool ret;
+                if (expression != null)
+                    ret = alter.Where(expression).ExecuteCommandHasChange();
+                else
+                    ret = alter.ExecuteCommandHasChange();
+                AfterExecute();
+                return ret;
+            }, migration);
+        }
+
+        public bool DeleteTrans<T>(T entity, Expression<Func<T, bool>> expression, bool migration = false) where T : BasicEntity, new()
+        {
+            return Trans(db =>
+            {
+                BeforeExecute(entity, HandleLogEnum.Update);
+                bool ret = Context(migration).Updateable(entity).CallEntityMethod(t => t.DeleteAction()).Where(expression).ExecuteCommandHasChange();
+                AfterExecute();
+                return ret;
+            }, migration);
+        }
+
         public T Insert<T>(T entity, bool migration = false) where T : BasicEntity, new()
         {
             BeforeExecute(entity, HandleLogEnum.Create);

@@ -9,7 +9,11 @@ namespace Mily.Wind.Extens.InternalInterface
 {
     public interface ILog
     {
-        void WriteLog(string Message, string Invoken, List<object> Param = null, LogLevelEnum Lv = LogLevelEnum.Info);
-        Task WriteLogAsync(string Message, string Invoken, List<object> Param = null, LogLevelEnum Lv = LogLevelEnum.Info);
+        void WriteInfoLog(string Message, string Invoken, List<object> Param = null);
+        Task WriteInfoLogAsync(string Message, string Invoken, List<object> Param = null);
+        void WriteWarnLog(string Message, string Invoken, List<object> Param = null);
+        Task WriteWarnLogAsync(string Message, string Invoken, List<object> Param = null);
+        void WriteErrorLog(string Message, Exception exception, List<object> Param = null);
+        Task WriteErrorLogAsync(string Message, Exception exception, List<object> Param = null);
     }
 }

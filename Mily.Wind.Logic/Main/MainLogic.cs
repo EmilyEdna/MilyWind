@@ -33,7 +33,7 @@ namespace Mily.Wind.Logic.Main
         [Actions]
         public virtual MilyMapperResult CreateUser(MilyUserVMInput input)
         {
-            var User = base.Insert(input.ToMapper<MilyUser>().SetEncryptPassword());
+            var User =  base.InsertTrans(input.ToMapper<MilyUser>().SetEncryptPassword());
             return MilyMapperResult.Success<MilyUser, MilyUserVMOutput>(MapperEnum.Class, User);
         }
     }

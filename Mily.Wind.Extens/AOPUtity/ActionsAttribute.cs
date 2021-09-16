@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mily.Wind.Extens.DependencyInjection;
+using Mily.Wind.Extens.InternalInterface;
+using Mily.Wind.VMod;
+using System;
 using XExten.Advance.AopFramework.AopAttribute;
 
 namespace Mily.Wind.Extens.AOPUtity
@@ -11,13 +10,12 @@ namespace Mily.Wind.Extens.AOPUtity
     {
         public override void Before(string methodName, object[] parameters)
         {
-            Console.WriteLine(methodName);
-            Console.WriteLine(string.Join(",", parameters));
+            ACStatic.AC003 = $"{DateTime.Now.Ticks}.{methodName}.{Guid.NewGuid().ToString().Replace("-","")}";
+            //这里可以做权限或者数据库隔离
         }
         public override object After(string methodName, object result)
         {
-            Console.WriteLine(methodName);
-            Console.WriteLine(result);
+            ACStatic.AC003 = string.Empty;
             return result;
         }
     }

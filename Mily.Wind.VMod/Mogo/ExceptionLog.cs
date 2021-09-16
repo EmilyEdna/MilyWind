@@ -46,5 +46,9 @@ namespace Mily.Wind.VMod.Mogo
         /// 日志级别
         /// </summary>
         public LogLevelEnum LogLv { get; set; }
+        /// <summary>
+        /// 日志链
+        /// </summary>
+        public string TraceId { get; set; }
     }
 }

@@ -15,7 +15,7 @@
             SearchData: {
                 Start: null,
                 End: null,
-                LogLv: 1,
+                LogLv: null,
                 PageIndex: 0,
                 PageSize: 20
             },
@@ -87,7 +87,8 @@
                             $("#TotalPage").text(total);
                             $("#CurrentPage").val(page)
                             $.each(val, (_, item) => {
-                                $("tbody").append(option.Template.replace("{Method}", item.Invoken)
+                                $("tbody").append(option.Template.replace("{Trace}", item.TraceId)
+                                    .replace("{Method}", item.Invoken)
                                     .replace("{Entity}", item.EntityName)
                                     .replace("{Time}", item.CreatedTime)
                                     .replace("{Msg}", item.ErrorMsg)
@@ -145,17 +146,18 @@
                 }
             },
             Template: `<tr>
-                                       <td class="text-center">{Method}</td>
-                                       <td class="text-center">{Entity}</td>
-                                       <td class="text-center">{Time}</td>
-                                       <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
-                                       <td class="text-center" style="color:blue;">{Lv}</td>
-                                       <td class="text-center" style="color:darkorange;">{Param}</td>
-                                       <td class="text-center">
-                                           <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
-                                           <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
-                                       </td>
-                                   </tr>>`
+                                <td class="text-center">{Trace}</td>
+                                 <td class="text-center">{Method}</td>
+                                 <td class="text-center">{Entity}</td>
+                                 <td class="text-center">{Time}</td>
+                                 <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
+                                 <td class="text-center" style="color:blue;">{Lv}</td>
+                                 <td class="text-center" style="color:darkorange;">{Param}</td>
+                                 <td class="text-center">
+                                     <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
+                                     <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>
+                                   </td>
+                               </tr>>`
         };
     </script>
     <title>日志面板</title>
@@ -199,6 +201,7 @@
                 <table class="table table-responsive">
                     <thead>
                         <tr>
+                            <th class="text-center">日志链路</th>
                             <th class="text-center">调用方法</th>
                             <th class="text-center">参数名称</th>
                             <th class="text-center">日期时间</th>

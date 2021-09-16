@@ -14,6 +14,11 @@
             XML描述
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.ACStatic.AC003">
+            <summary>
+            异常识别码
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Id">
             <summary>
             PK
@@ -141,6 +146,11 @@
         <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogLv">
             <summary>
             日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.TraceId">
+            <summary>
+            日志链
             </summary>
         </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.Start">
