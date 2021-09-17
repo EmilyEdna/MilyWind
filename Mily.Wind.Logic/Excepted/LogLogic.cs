@@ -1,6 +1,4 @@
 ﻿using Mily.Wind.Extens.AOPUtity;
-using Mily.Wind.Extens.DependencyInjection;
-using Mily.Wind.Extens.InternalInterface;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.VMod.Enums;
 using Mily.Wind.VMod.Mogo;

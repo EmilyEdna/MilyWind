@@ -1,4 +1,6 @@
-﻿using Polly;
+﻿using Mily.Wind.Extens.DependencyInjection;
+using Mily.Wind.Extens.InternalInterface;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,11 @@ namespace Mily.Wind.Extens.RetryUtity
         /// <returns></returns>
         public static void DoRetry(Action action, int Times = 3)
         {
+            var LogClient = IocManager.GetService<ILog>();
             Policy.Handle<Exception>().Retry(Times, (Ex, Count, Context) =>
             {
-                Console.WriteLine($"重试次数：{Count}，异常信息：{Ex.Message}，错误方法：{Context["MethodName"]}");
+                if (Count == 1)
+                    LogClient.WriteErrorLog(Ex.Message, Ex);
             }).Execute(action);
         }
         /// <summary>
@@ -30,9 +34,11 @@ namespace Mily.Wind.Extens.RetryUtity
         /// <returns></returns>
         public static T DoRetry<T>(Func<T> action, int Times = 3)
         {
+            var LogClient = IocManager.GetService<ILog>();
             return Policy.Handle<Exception>().Retry(Times, (Ex, Count, Context) =>
             {
-                Console.WriteLine($"重试次数：{Count}，异常信息：{Ex.Message}，错误方法：{Context["MethodName"]}");
+                if (Count == 1)
+                    LogClient.WriteErrorLog(Ex.Message, Ex);
             }).Execute(action);
         }
         /// <summary>
@@ -41,7 +47,7 @@ namespace Mily.Wind.Extens.RetryUtity
         /// <param name="action"></param>
         /// <param name="Times"></param>
         /// <param name="Seconds"></param>
-        public static void DoRetry(Action action, int Times = 3, int Seconds = 60)
+        public static void DoRetryBreak(Action action, int Times = 3, int Seconds = 60)
         {
             Policy.Handle<Exception>().CircuitBreaker(Times, TimeSpan.FromSeconds(Seconds)).Execute(action);
         }
@@ -53,7 +59,7 @@ namespace Mily.Wind.Extens.RetryUtity
         /// <param name="Times"></param>
         /// <param name="Seconds"></param>
         /// <returns></returns>
-        public static T DoRetry<T>(Func<T> action, int Times = 3, int Seconds = 60)
+        public static T DoRetryBreak<T>(Func<T> action, int Times = 3, int Seconds = 60)
         {
             return Policy.Handle<Exception>().CircuitBreaker(Times, TimeSpan.FromSeconds(Seconds)).Execute(action);
         }

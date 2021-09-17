@@ -1,13 +1,9 @@
 ﻿using Mily.Wind.Extens.AOPUtity;
-using Mily.Wind.Extens.DependencyInjection;
-using Mily.Wind.Extens.InternalInterface;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.SugarContext;
 using Mily.Wind.SugarEntity.System;
 using Mily.Wind.VMod.DataTransferObj.Input;
 using Mily.Wind.VMod.DataTransferObj.Output;
-using Mily.Wind.VMod.Enums;
-using System;
 using System.Collections.Generic;
 using XExten.Advance.CacheFramework;
 using XExten.Advance.LinqFramework;
