@@ -49,6 +49,9 @@ namespace Mily.Wind.VMod
                 case DSConst.DS002:
                     HttpCode = 500;
                     break;
+                case DSConst.DS003:
+                    HttpCode = 999;
+                    break;
                 default:
                     break;
             }

@@ -16,7 +16,10 @@ namespace Mily.Wind.VMod
         /// 失败
         /// </summary>
         public const string DS002 = "DS002";
-
+        /// <summary>
+        /// 异常给出提示
+        /// </summary>
+        public const string DS003 = "DS003";
         /// <summary>
         /// 业务
         /// </summary>

@@ -66,7 +66,7 @@ var option = {
                 url: "/Log/GetLogPage",
                 param: e,
                 type: "post"
-            })
+            });
             if (res.HttpCode != 200)
                 throw new Error("服务器异常");
             var val = res.Result.Detail;

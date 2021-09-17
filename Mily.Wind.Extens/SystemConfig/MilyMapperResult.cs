@@ -16,53 +16,30 @@ namespace Mily.Wind.Extens.SystemConfig
         public object Result { get; set; }
         [JsonIgnore]
         public Type MapTo { get; set; }
-        [JsonIgnore]
-        public Type MapsTo { get; set; }
-        [JsonIgnore]
-        public Type Source { get; set; }
-        [JsonIgnore]
-        public MapperEnum MapType { get; set; }
 
         public static MilyMapperResult Instance(Action<MilyMapperResult> action)
         {
             MilyMapperResult result = new MilyMapperResult();
             action(result);
-            if (result.Code != DSConst.DS002 && result.MapType == MapperEnum.Collection && result.MapsTo == null)
-                throw new ArgumentNullException($"{nameof(MapsTo)} can't be null");
+            if (result.Code != DSConst.DS002 && result.MapTo == null)
+                throw new ArgumentNullException($"{nameof(MapTo)} can't be null");
             return result;
         }
 
-        public static MilyMapperResult Success<T, K>(MapperEnum mapper, object data)
+        public static MilyMapperResult Success<T>(object data)
         {
             return Instance(t =>
              {
                  t.Code = DSConst.DS001;
-                 t.MapTo = typeof(K);
-                 t.MapsTo = typeof(List<K>);
-                 t.Source = typeof(T);
-                 t.MapType = mapper;
+                 t.MapTo = typeof(T);
                  t.Result = data;
              });
-        }
-
-        public static MilyMapperResult Success<T>(MapperEnum mapper, object data)
-        {
-            return Instance(t =>
-            {
-                t.Code = DSConst.DS001;
-                t.MapTo = typeof(T);
-                t.MapsTo = typeof(List<T>);
-                t.Source = typeof(T);
-                t.MapType = mapper;
-                t.Result = data;
-            });
         }
 
         public static MilyMapperResult DefaultSuccess(object data)
         {
             return Instance(t =>
             {
-                t.MapType = MapperEnum.DefaultSuccess;
                 t.Code = DSConst.DS001;
                 t.Result = data;
             });

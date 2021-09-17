@@ -23,16 +23,11 @@ namespace Mily.Wind.Extens.AOPUtity
             return SyncStatic.TryCatch(() =>
              {
                  MilyMapperResult ret = (MilyMapperResult)base.Invoke(obj, methodName, parameters);
-                 ret.Result = ret.MapType switch
-                 {
-                     MapperEnum.Collection => ret.Result.ToMapper(ret.Source, ret.MapTo, ret.MapsTo),
-                     MapperEnum.Class => ret.Result.ToMapper(ret.MapTo),
-                     MapperEnum.DefaultSuccess => ret.Result,
-                     _ => throw new NotImplementedException("未实现"),
-                 };
-                 if (ret.Result.GetType() == ret.MapTo)
+                 ret.Result = ret.MapTo == null ? ret.Result : ret.Result.ToMapest(ret.MapTo);
+                 var type = ret.Result.GetType();
+                 if (type.IsClass && !type.IsGenericType)
                      (ret.Result as IVMCastle).DSCode = ret.Code;
-                 if (ret.Result.GetType() == ret.MapsTo)
+                 if (type.IsClass && type.IsGenericType)
                      foreach (var item in ret.Result as dynamic)
                      {
                          (item as IVMCastle).DSCode = ret.Code;
