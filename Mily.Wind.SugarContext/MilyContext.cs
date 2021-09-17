@@ -57,7 +57,6 @@ namespace Mily.Wind.SugarContext
              {
                  db.BeginTran();
                  var result = action(db);
-                 throw new Exception();
                  db.CommitTran();
                  return result;
              }, ex =>
