@@ -11,6 +11,7 @@ COPY ["Mily.Wind.Logic/Mily.Wind.Logic.csproj", "Mily.Wind.Logic/"]
 COPY ["Mily.Wind.SugarContext/Mily.Wind.SugarContext.csproj", "Mily.Wind.SugarContext/"]
 COPY ["Mily.Wind.SugarEntity/Mily.Wind.SugarEntity.csproj", "Mily.Wind.SugarEntity/"]
 COPY ["Mily.Wind.Extens/Mily.Wind.Extens.csproj", "Mily.Wind.Extens/"]
+COPY ["Mily.Wind.VMod/Mily.Wind.VMod.csproj", "Mily.Wind.VMod/"]
 RUN dotnet restore "Mily.Wind.HostApi/Mily.Wind.HostApi.csproj"
 COPY . .
 WORKDIR "/src/Mily.Wind.HostApi"
