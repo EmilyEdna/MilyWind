@@ -1,3 +1,4 @@
+using IGeekFan.AspNetCore.Knife4jUI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,11 @@ namespace Mily.Wind.HostApi
             services.AddSwaggerGen(c =>
             {
                 c.TagActionsBy(t => new string[] { t.HttpMethod });
+                c.CustomOperationIds(apiDesc =>
+                {
+                    var controllerAction = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+                    return controllerAction.ControllerName + "-" + controllerAction.ActionName;
+                });
                 foreach (var item in ACStatic.AC001)
                 {
                     c.SwaggerDoc(item.Key, new OpenApiInfo { Title = item.Value });
@@ -58,13 +64,21 @@ namespace Mily.Wind.HostApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c =>
+                app.UseKnife4UI(c =>
                 {
+                    c.RoutePrefix = ""; // serve the UI at root
                     foreach (var item in ACStatic.AC001.Keys)
                     {
                         c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
                     }
                 });
+                //app.UseSwaggerUI(c =>
+                //{
+                //    foreach (var item in ACStatic.AC001.Keys)
+                //    {
+                //        c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
+                //    }
+                //});
             }
             app.UseStaticFiles();
 
