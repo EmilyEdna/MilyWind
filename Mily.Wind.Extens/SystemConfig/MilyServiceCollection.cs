@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.InternalInterface;
+using Mily.Wind.Plugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -159,7 +160,7 @@ namespace Mily.Wind.Extens.SystemConfig
                     services.AddSingleton(interfaces, AopProxy.CreateProxyOfRealize(interfaces, item).GetType());
                 }
             });
-
+            services.AddSingleton<IPluginLoad, PluginLoad>();
             IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
             IocManager.SetContainer(ioc);
             return services;

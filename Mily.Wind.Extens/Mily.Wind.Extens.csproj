@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Mily.Wind.Plugin\Mily.Wind.Plugin.csproj" />
 	  <ProjectReference Include="..\Mily.Wind.VMod\Mily.Wind.VMod.csproj" />
 	</ItemGroup>
 

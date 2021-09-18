@@ -19,7 +19,6 @@ namespace Mily.Wind.HostApi
                 _CapBus = value;
             }
         }
-
         protected IMainLogic MainLogic = IocManager.GetService<IMainLogic>();
         protected ILogLogic LogLogic = IocManager.GetService<ILogLogic>();
     }

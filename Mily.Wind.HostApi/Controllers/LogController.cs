@@ -2,13 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.VMod;
-using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
 using Mily.Wind.VMod.Mogo.Output;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mily.Wind.HostApi.Controllers
 {
@@ -39,8 +35,8 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete,AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> DeleteLog(Guid Id) 
+        [HttpDelete, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<bool>> DeleteLog(Guid Id)
         {
             var res = LogLogic.DeleteLog(Id);
             return MilyCtrlResult<bool>.CreateResult(t =>
