@@ -1,6 +1,4 @@
 ﻿using DotNetCore.CAP;
-using DotNetCore.CAP.Processor;
-using DotNetCore.CAP.Transport;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,14 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.InternalInterface;
-using Mily.Wind.Plugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using XExten.Advance.AopFramework;
 using XExten.Advance.CacheFramework;
 using XExten.Advance.LinqFramework;
@@ -160,7 +155,6 @@ namespace Mily.Wind.Extens.SystemConfig
                     services.AddSingleton(interfaces, AopProxy.CreateProxyOfRealize(interfaces, item).GetType());
                 }
             });
-            services.AddSingleton<IPluginLoad, PluginLoad>();
             IContainer ioc = new DryIocServiceProviderFactory().CreateBuilder(services);
             IocManager.SetContainer(ioc);
             return services;

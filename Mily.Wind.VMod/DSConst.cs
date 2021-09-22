@@ -28,5 +28,9 @@ namespace Mily.Wind.VMod
         /// 日志
         /// </summary>
         public const string Logs = "Logs";
+        /// <summary>
+        /// 插件
+        /// </summary>
+        public const string Plugins = "Plugins";
     }
 }

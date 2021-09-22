@@ -8,24 +8,37 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.Plugin
 {
-    public class PluginLoad : IPluginLoad
+    public class PluginLoad
     {
-        private Dictionary<string, Tuple<string, byte[]>> _itemSource;
-        private string _folder = string.Empty;
-        private string _directory;
-        public PluginLoad()
+        private static Dictionary<string, Tuple<string, byte[]>> _itemSource;
+        private static string _folder = string.Empty;
+        private static string _directory;
+        static PluginLoad()
         {
             _itemSource = new Dictionary<string, Tuple<string, byte[]>>();
             _folder = AppDomain.CurrentDomain.BaseDirectory;
         }
-        public void SetDirectory(string directory)
+
+
+        public static void SetDirectory(string directory)
         {
             _directory = directory;
         }
-        public void RegistPlugin(Dictionary<string, string> dllInfo)
+
+
+        /// <summary>
+        /// 注册插件
+        /// </summary>
+        /// <param name="dllInfo">键值是DLL的名称，值是调用这个DLL启动类的名称</param>
+        /// <param name="directory"></param>
+        public static void RegistPlugin(Dictionary<string, string> dllInfo, string directory=null)
         {
-            if (!string.IsNullOrEmpty(_directory))
-                _folder = Path.Combine(_folder, _directory);
+            if (!string.IsNullOrEmpty(directory))
+            {
+                _folder = Path.Combine(_folder, directory);
+                if (!Directory.Exists(_folder))
+                    Directory.CreateDirectory(_folder);
+            }
             foreach (var item in dllInfo)
             {
                 string fn = item.Key;
@@ -42,7 +55,14 @@ namespace Mily.Wind.Plugin
                 }
             }
         }
-        public object Excute(string module, string excuteMethod, params object[] param)
+        /// <summary>
+        /// 调用插件
+        /// </summary>
+        /// <param name="module">需要被执行的类，必须同注册插件中的启动类是同一个</param>
+        /// <param name="excuteMethod">需要执行的方法</param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static object Excute(string module, string excuteMethod, params object[] param)
         {
             var state = _itemSource.TryGetValue(module, out Tuple<string, byte[]> ass);
             if (state == false) return null;
@@ -56,5 +76,9 @@ namespace Mily.Wind.Plugin
                 return result;
             }
         }
+        
+
+
+
     }
 }

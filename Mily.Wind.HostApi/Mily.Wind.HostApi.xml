@@ -47,5 +47,16 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="T:Mily.Wind.HostApi.Controllers.PluginController">
+            <summary>
+            插件系统
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.UploadPlugin(System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            上传插件
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

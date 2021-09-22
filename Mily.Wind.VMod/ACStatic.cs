@@ -20,6 +20,7 @@ namespace Mily.Wind.VMod
                 var Info = new Dictionary<string, string>();
                 Info.Add(DSConst.Logics, "业务");
                 Info.Add(DSConst.Logs, "日志");
+                Info.Add(DSConst.Plugins, "插件");
                 return Info;
             }
         }

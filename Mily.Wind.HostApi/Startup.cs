@@ -72,13 +72,13 @@ namespace Mily.Wind.HostApi
                         c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
                     }
                 });
-                //app.UseSwaggerUI(c =>
-                //{
-                //    foreach (var item in ACStatic.AC001.Keys)
-                //    {
-                //        c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
-                //    }
-                //});
+               /* app.UseSwaggerUI(c =>
+                {
+                    foreach (var item in ACStatic.AC001.Keys)
+                    {
+                        c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
+                    }
+                });*/
             }
             app.UseStaticFiles();
 
