@@ -45,6 +45,7 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [HttpPost, AllowAnonymous]
         public ActionResult<MilyCtrlResult<PluginOutput>> GetPluginPage(PluginInput input)
         {
             var data = PluginLogic.GetPluginPage(input).Result.Transfer<PluginOutput>();

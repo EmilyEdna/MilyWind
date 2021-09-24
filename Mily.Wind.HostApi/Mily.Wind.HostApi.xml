@@ -58,5 +58,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginPage(Mily.Wind.VMod.Mogo.Input.PluginInput)">
+            <summary>
+            插件分页查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

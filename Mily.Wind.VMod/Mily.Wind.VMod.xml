@@ -188,5 +188,71 @@
             每页数量
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PluginAlias">
+            <summary>
+            插件别名
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.IsEable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginName">
+            <summary>
+            插件原始名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginAlias">
+            <summary>
+            插件别名
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginSize">
+            <summary>
+            插件大小
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginPath">
+            <summary>
+            组件路径
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.IsEable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Mily.Wind.VMod.Mogo.PluginMapperInfo.ShowAllClass" -->
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.ShowAllMethodOfClass">
+            <summary>
+            显示类下面的方法
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginVersion">
+            <summary>
+            插件版本号
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.RegistTime">
+            <summary>
+            插件注册时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.Files">
+            <summary>
+            文件内容
+            </summary>
+        </member>
     </members>
 </doc>

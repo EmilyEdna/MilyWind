@@ -4,21 +4,18 @@
 var option = {
     CurrentFileArray: {},
     CurrentIndexArray: [],
+    SearchData: {
+        IsEable: null,
+        PluginAlias: null,
+        PageIndex: 0,
+        PageSize: 10
+    },
     Init: () => {
         option.InitDom();
         option.InitAction();
     },
     InitDom: () => {
-        laydate.render({
-            elem: '#Star',
-            type: 'datetime',
-            theme: '#393D49'
-        });
-        laydate.render({
-            elem: '#End',
-            type: 'datetime',
-            theme: '#393D49'
-        });
+        option.InitEvent.Search(option.SearchData);
     },
     InitEvent: {
         Ajax: (e) => {
@@ -42,6 +39,43 @@ var option = {
                     option.CurrentIndexArray = option.CurrentIndexArray.filter((i) => { return i != e });
                 }
             }
+        },
+        Check: (e) => {
+            return e == undefined ? "" : e;
+        },
+        Search: (e) => {
+            $("tbody").html("");
+            var res = option.InitEvent.Ajax({
+                url: "/Plugin/GetPluginPage",
+                param: e,
+                type: "post"
+            });
+            if (res.HttpCode != 200)
+                throw new Error("服务器异常");
+            var val = res.Result.Detail;
+            let total = Math.ceil(res.Result.Total / e.PageSize);
+            let page = total == 0 ? 0 : Math.ceil(e.PageIndex / e.PageSize) + 1;
+            $("#TotalPage").text(total);
+            $("#CurrentPage").val(page)
+            $.each(val, (_, item) => {
+                $("tbody").append(option.Template.replace("{Name}", option.InitEvent.Check(item.PluginName))
+                    .replace("{NickName}", option.InitEvent.Check(item.PluginAlias))
+                    .replace("{Size}", option.InitEvent.Check(item.PluginSize))
+                    .replace("{Time}", option.InitEvent.Check(item.RegistTime))
+                    .replace("{Version}", option.InitEvent.Check(item.PluginVersion))
+                    .replace("{State}", item.IsEable ? "启用" : "禁用")
+                    .replace("{Id}", option.InitEvent.Check(item.Id))
+                    .replace("{Id}", option.InitEvent.Check(item.Id))
+                    .replace("{Id}", option.InitEvent.Check(item.Id))
+                    .replace("{Id}", option.InitEvent.Check(item.Id)));
+            });
+        },
+        Handler: (e, t) => {
+            debugger;
+        },
+        Alter: (e) => {
+            var x = $(e);
+            debugger;
         }
     },
     InitAction: () => {
@@ -94,13 +128,26 @@ var option = {
                 type: "post",
                 async: false,
                 success: (res) => {
-                  var newarr =  res.Result.filter((e) => {
-                        if (e.success) return e.FileName;
-                    });
-                    debugger;
+                    $("lable").remove();
+                    option.CurrentFileArray = {};
+                    option.CurrentIndexArray = [];
+                    $("#file").val("");
+                    option.InitEvent.Search(option.SearchData);
                 }
-            })
-
+            });
         });
-    }
+    },
+    Template: `<tr>
+                        <td class="text-center">{Name}</td>
+                        <td class="text-center"><input type="text" style="border:none;outline:none;" value="{NickName}" data-id="{Id}" onchange="option.InitEvent.Alter(this)"/></td>
+                        <td class="text-center">{Size}</td>
+                        <td class="text-center">{Time}</td>
+                        <td class="text-center">{Version}</td>
+                        <td class="text-center">{State}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-success" onclick="option.InitEvent.Handler('{Id}',1)" style="outline: none;">启用</button>
+                            <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Handler('{Id}',0)" style="outline: none;">禁用</button>
+                            <button class="btn btn-sm btn-danger" onclick="option.InitEvent.Handler('{Id}',-1)" style="outline: none;">删除</button>
+                        </td>
+                   </tr>`
 };
