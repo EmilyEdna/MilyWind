@@ -1,4 +1,6 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,8 @@ namespace Mily.Wind.VMod.Mogo
 {
     public class HandleLog
     {
-        public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
+        [BsonId(IdGenerator = typeof(GuidGenerator))]
+        public Guid Id { get; set; }
         public long? UserId { get; set; }
         public int? TenantId { get; set; }
         public string TargetTable { get; set; }

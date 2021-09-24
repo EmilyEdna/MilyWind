@@ -6,7 +6,9 @@ using Mily.Wind.VMod;
 using Mily.Wind.VMod.Mogo.Input;
 using Mily.Wind.VMod.Mogo.Output;
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Mily.Wind.HostApi.Controllers
 {
@@ -20,14 +22,36 @@ namespace Mily.Wind.HostApi.Controllers
         /// 上传插件
         /// </summary>
         /// <returns></returns>
-        [HttpPost,AllowAnonymous,Consumes("application/json", "multipart/form-data")]
-        public ActionResult<MilyCtrlResult<bool>> UploadPlugin(List<IFormFile> files)
+        [HttpPost, AllowAnonymous, Consumes("application/json", "multipart/form-data")]
+        public ActionResult<MilyCtrlResult<object>> UploadPlugin(List<IFormFile> files)
         {
-            var x = Request;
-            return MilyCtrlResult<bool>.CreateResult(t =>
+            List<object> list = new List<object>();
+            files.ForEach(file =>
             {
-                t.Code = DSConst.DS001;
-                t.Result = true; 
+                if (Regex.IsMatch(file.FileName, "(.*?).dll"))
+                    list.Add(new { FileName = file.FileName, Success = true });
+                else
+                    list.Add(new { FileName = file.FileName, Success = false });
+            });
+            var res = PluginLogic.UploadPlugin(files);
+            return MilyCtrlResult<object>.CreateResult(t =>
+            {
+                t.Code = res.Code;
+                t.Result = list;
+            });
+        }
+        /// <summary>
+        /// 插件分页查询
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public ActionResult<MilyCtrlResult<PluginOutput>> GetPluginPage(PluginInput input)
+        {
+            var data = PluginLogic.GetPluginPage(input).Result.Transfer<PluginOutput>();
+            return MilyCtrlResult<PluginOutput>.CreateResult(t =>
+            {
+                t.Code = data.DSCode;
+                t.Result = data;
             });
         }
     }

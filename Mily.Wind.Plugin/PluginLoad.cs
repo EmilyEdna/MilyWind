@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,33 +13,23 @@ namespace Mily.Wind.Plugin
     {
         private static Dictionary<string, Tuple<string, byte[]>> _itemSource;
         private static string _folder = string.Empty;
-        private static string _directory;
+        private static string _directory = "plugin";
         static PluginLoad()
         {
             _itemSource = new Dictionary<string, Tuple<string, byte[]>>();
             _folder = AppDomain.CurrentDomain.BaseDirectory;
         }
 
-
-        public static void SetDirectory(string directory)
-        {
-            _directory = directory;
-        }
-
-
         /// <summary>
         /// 注册插件
         /// </summary>
         /// <param name="dllInfo">键值是DLL的名称，值是调用这个DLL启动类的名称</param>
         /// <param name="directory"></param>
-        public static void RegistPlugin(Dictionary<string, string> dllInfo, string directory=null)
+        public static void RegistPlugin(Dictionary<string, string> dllInfo)
         {
-            if (!string.IsNullOrEmpty(directory))
-            {
-                _folder = Path.Combine(_folder, directory);
-                if (!Directory.Exists(_folder))
-                    Directory.CreateDirectory(_folder);
-            }
+            _folder = Path.Combine(_folder, _directory);
+            if (!Directory.Exists(_folder))
+                Directory.CreateDirectory(_folder);
             foreach (var item in dllInfo)
             {
                 string fn = item.Key;
@@ -76,8 +67,28 @@ namespace Mily.Wind.Plugin
                 return result;
             }
         }
-        
 
+        /// <summary>
+        /// 注册插件
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static byte[] RegistPlugin(IFormFile file)
+        {
+            if (!Directory.Exists(PluginConfig.PluginRoute))
+            {
+                Directory.CreateDirectory(PluginConfig.PluginRoute);
+            }
+            var filePath = Path.Combine(PluginConfig.PluginRoute, file.FileName);
+            if (File.Exists(filePath)) File.Delete(filePath);
+            using FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.ReadWrite);
+            file.CopyTo(fs);
+            byte[] buffer = new byte[fs.Length];
+            fs.Read(buffer, 0, buffer.Length);
+            fs.Seek(0, SeekOrigin.Begin);
+            fs.Flush();
+            return buffer;
+        }
 
 
     }

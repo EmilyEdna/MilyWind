@@ -21,8 +21,6 @@ namespace Mily.Wind.Extens.SystemConfig
         {
             MilyMapperResult result = new MilyMapperResult();
             action(result);
-            if (result.Code != DSConst.DS002 && result.MapTo == null)
-                throw new ArgumentNullException($"{nameof(MapTo)} can't be null");
             return result;
         }
 

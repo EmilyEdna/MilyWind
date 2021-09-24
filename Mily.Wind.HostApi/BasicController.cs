@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Logic.Excepted;
 using Mily.Wind.Logic.Main;
+using Mily.Wind.Logic.Plugin;
 
 namespace Mily.Wind.HostApi
 {
@@ -21,5 +22,6 @@ namespace Mily.Wind.HostApi
         }
         protected IMainLogic MainLogic = IocManager.GetService<IMainLogic>();
         protected ILogLogic LogLogic = IocManager.GetService<ILogLogic>();
+        protected IPluginLogic PluginLogic = IocManager.GetService<IPluginLogic>();
     }
 }

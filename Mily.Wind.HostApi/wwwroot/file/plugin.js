@@ -54,6 +54,12 @@ var option = {
                 var template = [];
                 for (var i = 0; i < files.length; i++) {
                     var name = files[i].name;
+                    let reg = /(.*?).dll/g;
+                    if (!reg.test(name)) {
+                        $("#filecontent").attr("title", "文件类型错误，仅支持.dll的文件");
+                        $("#filecontent").tooltip("show");
+                        return;
+                    }
                     if (files[i].name.length > 10) {
                         name = `${files[i].name.substring(0, 10)}..`;
                     }
@@ -62,24 +68,24 @@ var option = {
                 $("#filecontent").html(template);
                 Array.prototype.push.apply(option.CurrentFileArray, files);
             }
-            else
-                throw new Error("超出文件上传数量，目前只支持上传3个以下，为了样式好看。");
-
+            else {
+                $("#filecontent").attr("title", "超出文件上传数量，目前只支持上传3个以下，为了样式好看。");
+                $("#filecontent").tooltip("show");
+            }
         });
         $("#Upload").click(() => {
             var data = new FormData();
-            var arr = [];
             if (option.CurrentIndexArray.length!=0) {
                 for (var item in option.CurrentIndexArray) {
-                    arr.push(option.CurrentFileArray[item]);
+                    var index = option.CurrentIndexArray[item];
+                    data.append("files", option.CurrentFileArray[index]);
                 }
             } else {
                 for (var item in option.CurrentFileArray) {
                     if (item == "length") continue;
-                    arr.push(option.CurrentFileArray[Number(item)]);
+                    data.append("files", option.CurrentFileArray[item]);
                 }
             }
-            data.append("files", arr);
             $.ajax({
                 contentType: false,
                 processData: false,
@@ -88,7 +94,10 @@ var option = {
                 type: "post",
                 async: false,
                 success: (res) => {
-                    debugger
+                  var newarr =  res.Result.filter((e) => {
+                        if (e.success) return e.FileName;
+                    });
+                    debugger;
                 }
             })
 
