@@ -87,9 +87,17 @@ namespace Mily.Wind.Plugin
             fs.Read(buffer, 0, buffer.Length);
             fs.Seek(0, SeekOrigin.Begin);
             fs.Flush();
+            RegistClassAndMethod(buffer);
             return buffer;
         }
+        public static Task RegistClassAndMethod(byte[] buffer)
+        {
+            using var stream = new MemoryStream(buffer);
+            PluginLoadContext context = new PluginLoadContext();
+            var assembly = context.LoadFromStream(stream);
+          var xx =  assembly.GetTypes();
 
-
+           return Task.CompletedTask;
+        }
     }
 }

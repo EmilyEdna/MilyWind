@@ -36,14 +36,6 @@ namespace Mily.Wind.Plugin.Infos
         /// </summary>
         public bool IsEable { get; set; } = true;
         /// <summary>
-        /// 显示组件下所有类
-        /// </summary>
-        public bool ShowAllClass { get; set; } = false;
-        /// <summary>
-        /// 显示类下面的方法
-        /// </summary>
-        public bool ShowAllMethodOfClass { get; set; } = false;
-        /// <summary>
         /// 插件版本号
         /// </summary>
         public int PluginVersion { get; set; } = 1;
