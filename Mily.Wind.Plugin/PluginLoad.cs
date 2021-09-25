@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Mily.Wind.Plugin.Infos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using XExten.Advance.CacheFramework.MongoDbCache;
+using XExten.Advance.LinqFramework;
 
 namespace Mily.Wind.Plugin
 {
@@ -83,21 +87,46 @@ namespace Mily.Wind.Plugin
             if (File.Exists(filePath)) File.Delete(filePath);
             using FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.ReadWrite);
             file.CopyTo(fs);
-            byte[] buffer = new byte[fs.Length];
-            fs.Read(buffer, 0, buffer.Length);
-            fs.Seek(0, SeekOrigin.Begin);
             fs.Flush();
-            RegistClassAndMethod(buffer);
+            var rtSteam = file.OpenReadStream();
+            byte[] buffer = new byte[rtSteam.Length];
+            rtSteam.Read(buffer, 0, buffer.Length);
+            rtSteam.Seek(0, SeekOrigin.Begin);
             return buffer;
         }
-        public static Task RegistClassAndMethod(byte[] buffer)
+        public static Task RegistClassAndMethod(byte[] buffer, string PluginId)
         {
             using var stream = new MemoryStream(buffer);
             PluginLoadContext context = new PluginLoadContext();
             var assembly = context.LoadFromStream(stream);
-          var xx =  assembly.GetTypes();
-
-           return Task.CompletedTask;
+            List<PluginClassInfo> ClassInfos = new List<PluginClassInfo>();
+            List<PluginMethodInfo> MethodInfos = new List<PluginMethodInfo>();
+            string[] Mehtonds = { "GetType", "ToString", "Equals", "GetHashCode" };
+            assembly.GetTypes().ForEnumerEach(item =>
+            {
+                var ClassInfo = new PluginClassInfo
+                {
+                    ClassDescription = item.GetCustomAttribute<DescriptionAttribute>()?.Description,
+                    Id = Guid.NewGuid(),
+                    ClassName = item.Name,
+                    PluginId = PluginId
+                };
+                ClassInfos.Add(ClassInfo);
+                item.GetMethods().Where(t => !Mehtonds.Contains(t.Name)).ForEnumerEach(items =>
+                {
+                    var MethodInfo = new PluginMethodInfo
+                    {
+                        MethodDescription = items.GetCustomAttribute<DescriptionAttribute>()?.Description,
+                        MethodName = items.Name,
+                        PluginClassId = ClassInfo.Id.ToString(),
+                        PluginId = PluginId
+                    };
+                    MethodInfos.Add(MethodInfo);
+                });
+            });
+            MongoDbCaches.InsertMany(ClassInfos);
+            MongoDbCaches.InsertMany(MethodInfos);
+            return Task.CompletedTask;
         }
     }
 }

@@ -39,10 +39,12 @@ namespace Mily.Wind.Logic.Plugin
                 {
                     var info = new PluginInfo
                     {
+                        Id=Guid.NewGuid(),
                         PluginSize = Math.Ceiling(item.Length * 1.0 / 1024) + "KB",
                         PluginName = item.FileName,
                         Files = buffer
                     };
+                    PluginLoad.RegistClassAndMethod(buffer, info.Id.ToString());
                     pluginInfos.Add(info);
                 }
             }
