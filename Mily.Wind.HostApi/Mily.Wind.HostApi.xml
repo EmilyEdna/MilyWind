@@ -65,5 +65,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.AlterPlugin(Mily.Wind.VMod.Mogo.Input.PluginAlterInput)">
+            <summary>
+            更新插件的别名
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

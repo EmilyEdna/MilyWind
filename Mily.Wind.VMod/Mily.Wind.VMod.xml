@@ -188,6 +188,21 @@
             每页数量
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.PluginAlias">
+            <summary>
+            别名
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.Type">
+            <summary>
+            操作类型 1启用 0禁用 -1删除
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PluginAlias">
             <summary>
             插件别名

@@ -55,5 +55,19 @@ namespace Mily.Wind.HostApi.Controllers
                 t.Result = data;
             });
         }
+        /// <summary>
+        /// 更新插件的别名
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<bool>> AlterPlugin(PluginAlterInput input) 
+        {
+            var data = PluginLogic.AlterPlugin(input);
+            return MilyCtrlResult<bool>.CreateResult(t =>
+            {
+                t.Code = data.Code;
+                t.Result = (bool)data.Result;
+            });
+        }
     }
 }

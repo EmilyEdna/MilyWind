@@ -16,6 +16,11 @@ var option = {
     },
     InitDom: () => {
         option.InitEvent.Search(option.SearchData);
+        $("#Search").click(() => {
+            option.SearchData.IsEable = $("#State").find("option:selected").val();
+            option.SearchData.PluginAlias = $("#NickName").val();
+            option.InitEvent.Search(option.SearchData);
+        });
     },
     InitEvent: {
         Ajax: (e) => {
@@ -71,18 +76,59 @@ var option = {
             });
         },
         Handler: (e, t) => {
-            debugger;
+            var res = option.InitEvent.Ajax({
+                url: "/Plugin/AlterPlugin",
+                param: { Id: e, Type: t },
+                type: "put"
+            });
+            if (res.HttpCode != 200)
+                throw new Error("服务器异常");
+            option.InitEvent.Search(option.SearchData);
         },
         Alter: (e) => {
-            var x = $(e);
-            debugger;
+            option.InitEvent.Ajax({
+                url: "/Plugin/AlterPlugin",
+                param: { Id: $(e).data().id, PluginAlias: $(e).val() },
+                type: "put"
+            });
+        },
+        Next: () => {
+            let page = Number($("#CurrentPage").val()) + 1;
+            if (page > Number($("#TotalPage").text()))
+                throw new Error("页码不能大于总页数");
+            $("#CurrentPage").val(page);
+            option.SearchData.IsEable = $("#State").find("option:selected").val();
+            option.SearchData.PluginAlias = $("#NickName").val();
+            option.SearchData.PageIndex = $("#CurrentPage").val() - 1;
+            option.InitEvent.Search(option.SearchData);
+        },
+        Last: () => {
+            let page = Number($("#CurrentPage").val()) - 1;
+            if (page <= 0)
+                throw new Error("页码不能小于等于0");
+            $("#CurrentPage").val(page);
+            option.SearchData.IsEable = $("#State").find("option:selected").val();
+            option.SearchData.PluginAlias = $("#NickName").val();
+            option.SearchData.PageIndex = $("#CurrentPage").val() - 1;
+            option.InitEvent.Search(option.SearchData);
+        },
+        Ret: () => {
+            let page = Number($("#CurrentPage").val());
+            if (page - 1 < 0)
+                throw new Error("页码不能小于0");
+            if (page + 1 > Number($("#TotalPage").text()))
+                throw new Error("页码不能大于总页数");
+            option.SearchData.IsEable = $("#State").find("option:selected").val();
+            option.SearchData.PluginAlias = $("#NickName").val();
+            option.SearchData.PageIndex = $("#CurrentPage").val() - 1;
+            option.InitEvent.Search(option.SearchData);
         }
     },
     InitAction: () => {
         $(".input-group-addon").on("click", () => {
             $("#file").trigger('click');
         });
-        $("#file").on("change", (e) => {
+        $("#file").change((e) => {
             var files = $(e.target)[0].files;
             if (files.length <= 3) {
                 var template = [];
@@ -109,7 +155,7 @@ var option = {
         });
         $("#Upload").click(() => {
             var data = new FormData();
-            if (option.CurrentIndexArray.length!=0) {
+            if (option.CurrentIndexArray.length != 0) {
                 for (var item in option.CurrentIndexArray) {
                     var index = option.CurrentIndexArray[item];
                     data.append("files", option.CurrentFileArray[index]);

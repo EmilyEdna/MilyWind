@@ -65,5 +65,21 @@ namespace Mily.Wind.Logic.Plugin
                 Total = query.Count()
             });
         }
+
+        public MilyMapperResult AlterPlugin(PluginAlterInput input)
+        {
+            if (!input.Type.HasValue)
+                Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, nameof(input.PluginAlias), input.PluginAlias);
+            else
+            {
+                if(input.Type.Value==1)
+                    Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, "IsEable", "true");
+                else if (input.Type.Value == 0)
+                    Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, "IsEable", "false");
+                else
+                    Caches.MongoDBCacheRemove<PluginInfo>(t => t.Id == input.Id);
+            }
+            return MilyMapperResult.DefaultSuccess(true);
+        }
     }
 }
