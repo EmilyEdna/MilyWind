@@ -33,6 +33,7 @@ namespace Mily.Wind.Logic.Plugin
                     plugin.PluginVersion += 1;
                     plugin.PluginSize = Math.Ceiling(item.Length * 1.0 / 1024) + "KB";
                     plugin.Files = buffer;
+                    PluginLoad.RegistClassAndMethod(buffer, plugin.Id.ToString());
                     MongoDbCaches.UpdateMany(t => t.Id == plugin.Id, plugin);
                 }
                 else
@@ -61,9 +62,15 @@ namespace Mily.Wind.Logic.Plugin
             if (!input.PluginAlias.IsNullOrEmpty())
                 query = query.Where(t => t.PluginAlias == input.PluginAlias);
             var detail = query.OrderByDescending(t => t.RegistTime).Skip(input.PageIndex * input.PageSize).Take(input.PageSize).ToList();
+           var Result =  detail.ToMapest<List<PluginMapperInfo>>();
+            foreach (var item in Result)
+            {
+                item.ClassInfo = MongoDbCaches.SearchMany<PluginClassInfo>(t => t.PluginId == item.Id.ToString()).ToMapest<List<PluginClassMapperInfo>>();
+                item.MethodInfo = MongoDbCaches.SearchMany<PluginMethodInfo>(t => t.PluginId == item.Id.ToString()).ToMapest<List<PluginMethodMapperInfo>>();
+            }
             return MilyMapperResult.Success<PluginOutput>(new PluginOutput
             {
-                Detail = detail.ToMapest<List<PluginMapperInfo>>(),
+                Detail = Result,
                 Total = query.Count()
             });
         }

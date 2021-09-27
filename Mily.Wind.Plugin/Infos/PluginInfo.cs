@@ -42,6 +42,7 @@ namespace Mily.Wind.Plugin.Infos
         /// <summary>
         /// 插件注册时间
         /// </summary>
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? RegistTime { get; set; } = DateTime.Now;
         /// <summary>
         /// 文件内容

@@ -17,6 +17,7 @@ namespace Mily.Wind.VMod.Mogo
         public int? TenantId { get; set; }
         public string TargetTable { get; set; }
         public string HandleLogs { get; set; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? HandleTime { get; set; }
     }
 }

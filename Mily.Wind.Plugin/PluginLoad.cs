@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Mily.Wind.Plugin.Infos;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -124,6 +125,9 @@ namespace Mily.Wind.Plugin
                     MethodInfos.Add(MethodInfo);
                 });
             });
+            var Id = new string[] { PluginId };
+            MongoDbCaches.Instance.GetCollection<PluginMethodInfo>(nameof(PluginMethodInfo)).DeleteMany(Builders<PluginMethodInfo>.Filter.In(t=>t.PluginId, Id));
+            MongoDbCaches.Instance.GetCollection<PluginClassInfo>(nameof(PluginClassInfo)).DeleteMany(Builders<PluginClassInfo>.Filter.In(t => t.PluginId, Id));
             MongoDbCaches.InsertMany(ClassInfos);
             MongoDbCaches.InsertMany(MethodInfos);
             return Task.CompletedTask;

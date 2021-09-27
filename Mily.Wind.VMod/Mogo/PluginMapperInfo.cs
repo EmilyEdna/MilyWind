@@ -29,13 +29,6 @@ namespace Mily.Wind.VMod.Mogo
         /// 是否启用
         /// </summary>
         public bool IsEable { get; set; } 
-        /// 显示组件下所有类
-        /// </summary>
-        public bool ShowAllClass { get; set; }
-        /// <summary>
-        /// 显示类下面的方法
-        /// </summary>
-        public bool ShowAllMethodOfClass { get; set; } 
         /// <summary>
         /// 插件版本号
         /// </summary>
@@ -45,8 +38,12 @@ namespace Mily.Wind.VMod.Mogo
         /// </summary>
         public DateTime? RegistTime { get; set; } 
         /// <summary>
-        /// 文件内容
+        /// 方法信息
         /// </summary>
-        public byte[] Files { get; set; }
+        public List<PluginMethodMapperInfo> MethodInfo { get; set; }
+        /// <summary>
+        /// 类信息
+        /// </summary>
+        public List<PluginClassMapperInfo> ClassInfo { get; set; }
     }
 }
