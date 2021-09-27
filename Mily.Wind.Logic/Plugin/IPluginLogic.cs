@@ -15,5 +15,7 @@ namespace Mily.Wind.Logic.Plugin
         MilyMapperResult UploadPlugin(List<IFormFile> files);
         MilyMapperResult GetPluginPage(PluginInput input);
         MilyMapperResult AlterPlugin(PluginAlterInput input);
+        MilyMapperResult GetPluginClassList(string input);
+        MilyMapperResult GetPluginMethodList(string input);
     }
 }

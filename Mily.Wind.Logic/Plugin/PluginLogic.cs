@@ -21,6 +21,7 @@ namespace Mily.Wind.Logic.Plugin
     [Interceptor]
     public class PluginLogic : IPluginLogic
     {
+        [Actions]
         public MilyMapperResult UploadPlugin(List<IFormFile> files)
         {
             List<PluginInfo> pluginInfos = new List<PluginInfo>();
@@ -40,7 +41,7 @@ namespace Mily.Wind.Logic.Plugin
                 {
                     var info = new PluginInfo
                     {
-                        Id=Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         PluginSize = Math.Ceiling(item.Length * 1.0 / 1024) + "KB",
                         PluginName = item.FileName,
                         Files = buffer
@@ -53,7 +54,7 @@ namespace Mily.Wind.Logic.Plugin
                 MongoDbCaches.InsertMany(pluginInfos);
             return MilyMapperResult.DefaultSuccess(true);
         }
-
+        [Actions]
         public MilyMapperResult GetPluginPage(PluginInput input)
         {
             var query = MongoDbCaches.Query<PluginInfo>().AsQueryable();
@@ -62,26 +63,20 @@ namespace Mily.Wind.Logic.Plugin
             if (!input.PluginAlias.IsNullOrEmpty())
                 query = query.Where(t => t.PluginAlias == input.PluginAlias);
             var detail = query.OrderByDescending(t => t.RegistTime).Skip(input.PageIndex * input.PageSize).Take(input.PageSize).ToList();
-           var Result =  detail.ToMapest<List<PluginMapperInfo>>();
-            foreach (var item in Result)
-            {
-                item.ClassInfo = MongoDbCaches.SearchMany<PluginClassInfo>(t => t.PluginId == item.Id.ToString()).ToMapest<List<PluginClassMapperInfo>>();
-                item.MethodInfo = MongoDbCaches.SearchMany<PluginMethodInfo>(t => t.PluginId == item.Id.ToString()).ToMapest<List<PluginMethodMapperInfo>>();
-            }
             return MilyMapperResult.Success<PluginOutput>(new PluginOutput
             {
-                Detail = Result,
+                Detail = detail.ToMapest<List<PluginMapperInfo>>(),
                 Total = query.Count()
             });
         }
-
+        [Actions]
         public MilyMapperResult AlterPlugin(PluginAlterInput input)
         {
             if (!input.Type.HasValue)
                 Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, nameof(input.PluginAlias), input.PluginAlias);
             else
             {
-                if(input.Type.Value==1)
+                if (input.Type.Value == 1)
                     Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, "IsEable", "true");
                 else if (input.Type.Value == 0)
                     Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, "IsEable", "false");
@@ -89,6 +84,25 @@ namespace Mily.Wind.Logic.Plugin
                     Caches.MongoDBCacheRemove<PluginInfo>(t => t.Id == input.Id);
             }
             return MilyMapperResult.DefaultSuccess(true);
+        }
+        [Actions]
+        public MilyMapperResult GetPluginClassList(string input)
+        {
+
+            var data = MongoDbCaches.SearchMany<PluginClassInfo>(t => t.PluginId == input).ToMapest<List<PluginClassMapperInfo>>();
+            return MilyMapperResult.Success<PluginClassInfoOutput>(new PluginClassInfoOutput
+            {
+                Detail = data
+            });
+        }
+        [Actions]
+        public MilyMapperResult GetPluginMethodList(string input)
+        {
+            var data = MongoDbCaches.SearchMany<PluginMethodInfo>(t => t.PluginId == input).ToMapest<List<PluginMethodMapperInfo>>();
+            return MilyMapperResult.Success<PluginMethodInfoOutput>(new PluginMethodInfoOutput
+            {
+                Detail = data
+            });
         }
     }
 }

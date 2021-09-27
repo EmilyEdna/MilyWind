@@ -60,13 +60,43 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> AlterPlugin(PluginAlterInput input) 
+        public ActionResult<MilyCtrlResult<bool>> AlterPlugin(PluginAlterInput input)
         {
             var data = PluginLogic.AlterPlugin(input);
             return MilyCtrlResult<bool>.CreateResult(t =>
             {
                 t.Code = data.Code;
                 t.Result = (bool)data.Result;
+            });
+        }
+        /// <summary>
+        /// 获取插件类信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<PluginClassInfoOutput>> GetPluginClassList(string input)
+        {
+            var data = PluginLogic.GetPluginClassList(input).Result.Transfer<PluginClassInfoOutput>();
+            return MilyCtrlResult<PluginClassInfoOutput>.CreateResult(t =>
+            {
+                t.Code = data.DSCode;
+                t.Result = data;
+            });
+        }
+        /// <summary>
+        /// 获取插件方法信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<PluginMethodInfoOutput>> GetPluginMethodList(string input)
+        {
+            var data = PluginLogic.GetPluginMethodList(input).Result.Transfer<PluginMethodInfoOutput>();
+            return MilyCtrlResult<PluginMethodInfoOutput>.CreateResult(t =>
+            {
+                t.Code = data.DSCode;
+                t.Result = data;
             });
         }
     }

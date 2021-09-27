@@ -37,13 +37,5 @@ namespace Mily.Wind.VMod.Mogo
         /// 插件注册时间
         /// </summary>
         public DateTime? RegistTime { get; set; } 
-        /// <summary>
-        /// 方法信息
-        /// </summary>
-        public List<PluginMethodMapperInfo> MethodInfo { get; set; }
-        /// <summary>
-        /// 类信息
-        /// </summary>
-        public List<PluginClassMapperInfo> ClassInfo { get; set; }
     }
 }
