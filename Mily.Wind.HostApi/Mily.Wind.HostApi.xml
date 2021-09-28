@@ -71,5 +71,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginClassList(System.String)">
+            <summary>
+            获取插件类信息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginMethodList(System.String)">
+            <summary>
+            获取插件方法信息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

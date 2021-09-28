@@ -203,6 +203,16 @@
             操作类型 1启用 0禁用 -1删除
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginClassMethodSearchInput.PluginId">
+            <summary>
+            插件Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginClassMethodSearchInput.SearchType">
+            <summary>
+            查询类型 1查询类2查询方法
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PluginAlias">
             <summary>
             插件别名
@@ -266,16 +276,6 @@
         <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.RegistTime">
             <summary>
             插件注册时间
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.MethodInfo">
-            <summary>
-            方法信息
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.ClassInfo">
-            <summary>
-            类信息
             </summary>
         </member>
         <member name="P:Mily.Wind.VMod.Mogo.PluginMethodMapperInfo.MethodName">
