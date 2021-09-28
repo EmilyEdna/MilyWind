@@ -74,6 +74,7 @@ var option = {
                     .replace("{Id}", option.InitEvent.Check(item.Id))
                     .replace("{Id}", option.InitEvent.Check(item.Id))
                     .replace("{Id}", option.InitEvent.Check(item.Id))
+                    .replace("{Id}", option.InitEvent.Check(item.Id))
                     .replace("{Id}", option.InitEvent.Check(item.Id)));
             });
         },
@@ -126,15 +127,26 @@ var option = {
             option.InitEvent.Search(option.SearchData);
         },
         OpenOrClose: (e) => {
-            if ($(e).data().set == "1")
-            {
+            if ($(e).data().set == "1") {
                 $(e).html(Less);
                 $(e).data("set", "2");
+                var inner = $(e).parent().parent().parent().parent().parent();
+                var res = option.InitEvent.Ajax({
+                    url: "/Plugin/GetPluginClassList?input=" + $(e).data().id,
+                    type: "get"
+                });
+                let html = '';
+                res.Result.Detail.forEach((item, index) => {
+                    html += `<tr><td class="text-center">${item.ClassName}</td><td class="text-center">${item.ClassDescription}</td></tr>`;
+                });
+                var content = option.DataTemplate.replace("{id}", $(e).data().id).replace("{CM}", "类").replace("{CM}", "类").replace("{Content}", html);
+                inner.append(content);
                 return;
             }
             if ($(e).data().set == "2") {
                 $(e).html(More);
                 $(e).data("set", "1");
+                $("#" + $(e).data().id).remove();
                 return;
             }
         }
@@ -199,7 +211,7 @@ var option = {
         });
     },
     Template: `<tr>
-                        <td class="text-center"><div class="row"><div class="col-md-4"></div><div class="col-md-1"><span onclick="option.InitEvent.OpenOrClose(this)" data-set="1">${More}</span></div><div class="col-md-1">{Name}</div></div></td>
+                        <td class="text-center"><div class="row"><div class="col-md-4"></div><div class="col-md-1"><span onclick="option.InitEvent.OpenOrClose(this)" data-set="1" data-id="{Id}">${More}</span></div><div class="col-md-1">{Name}</div></div></td>
                         <td class="text-center"><input type="text" style="border:none;outline:none;" value="{NickName}" data-id="{Id}" onchange="option.InitEvent.Alter(this)"/></td>
                         <td class="text-center">{Size}</td>
                         <td class="text-center">{Time}</td>
@@ -210,5 +222,20 @@ var option = {
                             <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Handler('{Id}',0)" style="outline: none;">禁用</button>
                             <button class="btn btn-sm btn-danger" onclick="option.InitEvent.Handler('{Id}',-1)" style="outline: none;">删除</button>
                         </td>
-                   </tr>`
+                   </tr>`,
+    DataTemplate: `<tr id="{id}">
+    <td colspan="7">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <td class="text-center text-success">{CM}信息</td>
+                    <td class="text-center text-success">{CM}描述</td>
+                </tr>
+            </thead>
+            <tbody>
+                {Content}
+            </tbody>
+        </table>
+    </td>
+</tr>`
 };
