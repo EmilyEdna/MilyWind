@@ -38,7 +38,6 @@ namespace Mily.Wind.Plugin
                 return result;
             }
         }
-
         /// <summary>
         /// 注册插件
         /// </summary>
