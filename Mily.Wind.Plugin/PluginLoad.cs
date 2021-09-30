@@ -17,15 +17,6 @@ namespace Mily.Wind.Plugin
 {
     public class PluginLoad
     {
-        private static Dictionary<string, Tuple<string, byte[]>> _itemSource;
-        private static string _folder = string.Empty;
-        private static string _directory = "plugin";
-        static PluginLoad()
-        {
-            _itemSource = new Dictionary<string, Tuple<string, byte[]>>();
-            _folder = AppDomain.CurrentDomain.BaseDirectory;
-        }
-
         /// <summary>
         /// 调用插件 例如: PluginLoad.Excute("lib1", "libtest1", "test1", new object[] { "张三"});
         /// </summary>
