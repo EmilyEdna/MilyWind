@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using XExten.Advance.CacheFramework;
 using XExten.Advance.CacheFramework.MongoDbCache;
 using XExten.Advance.LinqFramework;
 
@@ -26,48 +27,22 @@ namespace Mily.Wind.Plugin
         }
 
         /// <summary>
-        /// 注册插件
+        /// 调用插件 例如: PluginLoad.Excute("lib1", "libtest1", "test1", new object[] { "张三"});
         /// </summary>
-        /// <param name="dllInfo">键值是DLL的名称，值是调用这个DLL启动类的名称</param>
-        /// <param name="directory"></param>
-        public static void RegistPlugin(Dictionary<string, string> dllInfo)
-        {
-            _folder = Path.Combine(_folder, _directory);
-            if (!Directory.Exists(_folder))
-                Directory.CreateDirectory(_folder);
-            foreach (var item in dllInfo)
-            {
-                string fn = item.Key;
-                if (!item.Key.Contains(".dll"))
-                    fn = $"{item.Key}.dll";
-                using (FileStream fs = new FileStream(Path.Combine(_folder, fn), FileMode.Open, FileAccess.Read))
-                {
-                    byte[] buffer = new byte[fs.Length];
-                    fs.Read(buffer, 0, buffer.Length);
-                    fs.Seek(0, SeekOrigin.Begin);
-                    _itemSource.TryAdd(item.Key, new Tuple<string, byte[]>(item.Value, buffer));
-                    fs.Close();
-                    fs.Dispose();
-                }
-            }
-        }
-        /// <summary>
-        /// 调用插件
-        /// </summary>
-        /// <param name="module">需要被执行的类，必须同注册插件中的启动类是同一个</param>
-        /// <param name="excuteMethod">需要执行的方法</param>
+        /// <param name="dllName"></param>
+        /// <param name="className"></param>
+        /// <param name="methodName"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static object Excute(string module, string excuteMethod, params object[] param)
+        public static object Excute(string dllName, string className,string methodName, params object[] param)
         {
-            var state = _itemSource.TryGetValue(module, out Tuple<string, byte[]> ass);
-            if (state == false) return null;
-            using (var stream = new MemoryStream(ass.Item2))
+            PluginInfo Info = Caches.MongoDBCacheGet<PluginInfo>(t => t.PluginName.ToLower() == $"{dllName}.dll".ToLower() && t.IsEable == true);
+            using (var stream = new MemoryStream(Info.Files))
             {
                 PluginLoadContext context = new PluginLoadContext();
                 var assembly = context.LoadFromStream(stream);
-                var type = assembly.GetTypes().FirstOrDefault(t => t.Name.Equals(ass.Item1));
-                var result = type.GetMethod(excuteMethod).Invoke(Activator.CreateInstance(type), param);
+                var type = assembly.GetTypes().FirstOrDefault(t => t.Name.ToLower().Equals(className.ToLower()));
+                var result = type.GetMethods().FirstOrDefault(t => t.Name.ToLower() == methodName).Invoke(Activator.CreateInstance(type), param);
                 context.Unload();
                 return result;
             }
@@ -95,6 +70,12 @@ namespace Mily.Wind.Plugin
             rtSteam.Seek(0, SeekOrigin.Begin);
             return buffer;
         }
+        /// <summary>
+        /// 注册类和方法名称
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="PluginId"></param>
+        /// <returns></returns>
         public static Task RegistClassAndMethod(byte[] buffer, string PluginId)
         {
             using var stream = new MemoryStream(buffer);

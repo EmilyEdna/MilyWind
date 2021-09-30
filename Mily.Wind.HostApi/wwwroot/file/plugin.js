@@ -139,18 +139,45 @@ var option = {
                 res.Result.Detail.forEach((item, index) => {
                     html += `<tr>
     <td class="text-center">
-        <div class="row">
-        <div class="col-md-5"></div>
-        <div class="col-md-1">
-            <span onclick="option.InitEvent.OpenOrCloseMethod(this)" data-set="1" data-id="${item}">${More}</span>
-        </div>
-        <div class="col-md-1"> ${item.ClassName}</div>
-        </div>
+         <span onclick="option.InitEvent.OpenOrCloseMethod(this)" data-set="1" data-id="${item.Id}" style="position:absolute;">${More}</span>
+          <span style="margin-left:20px;">${item.ClassName}</span>
     </td>
     <td class="text-center">${item.ClassDescription}</td>
 </tr>`;
                 });
-                var content = option.DataTemplate.replace("{id}", $(e).data().id).replace("{CM}", "类").replace("{CM}", "类").replace("{Content}", html);
+                var content = option.DataTemplate.replace("{col}",7)
+                    .replace("{id}", $(e).data().id)
+                    .replace("{CM}", "类")
+                    .replace("{CM}", "类")
+                    .replace("{Content}", html);
+                inner.append(content);
+                return;
+            }
+            if ($(e).data().set == "2") {
+                $(e).html(More);
+                $(e).data("set", "1");
+                $("#" + $(e).data().id).remove();
+                return;
+            }
+        },
+        OpenOrCloseMethod: (e) => {
+            if ($(e).data().set == "1") {
+                $(e).html(Less);
+                $(e).data("set", "2");
+                var inner = $(e).parent().parent().parent().parent();
+                var res = option.InitEvent.Ajax({
+                    url: "/Plugin/GetPluginMethodList?input=" + $(e).data().id,
+                    type: "get"
+                });
+                let html = '';
+                res.Result.Detail.forEach((item, index) => {
+                    html += `<tr><td class="text-center">${item.MethodName}</td><td class="text-center">${item.MethodDescription}</td></tr>`;
+                });
+                var content = option.DataTemplate.replace("{col}", 2)
+                    .replace("{id}", $(e).data().id)
+                    .replace("{CM}", "方法")
+                    .replace("{CM}", "方法")
+                    .replace("{Content}", html);
                 inner.append(content);
                 return;
             }
@@ -223,7 +250,7 @@ var option = {
     },
     Template: `<tr>
                         <td class="text-center"><div class="row"><div class="col-md-4"></div><div class="col-md-1"><span onclick="option.InitEvent.OpenOrCloseClass(this)" data-set="1" data-id="{Id}">${More}</span></div><div class="col-md-1">{Name}</div></div></td>
-                        <td class="text-center"><input type="text" style="border:none;outline:none;" value="{NickName}" data-id="{Id}" onchange="option.InitEvent.Alter(this)"/></td>
+                        <td class="text-center"><input type="text" class="text-center" style="border:none;outline:none;" value="{NickName}" data-id="{Id}" onchange="option.InitEvent.Alter(this)"/></td>
                         <td class="text-center">{Size}</td>
                         <td class="text-center">{Time}</td>
                         <td class="text-center">{Version}</td>
@@ -235,7 +262,7 @@ var option = {
                         </td>
                    </tr>`,
     DataTemplate: `<tr id="{id}">
-    <td colspan="7">
+    <td colspan="{col}">
         <table class="table table-responsive">
             <thead>
                 <tr>
