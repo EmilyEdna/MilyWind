@@ -233,6 +233,11 @@
             每页数量
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginClassMapperInfo.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.PluginClassMapperInfo.ClassName">
             <summary>
             类名称

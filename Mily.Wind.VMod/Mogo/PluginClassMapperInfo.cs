@@ -9,6 +9,10 @@ namespace Mily.Wind.VMod.Mogo
     public class PluginClassMapperInfo
     {
         /// <summary>
+        /// 主键
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
         /// 类名称
         /// </summary>
         public string ClassName { get; set; }

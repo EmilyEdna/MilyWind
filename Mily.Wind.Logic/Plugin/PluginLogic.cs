@@ -98,7 +98,7 @@ namespace Mily.Wind.Logic.Plugin
         [Actions]
         public MilyMapperResult GetPluginMethodList(string input)
         {
-            var data = MongoDbCaches.SearchMany<PluginMethodInfo>(t => t.PluginId == input).ToMapest<List<PluginMethodMapperInfo>>();
+            var data = MongoDbCaches.SearchMany<PluginMethodInfo>(t => t.PluginClassId == input).ToMapest<List<PluginMethodMapperInfo>>();
             return MilyMapperResult.Success<PluginMethodInfoOutput>(new PluginMethodInfoOutput
             {
                 Detail = data
