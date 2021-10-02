@@ -81,7 +81,7 @@ namespace Mily.Wind.Logic.Plugin
                 else if (input.Type.Value == 0)
                     Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, "IsEable", "false");
                 else
-                    Caches.MongoDBCacheRemove<PluginInfo>(t => t.Id == input.Id);
+                    PluginLoad.RemovePlugin(input.Id);
             }
             return MilyMapperResult.DefaultSuccess(true);
         }

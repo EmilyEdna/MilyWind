@@ -91,7 +91,8 @@ namespace Mily.Wind.Plugin
                         MethodDescription = items.GetCustomAttribute<DescriptionAttribute>()?.Description,
                         MethodName = items.Name,
                         PluginClassId = ClassInfo.Id.ToString(),
-                        PluginId = PluginId
+                        PluginId = PluginId,
+                        ExcuteValue= $"{assembly.GetName().Name}-{item.Name}-{item.FullName}"
                     };
                     MethodInfos.Add(MethodInfo);
                 });
@@ -101,6 +102,19 @@ namespace Mily.Wind.Plugin
             MongoDbCaches.Instance.GetCollection<PluginClassInfo>(nameof(PluginClassInfo)).DeleteMany(Builders<PluginClassInfo>.Filter.In(t => t.PluginId, Id));
             MongoDbCaches.InsertMany(ClassInfos);
             MongoDbCaches.InsertMany(MethodInfos);
+            return Task.CompletedTask;
+        }
+        /// <summary>
+        /// 删除插件
+        /// </summary>
+        /// <param name="PluginId"></param>
+        /// <returns></returns>
+        public static Task RemovePlugin(Guid PluginId) 
+        {
+            Caches.MongoDBCacheRemove<PluginInfo>(t => t.Id == PluginId);
+            var Id = new string[] { PluginId.ToString() };
+            MongoDbCaches.Instance.GetCollection<PluginMethodInfo>(nameof(PluginMethodInfo)).DeleteMany(Builders<PluginMethodInfo>.Filter.In(t => t.PluginId, Id));
+            MongoDbCaches.Instance.GetCollection<PluginClassInfo>(nameof(PluginClassInfo)).DeleteMany(Builders<PluginClassInfo>.Filter.In(t => t.PluginId, Id));
             return Task.CompletedTask;
         }
     }

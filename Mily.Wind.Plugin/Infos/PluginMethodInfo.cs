@@ -28,5 +28,13 @@ namespace Mily.Wind.Plugin.Infos
         /// 方法描述
         /// </summary>
         public string MethodDescription { get; set; }
+        /// <summary>
+        /// 执行方法的简写键
+        /// </summary>
+        public string ExcuteKey { get; set; }
+        /// <summary>
+        /// 执行方法的完整值
+        /// </summary>
+        public string ExcuteValue { get; set; }
     }
 }
