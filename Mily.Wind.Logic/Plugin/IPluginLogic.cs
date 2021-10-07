@@ -17,5 +17,6 @@ namespace Mily.Wind.Logic.Plugin
         MilyMapperResult AlterPlugin(PluginAlterInput input);
         MilyMapperResult GetPluginClassList(string input);
         MilyMapperResult GetPluginMethodList(string input);
+        MilyMapperResult GetPluginExcuteList();
     }
 }

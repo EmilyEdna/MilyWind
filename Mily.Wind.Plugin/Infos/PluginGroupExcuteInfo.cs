@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.Plugin.Infos
 {
-    public class PluginMethodInfo
+    public class PluginGroupExcuteInfo
     {
         [BsonId(IdGenerator = typeof(GuidGenerator))]
         public Guid Id { get; set; }
@@ -17,17 +17,16 @@ namespace Mily.Wind.Plugin.Infos
         /// </summary>
         public string PluginId { get; set; }
         /// <summary>
-        /// 插件类Id
+        /// 组别
         /// </summary>
-        public string PluginClassId { get; set; }
+        public string GroupName { get; set; }
         /// <summary>
-        /// 方法名称
+        /// 执行方法的简写键
         /// </summary>
-        public string MethodName { get; set; }
+        public string ExcuteKey { get; set; }
         /// <summary>
-        /// 方法描述
+        /// 执行方法的完整值
         /// </summary>
-        public string MethodDescription { get; set; }
-
+        public string ExcuteValue { get; set; }
     }
 }

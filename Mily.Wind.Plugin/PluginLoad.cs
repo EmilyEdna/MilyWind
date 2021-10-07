@@ -73,6 +73,7 @@ namespace Mily.Wind.Plugin
             var assembly = context.LoadFromStream(stream);
             List<PluginClassInfo> ClassInfos = new List<PluginClassInfo>();
             List<PluginMethodInfo> MethodInfos = new List<PluginMethodInfo>();
+            List<PluginGroupExcuteInfo> GroupInfos = new List<PluginGroupExcuteInfo>();
             string[] Mehtonds = { "GetType", "ToString", "Equals", "GetHashCode" };
             assembly.GetTypes().ForEnumerEach(item =>
             {
@@ -91,17 +92,25 @@ namespace Mily.Wind.Plugin
                         MethodDescription = items.GetCustomAttribute<DescriptionAttribute>()?.Description,
                         MethodName = items.Name,
                         PluginClassId = ClassInfo.Id.ToString(),
-                        PluginId = PluginId,
-                        ExcuteValue= $"{assembly.GetName().Name}-{item.Name}-{item.FullName}"
+                        PluginId = PluginId
                     };
                     MethodInfos.Add(MethodInfo);
+                    //插件的执行方法
+                    GroupInfos.Add(new PluginGroupExcuteInfo
+                    {
+                        ExcuteValue = $"{assembly.GetName().Name}-{item.Name}-{items.Name}",
+                        GroupName = $"{assembly.GetName().Name}-{item.Name}",
+                        PluginId = PluginId
+                    });
                 });
             });
             var Id = new string[] { PluginId };
             MongoDbCaches.Instance.GetCollection<PluginMethodInfo>(nameof(PluginMethodInfo)).DeleteMany(Builders<PluginMethodInfo>.Filter.In(t=>t.PluginId, Id));
             MongoDbCaches.Instance.GetCollection<PluginClassInfo>(nameof(PluginClassInfo)).DeleteMany(Builders<PluginClassInfo>.Filter.In(t => t.PluginId, Id));
+            MongoDbCaches.Instance.GetCollection<PluginGroupExcuteInfo>(nameof(PluginGroupExcuteInfo)).DeleteMany(Builders<PluginGroupExcuteInfo>.Filter.In(t => t.PluginId, Id));
             MongoDbCaches.InsertMany(ClassInfos);
             MongoDbCaches.InsertMany(MethodInfos);
+            MongoDbCaches.InsertMany(GroupInfos);
             return Task.CompletedTask;
         }
         /// <summary>
@@ -115,6 +124,7 @@ namespace Mily.Wind.Plugin
             var Id = new string[] { PluginId.ToString() };
             MongoDbCaches.Instance.GetCollection<PluginMethodInfo>(nameof(PluginMethodInfo)).DeleteMany(Builders<PluginMethodInfo>.Filter.In(t => t.PluginId, Id));
             MongoDbCaches.Instance.GetCollection<PluginClassInfo>(nameof(PluginClassInfo)).DeleteMany(Builders<PluginClassInfo>.Filter.In(t => t.PluginId, Id));
+            MongoDbCaches.Instance.GetCollection<PluginGroupExcuteInfo>(nameof(PluginGroupExcuteInfo)).DeleteMany(Builders<PluginGroupExcuteInfo>.Filter.In(t => t.PluginId, Id));
             return Task.CompletedTask;
         }
     }

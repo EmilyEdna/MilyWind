@@ -85,5 +85,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginExcuteList">
+             <summary>
+            获取组别的执行器
+             </summary>
+             <returns></returns>
+        </member>
     </members>
 </doc>

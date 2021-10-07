@@ -99,5 +99,19 @@ namespace Mily.Wind.HostApi.Controllers
                 t.Result = data;
             });
         }
+        /// <summary>
+        ///获取组别的执行器
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<List<PluginGroupInfoOutput>>> GetPluginExcuteList()
+        {
+            var data = PluginLogic.GetPluginExcuteList();
+            return MilyCtrlResult<List<PluginGroupInfoOutput>>.CreateResult(t =>
+            {
+                t.Code = data.Code;
+                t.Result = data.Result.Transfers<PluginGroupInfoOutput>();
+            });
+        }
     }
 }

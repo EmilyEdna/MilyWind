@@ -173,7 +173,7 @@ var option = {
                 res.Result.Detail.forEach((item, index) => {
                     html += `<tr><td class="text-center">${item.MethodName}</td><td class="text-center">${item.MethodDescription}</td></tr>`;
                 });
-                var content = option.DataTemplate.replace("{col}", 2)
+                var content = option.DataTemplate.replace("{col}", 7)
                     .replace("{id}", $(e).data().id)
                     .replace("{CM}", "方法")
                     .replace("{CM}", "方法")
@@ -266,8 +266,8 @@ var option = {
         <table class="table table-responsive">
             <thead>
                 <tr>
-                    <td class="text-center text-success">{CM}信息</td>
-                    <td class="text-center text-success">{CM}描述</td>
+                    <th class="text-center text-success" style="width:50%">{CM}信息</th>
+                    <th class="text-center text-success" style="width:50%">{CM}描述</th>
                 </tr>
             </thead>
             <tbody>

@@ -104,5 +104,20 @@ namespace Mily.Wind.Logic.Plugin
                 Detail = data
             });
         }
+        [Actions]
+        public MilyMapperResult GetPluginExcuteList()
+        {
+            var data = MongoDbCaches.SearchMany<PluginGroupExcuteInfo>(t => !string.IsNullOrEmpty(t.PluginId))
+                  .GroupBy(t => t.GroupName).Select(t => new PluginGroupInfoOutput
+                  {
+                      GroupName = t.Key,
+                      GroupValue = t.Select(x => new PluginGroupKVOutput
+                      {
+                          Key = x.ExcuteKey.IsNullOrEmpty() ? "" : x.ExcuteKey,
+                          Value = x.ExcuteValue
+                      }).ToList()
+                  }).ToList();
+            return MilyMapperResult.Success<List<PluginGroupInfoOutput>>(data);
+        }
     }
 }
