@@ -6,8 +6,8 @@ var option = {
         Start: null,
         End: null,
         LogLv: null,
-        PageIndex: 0,
-        PageSize: 20
+        PageIndex: 1,
+        PageSize: 10
     },
     Init: () => {
         option.InitDom();

@@ -9,7 +9,7 @@ var option = {
     SearchData: {
         IsEable: null,
         PluginAlias: null,
-        PageIndex: 0,
+        PageIndex: 1,
         PageSize: 10
     },
     Init: () => {
