@@ -213,6 +213,16 @@
             查询类型 1查询类2查询方法
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginExcuterAlterInput.Id">
+            <summary>
+            键Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginExcuterAlterInput.ExcuteKey">
+            <summary>
+            执行器键值
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PluginAlias">
             <summary>
             插件别名

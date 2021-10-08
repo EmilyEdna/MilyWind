@@ -23,6 +23,7 @@ var option = {
             option.SearchData.PluginAlias = $("#NickName").val();
             option.InitEvent.Search(option.SearchData);
         });
+        option.InitEvent.InitExcute();
     },
     InitEvent: {
         Ajax: (e) => {
@@ -187,6 +188,34 @@ var option = {
                 $("#" + $(e).data().id).remove();
                 return;
             }
+        },
+        InitExcute: () => {
+            var AllHtml = "";
+            option.InitEvent.Ajax({
+                url: '/Plugin/GetPluginExcuteList',
+                type: "get"
+            }).Result.forEach((item, index) => {
+                var html = "";
+                $.each(item.GroupValue, (_, t) => {
+                    html += ` <div class="form-group"><label for="name">${t.Value}</label><input type="text" class="form-control"  placeholder="请输入执行器" data-id="${t.Id}" onchange="option.InitEvent.SetExcute(this)" value="${t.Key}"></div>`;
+                });
+                AllHtml += option.CollapseTemplate
+                    .replace("{0}", item.GroupName)
+                    .replace("{0}", item.GroupName)
+                    .replace("{0}", item.GroupName)
+                    .replace("{1}", html);
+            });
+            $("#accordion").html(AllHtml);
+        },
+        SetExcute: (e) => {
+            var input = $(e).val();
+            var Id = $(e).data().id;
+            option.InitEvent.Ajax({
+                url: "/Plugin/AlterExcuter",
+                type: "put",
+                param: { Id: Id, ExcuteKey: input }
+            });
+            option.InitEvent.InitExcute();
         }
     },
     InitAction: () => {
@@ -275,5 +304,19 @@ var option = {
             </tbody>
         </table>
     </td>
-</tr>`
+</tr>`,
+    CollapseTemplate: `<div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#{0}">
+                                    {0}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="{0}" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                {1}
+                            </div>
+                        </div>
+                    </div>`
 };

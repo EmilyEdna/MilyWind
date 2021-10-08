@@ -91,5 +91,12 @@
              </summary>
              <returns></returns>
         </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.AlterExcuter(Mily.Wind.VMod.Mogo.Input.PluginExcuterAlterInput)">
+            <summary>
+            更新执行器键值
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -113,5 +113,20 @@ namespace Mily.Wind.HostApi.Controllers
                 t.Result = data.Result.Transfers<PluginGroupInfoOutput>();
             });
         }
+        /// <summary>
+        /// 更新执行器键值
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut, AllowAnonymous]
+        public ActionResult<MilyCtrlResult<bool>> AlterExcuter(PluginExcuterAlterInput input) 
+        {
+            var data = PluginLogic.AlterExcuter(input);
+            return MilyCtrlResult<bool>.CreateResult(t =>
+            {
+                t.Code = data.Code;
+                t.Result = (bool)data.Result;
+            });
+        }
     }
 }

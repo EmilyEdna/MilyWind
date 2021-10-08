@@ -113,11 +113,18 @@ namespace Mily.Wind.Logic.Plugin
                       GroupName = t.Key,
                       GroupValue = t.Select(x => new PluginGroupKVOutput
                       {
+                          Id=x.Id,
                           Key = x.ExcuteKey.IsNullOrEmpty() ? "" : x.ExcuteKey,
                           Value = x.ExcuteValue
                       }).ToList()
                   }).ToList();
             return MilyMapperResult.Success<List<PluginGroupInfoOutput>>(data);
+        }
+        [Actions]
+        public MilyMapperResult AlterExcuter(PluginExcuterAlterInput input) 
+        {
+            Caches.MongoDbCacheUpdate<PluginGroupExcuteInfo>(t => t.Id == input.Id, "ExcuteKey", input.ExcuteKey);
+            return MilyMapperResult.DefaultSuccess(true);
         }
     }
 }
