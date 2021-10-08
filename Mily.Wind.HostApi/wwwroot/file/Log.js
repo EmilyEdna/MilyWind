@@ -71,7 +71,7 @@ var option = {
                 throw new Error("服务器异常");
             var val = res.Result.Detail;
             let total = Math.ceil(res.Result.Total / e.PageSize);
-            let page = total == 0 ? 0 : Math.ceil(e.PageIndex / e.PageSize) + 1;
+            let page = total == 0 ? 0 : e.PageIndex + 1;
             $("#TotalPage").text(total);
             $("#CurrentPage").val(page)
             $.each(val, (_, item) => {
