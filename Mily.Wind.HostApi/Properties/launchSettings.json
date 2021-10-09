@@ -20,7 +20,7 @@
     "Mily.Wind.HostApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "plugin.html",
+      "launchUrl": "index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
