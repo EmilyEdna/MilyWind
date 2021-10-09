@@ -71,32 +71,5 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginClassList(System.String)">
-            <summary>
-            获取插件类信息
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginMethodList(System.String)">
-            <summary>
-            获取插件方法信息
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.GetPluginExcuteList">
-             <summary>
-            获取组别的执行器
-             </summary>
-             <returns></returns>
-        </member>
-        <member name="M:Mily.Wind.HostApi.Controllers.PluginController.AlterExcuter(Mily.Wind.VMod.Mogo.Input.PluginExcuterAlterInput)">
-            <summary>
-            更新执行器键值
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

@@ -69,64 +69,6 @@ namespace Mily.Wind.HostApi.Controllers
                 t.Result = (bool)data.Result;
             });
         }
-        /// <summary>
-        /// 获取插件类信息
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpGet, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<PluginClassInfoOutput>> GetPluginClassList(string input)
-        {
-            var data = PluginLogic.GetPluginClassList(input).Result.Transfer<PluginClassInfoOutput>();
-            return MilyCtrlResult<PluginClassInfoOutput>.CreateResult(t =>
-            {
-                t.Code = data.DSCode;
-                t.Result = data;
-            });
-        }
-        /// <summary>
-        /// 获取插件方法信息
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpGet, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<PluginMethodInfoOutput>> GetPluginMethodList(string input)
-        {
-            var data = PluginLogic.GetPluginMethodList(input).Result.Transfer<PluginMethodInfoOutput>();
-            return MilyCtrlResult<PluginMethodInfoOutput>.CreateResult(t =>
-            {
-                t.Code = data.DSCode;
-                t.Result = data;
-            });
-        }
-        /// <summary>
-        ///获取组别的执行器
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<List<PluginGroupInfoOutput>>> GetPluginExcuteList()
-        {
-            var data = PluginLogic.GetPluginExcuteList();
-            return MilyCtrlResult<List<PluginGroupInfoOutput>>.CreateResult(t =>
-            {
-                t.Code = data.Code;
-                t.Result = data.Result.Transfers<PluginGroupInfoOutput>();
-            });
-        }
-        /// <summary>
-        /// 更新执行器键值
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpPut, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> AlterExcuter(PluginExcuterAlterInput input)
-        {
-            var data = PluginLogic.AlterExcuter(input);
-            return MilyCtrlResult<bool>.CreateResult(t =>
-            {
-                t.Code = data.Code;
-                t.Result = (bool)data.Result;
-            });
-        }
+       
     }
 }

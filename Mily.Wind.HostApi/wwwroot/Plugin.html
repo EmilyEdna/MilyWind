@@ -12,78 +12,71 @@
     <input name="file" id="file" multiple type="file" style="opacity: 0; width: 100px; height: 34px; float: left; position: absolute;" />
     <div class="container-fluid">
         <h4 class="text-center" style="color:deeppink;">插件管理中心</h4>
-        <div class="row">
-            <div class="col-lg-2">
-                <div class="panel-group" id="accordion"></div>
+        <div class="row" style="margin-top:30px;">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        选择文件
+                    </span>
+                    <div class="form-control" id="filecontent" data-toggle="tooltip" title="" data-placement="bottom">
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-10">
-                <div class="row" style="margin-top:30px;">
-                    <div class="col-sm-8"></div>
-                    <div class="col-sm-3">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                选择文件
-                            </span>
-                            <div class="form-control" id="filecontent" data-toggle="tooltip" title="" data-placement="bottom">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="form-control btn btn-primary" style="outline: none;" id="Upload">上传</button>
-                    </div>
+            <div class="col-sm-1">
+                <button class="form-control btn btn-primary" style="outline: none;" id="Upload">上传</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-sm-7"></div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <span class="input-group-addon">别名</span>
+                    <input type="text" class="form-control" id="NickName" placeholder="插件别名">
                 </div>
-                <div class="row" style="margin-top:10px;">
-                    <div class="col-sm-7"></div>
-                    <div class="col-sm-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">别名</span>
-                            <input type="text" class="form-control" id="NickName" placeholder="插件别名">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">状态</span>
-                            <select class="form-control" id="State">
-                                <option value="" selected="selected">全部</option>
-                                <option value="true" class="text-primary">启用</option>
-                                <option value="false" class="text-warning">禁用</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="form-control btn btn-primary" style="outline: none;" id="Search">查询</button>
-                    </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <span class="input-group-addon">状态</span>
+                    <select class="form-control" id="State">
+                        <option value="" selected="selected">全部</option>
+                        <option value="true" class="text-primary">启用</option>
+                        <option value="false" class="text-warning">禁用</option>
+                    </select>
                 </div>
-                <div class="row" style="margin-top:30px;">
-                    <div class="col-md-12">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">插件名称</th>
-                                    <th class="text-center">插件别名</th>
-                                    <th class="text-center">插件大小</th>
-                                    <th class="text-center">注册时间</th>
-                                    <th class="text-center">插件版本号</th>
-                                    <th class="text-center">插件状态</th>
-                                    <th class="text-center">相关操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-9"></div>
-                    <div class="col-sm-3">
-                        <button class="btn btn-info" style="outline: none;" onclick="option.InitEvent.Last()">上一页</button>
-                        <input style="border: none; width: 30px; color: deeppink; font-size: 18px; outline:none" type="text" value="" placeholder="当前页" class="text-center" id="CurrentPage" />
-                        <b>/</b>
-                        <span style="color:deeppink;font-size:18px;" class="text-center" id="TotalPage"></span>
-                        <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Next()">下一页</button>
-                        <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Ret()">跳转</button>
-                    </div>
-                </div>
+            </div>
+            <div class="col-sm-1">
+                <button class="form-control btn btn-primary" style="outline: none;" id="Search">查询</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:30px;">
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="text-center">插件名称</th>
+                            <th class="text-center">插件别名</th>
+                            <th class="text-center">插件大小</th>
+                            <th class="text-center">注册时间</th>
+                            <th class="text-center">插件版本号</th>
+                            <th class="text-center">插件状态</th>
+                            <th class="text-center">相关操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9"></div>
+            <div class="col-sm-3">
+                <button class="btn btn-info" style="outline: none;" onclick="option.InitEvent.Last()">上一页</button>
+                <input style="border: none; width: 30px; color: deeppink; font-size: 18px; outline:none" type="text" value="" placeholder="当前页" class="text-center" id="CurrentPage" />
+                <b>/</b>
+                <span style="color:deeppink;font-size:18px;" class="text-center" id="TotalPage"></span>
+                <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Next()">下一页</button>
+                <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Ret()">跳转</button>
             </div>
         </div>
     </div>

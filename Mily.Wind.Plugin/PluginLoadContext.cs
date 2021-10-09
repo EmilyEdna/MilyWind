@@ -8,6 +8,12 @@ namespace Mily.Wind.Plugin
     public class PluginLoadContext : AssemblyLoadContext
     {
         private AssemblyDependencyResolver _Resolver;
+
+        public PluginLoadContext(): base(true)
+        {
+
+        }
+
         public PluginLoadContext(string dllPath) : base(true)
         {
             _Resolver = new AssemblyDependencyResolver(dllPath);

@@ -243,24 +243,14 @@
             每页数量
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginClassMapperInfo.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginClassMapperInfo.ClassName">
-            <summary>
-            类名称
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginClassMapperInfo.ClassDescription">
-            <summary>
-            类描述
-            </summary>
-        </member>
         <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginName">
             <summary>
             插件原始名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginRoute">
+            <summary>
+            插件路由
             </summary>
         </member>
         <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginAlias">
@@ -291,16 +281,6 @@
         <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.RegistTime">
             <summary>
             插件注册时间
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMethodMapperInfo.MethodName">
-            <summary>
-            方法名称
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMethodMapperInfo.MethodDescription">
-            <summary>
-            方法描述
             </summary>
         </member>
     </members>

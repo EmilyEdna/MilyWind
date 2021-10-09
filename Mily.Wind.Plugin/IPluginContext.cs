@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lib
+namespace Mily.Wind.Plugin
 {
-    public interface IPlugin
+    public interface IPluginContext
     {
         string Name { get; }
         string Description { get; }
-        string Execute(object inPars);
+        object Execute(object inPars);
     }
 }

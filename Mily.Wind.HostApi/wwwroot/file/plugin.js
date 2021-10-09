@@ -1,6 +1,4 @@
-﻿const More = `<svg t="1632797373528" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2413" width="20" height="20"><path d="M315.076923 275.692308h433.230769a39.384615 39.384615 0 0 1 39.384616 39.384615v433.230769a39.384615 39.384615 0 0 1-39.384616 39.384616H315.076923a39.384615 39.384615 0 0 1-39.384615-39.384616V315.076923a39.384615 39.384615 0 0 1 39.384615-39.384615z m0 39.384615v433.230769h433.230769V315.076923H315.076923z m196.923077 196.923077v-98.461538a19.692308 19.692308 0 1 1 39.384615 0V512h98.461539a19.692308 19.692308 0 1 1 0 39.384615H551.384615v98.461539a19.692308 19.692308 0 1 1-39.384615 0V551.384615h-98.461538a19.692308 19.692308 0 1 1 0-39.384615H512z" p-id="2414" fill="#d4237a"></path></svg>`;
-const Less = `<svg t="1632797550960" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3625" width="20" height="20"><path d="M315.076923 315.076923v433.230769h433.230769V315.076923H315.076923z m0-39.384615h433.230769a39.384615 39.384615 0 0 1 39.384616 39.384615v433.230769a39.384615 39.384615 0 0 1-39.384616 39.384616H315.076923a39.384615 39.384615 0 0 1-39.384615-39.384616V315.076923a39.384615 39.384615 0 0 1 39.384615-39.384615z" p-id="3626" fill="#d4237a"></path><path d="M413.538462 512h236.307692a19.692308 19.692308 0 0 1 0 39.384615h-236.307692a19.692308 19.692308 0 0 1 0-39.384615z" p-id="3627" fill="#d4237a"></path></svg>`;
-$(document).ready(() => {
+﻿$(document).ready(() => {
     option.Init();
 });
 var option = {
@@ -23,7 +21,7 @@ var option = {
             option.SearchData.PluginAlias = $("#NickName").val();
             option.InitEvent.Search(option.SearchData);
         });
-        option.InitEvent.InitExcute();
+        
     },
     InitEvent: {
         Ajax: (e) => {
@@ -126,96 +124,6 @@ var option = {
             option.SearchData.PluginAlias = $("#NickName").val();
             option.SearchData.PageIndex = $("#CurrentPage").val() - 1;
             option.InitEvent.Search(option.SearchData);
-        },
-        OpenOrCloseClass: (e) => {
-            if ($(e).data().set == "1") {
-                $(e).html(Less);
-                $(e).data("set", "2");
-                var inner = $(e).parent().parent().parent().parent().parent();
-                var res = option.InitEvent.Ajax({
-                    url: "/Plugin/GetPluginClassList?input=" + $(e).data().id,
-                    type: "get"
-                });
-                let html = '';
-                res.Result.Detail.forEach((item, index) => {
-                    html += `<tr>
-    <td class="text-center">
-         <span onclick="option.InitEvent.OpenOrCloseMethod(this)" data-set="1" data-id="${item.Id}" style="position:absolute;">${More}</span>
-          <span style="margin-left:20px;">${item.ClassName}</span>
-    </td>
-    <td class="text-center">${item.ClassDescription}</td>
-</tr>`;
-                });
-                var content = option.DataTemplate.replace("{col}",7)
-                    .replace("{id}", $(e).data().id)
-                    .replace("{CM}", "类")
-                    .replace("{CM}", "类")
-                    .replace("{Content}", html);
-                inner.append(content);
-                return;
-            }
-            if ($(e).data().set == "2") {
-                $(e).html(More);
-                $(e).data("set", "1");
-                $("#" + $(e).data().id).remove();
-                return;
-            }
-        },
-        OpenOrCloseMethod: (e) => {
-            if ($(e).data().set == "1") {
-                $(e).html(Less);
-                $(e).data("set", "2");
-                var inner = $(e).parent().parent().parent().parent();
-                var res = option.InitEvent.Ajax({
-                    url: "/Plugin/GetPluginMethodList?input=" + $(e).data().id,
-                    type: "get"
-                });
-                let html = '';
-                res.Result.Detail.forEach((item, index) => {
-                    html += `<tr><td class="text-center">${item.MethodName}</td><td class="text-center">${item.MethodDescription}</td></tr>`;
-                });
-                var content = option.DataTemplate.replace("{col}", 7)
-                    .replace("{id}", $(e).data().id)
-                    .replace("{CM}", "方法")
-                    .replace("{CM}", "方法")
-                    .replace("{Content}", html);
-                inner.append(content);
-                return;
-            }
-            if ($(e).data().set == "2") {
-                $(e).html(More);
-                $(e).data("set", "1");
-                $("#" + $(e).data().id).remove();
-                return;
-            }
-        },
-        InitExcute: () => {
-            var AllHtml = "";
-            option.InitEvent.Ajax({
-                url: '/Plugin/GetPluginExcuteList',
-                type: "get"
-            }).Result.forEach((item, index) => {
-                var html = "";
-                $.each(item.GroupValue, (_, t) => {
-                    html += ` <div class="form-group"><label for="name">${t.Value}</label><input type="text" class="form-control"  placeholder="请输入执行器" data-id="${t.Id}" onchange="option.InitEvent.SetExcute(this)" value="${t.Key}"></div>`;
-                });
-                AllHtml += option.CollapseTemplate
-                    .replace("{0}", item.GroupName)
-                    .replace("{0}", item.GroupName)
-                    .replace("{0}", item.GroupName)
-                    .replace("{1}", html);
-            });
-            $("#accordion").html(AllHtml);
-        },
-        SetExcute: (e) => {
-            var input = $(e).val();
-            var Id = $(e).data().id;
-            option.InitEvent.Ajax({
-                url: "/Plugin/AlterExcuter",
-                type: "put",
-                param: { Id: Id, ExcuteKey: input }
-            });
-            option.InitEvent.InitExcute();
         }
     },
     InitAction: () => {
@@ -278,7 +186,7 @@ var option = {
         });
     },
     Template: `<tr>
-                        <td class="text-center"><div class="row"><div class="col-md-4"></div><div class="col-md-1"><span onclick="option.InitEvent.OpenOrCloseClass(this)" data-set="1" data-id="{Id}">${More}</span></div><div class="col-md-1">{Name}</div></div></td>
+                        <td class="text-center">{Name}</td>
                         <td class="text-center"><input type="text" class="text-center" style="border:none;outline:none;" value="{NickName}" data-id="{Id}" onchange="option.InitEvent.Alter(this)"/></td>
                         <td class="text-center">{Size}</td>
                         <td class="text-center">{Time}</td>
@@ -290,33 +198,4 @@ var option = {
                             <button class="btn btn-sm btn-danger" onclick="option.InitEvent.Handler('{Id}',-1)" style="outline: none;">删除</button>
                         </td>
                    </tr>`,
-    DataTemplate: `<tr id="{id}">
-    <td colspan="{col}">
-        <table class="table table-responsive">
-            <thead>
-                <tr>
-                    <th class="text-center text-success" style="width:50%">{CM}信息</th>
-                    <th class="text-center text-success" style="width:50%">{CM}描述</th>
-                </tr>
-            </thead>
-            <tbody>
-                {Content}
-            </tbody>
-        </table>
-    </td>
-</tr>`,
-    CollapseTemplate: `<div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#{0}">
-                                    {0}
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="{0}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                {1}
-                            </div>
-                        </div>
-                    </div>`
 };

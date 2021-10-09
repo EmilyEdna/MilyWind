@@ -24,7 +24,6 @@ namespace Mily.Wind.Logic.Plugin
         [Actions]
         public MilyMapperResult UploadPlugin(List<IFormFile> files)
         {
-            List<PluginInfo> pluginInfos = new List<PluginInfo>();
             foreach (var item in files)
             {
                 var PluginInfos = PluginLoad.RegistPlugin(item);
@@ -33,12 +32,13 @@ namespace Mily.Wind.Logic.Plugin
 
                 MongoDbCaches.SearchMany<PluginInfo>(t => PluginNames.Contains(t.PluginName)).ForEnumerEach(item =>
                 {
-                    var Flg = pluginInfos.FirstOrDefault(t => t.PluginName == item.PluginName);
+                    var Flg = PluginInfos.FirstOrDefault(t => t.PluginName == item.PluginName);
                     if (Flg != null)
                     {
                         item.PluginRoute = Flg.PluginRoute;
                         item.PluginSize = Flg.PluginSize;
                         item.PluginVersion += 1;
+                        item.RegistTime = DateTime.Now;
                         MongoDbCaches.UpdateMany(t => t.Id == item.Id, item);
                         CopyInfo.RemoveAll(t => t.PluginName == item.PluginName);
                     }
@@ -51,12 +51,14 @@ namespace Mily.Wind.Logic.Plugin
         [Actions]
         public MilyMapperResult GetPluginPage(PluginInput input)
         {
+            //PluginLoad.Excute("lib", "world");
+
             var query = MongoDbCaches.Query<PluginInfo>().AsQueryable();
             if (input.IsEable.HasValue)
                 query = query.Where(t => t.IsEable == input.IsEable);
             if (!input.PluginAlias.IsNullOrEmpty())
                 query = query.Where(t => t.PluginAlias == input.PluginAlias);
-            var detail = query.OrderByDescending(t => t.RegistTime).Skip(input.PageIndex * input.PageSize).Take(input.PageSize).ToList();
+            var detail = query.OrderByDescending(t => t.RegistTime).Skip((input.PageIndex-1) * input.PageSize).Take(input.PageSize).ToList();
             return MilyMapperResult.Success<PluginOutput>(new PluginOutput
             {
                 Detail = detail.ToMapest<List<PluginMapperInfo>>(),
@@ -75,49 +77,8 @@ namespace Mily.Wind.Logic.Plugin
                 else if (input.Type.Value == 0)
                     Caches.MongoDbCacheUpdate<PluginInfo>(t => t.Id == input.Id, "IsEable", "false");
                 else
-                    PluginLoad.RemovePlugin(input.Id);
+                    Caches.MongoDBCacheRemove<PluginInfo>(t => t.Id == input.Id);
             }
-            return MilyMapperResult.DefaultSuccess(true);
-        }
-        [Actions]
-        public MilyMapperResult GetPluginClassList(string input)
-        {
-
-            var data = MongoDbCaches.SearchMany<PluginClassInfo>(t => t.PluginId == input).ToMapest<List<PluginClassMapperInfo>>();
-            return MilyMapperResult.Success<PluginClassInfoOutput>(new PluginClassInfoOutput
-            {
-                Detail = data
-            });
-        }
-        [Actions]
-        public MilyMapperResult GetPluginMethodList(string input)
-        {
-            var data = MongoDbCaches.SearchMany<PluginMethodInfo>(t => t.PluginClassId == input).ToMapest<List<PluginMethodMapperInfo>>();
-            return MilyMapperResult.Success<PluginMethodInfoOutput>(new PluginMethodInfoOutput
-            {
-                Detail = data
-            });
-        }
-        [Actions]
-        public MilyMapperResult GetPluginExcuteList()
-        {
-            var data = MongoDbCaches.SearchMany<PluginGroupExcuteInfo>(t => !string.IsNullOrEmpty(t.PluginId))
-                  .GroupBy(t => t.GroupName).Select(t => new PluginGroupInfoOutput
-                  {
-                      GroupName = t.Key,
-                      GroupValue = t.Select(x => new PluginGroupKVOutput
-                      {
-                          Id=x.Id,
-                          Key = x.ExcuteKey.IsNullOrEmpty() ? "" : x.ExcuteKey,
-                          Value = x.ExcuteValue
-                      }).ToList()
-                  }).ToList();
-            return MilyMapperResult.Success<List<PluginGroupInfoOutput>>(data);
-        }
-        [Actions]
-        public MilyMapperResult AlterExcuter(PluginExcuterAlterInput input) 
-        {
-            Caches.MongoDbCacheUpdate<PluginGroupExcuteInfo>(t => t.Id == input.Id, "ExcuteKey", input.ExcuteKey);
             return MilyMapperResult.DefaultSuccess(true);
         }
     }
