@@ -14,6 +14,10 @@ namespace Mily.Wind.VMod.Mogo
         /// </summary>
         public string PluginName { get; set; }
         /// <summary>
+        /// 插件路由
+        /// </summary>
+        public string PluginRoute { get; set; }
+        /// <summary>
         /// 插件别名
         /// </summary>
         public string PluginAlias { get; set; }

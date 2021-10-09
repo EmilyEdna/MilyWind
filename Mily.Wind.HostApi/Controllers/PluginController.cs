@@ -28,7 +28,7 @@ namespace Mily.Wind.HostApi.Controllers
             List<object> list = new List<object>();
             files.ForEach(file =>
             {
-                if (Regex.IsMatch(file.FileName, "(.*?).dll"))
+                if (Regex.IsMatch(file.FileName, "(.*?).(dll|zip)"))
                     list.Add(new { FileName = file.FileName, Success = true });
                 else
                     list.Add(new { FileName = file.FileName, Success = false });
@@ -119,7 +119,7 @@ namespace Mily.Wind.HostApi.Controllers
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> AlterExcuter(PluginExcuterAlterInput input) 
+        public ActionResult<MilyCtrlResult<bool>> AlterExcuter(PluginExcuterAlterInput input)
         {
             var data = PluginLogic.AlterExcuter(input);
             return MilyCtrlResult<bool>.CreateResult(t =>

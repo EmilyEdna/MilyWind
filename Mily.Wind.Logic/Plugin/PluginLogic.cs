@@ -27,31 +27,25 @@ namespace Mily.Wind.Logic.Plugin
             List<PluginInfo> pluginInfos = new List<PluginInfo>();
             foreach (var item in files)
             {
-                var buffer = PluginLoad.RegistPlugin(item);
-                PluginInfo plugin = Caches.MongoDBCacheGet<PluginInfo>(t => t.PluginName == item.FileName);
-                if (plugin != null)
+                var PluginInfos = PluginLoad.RegistPlugin(item);
+                List<PluginInfo> CopyInfo = new List<PluginInfo>(PluginInfos);
+                var PluginNames = PluginInfos.Select(x => x.PluginName).ToList();
+
+                MongoDbCaches.SearchMany<PluginInfo>(t => PluginNames.Contains(t.PluginName)).ForEnumerEach(item =>
                 {
-                    plugin.PluginVersion += 1;
-                    plugin.PluginSize = Math.Ceiling(item.Length * 1.0 / 1024) + "KB";
-                    plugin.Files = buffer;
-                    PluginLoad.RegistClassAndMethod(buffer, plugin.Id.ToString());
-                    MongoDbCaches.UpdateMany(t => t.Id == plugin.Id, plugin);
-                }
-                else
-                {
-                    var info = new PluginInfo
+                    var Flg = pluginInfos.FirstOrDefault(t => t.PluginName == item.PluginName);
+                    if (Flg != null)
                     {
-                        Id = Guid.NewGuid(),
-                        PluginSize = Math.Ceiling(item.Length * 1.0 / 1024) + "KB",
-                        PluginName = item.FileName,
-                        Files = buffer
-                    };
-                    PluginLoad.RegistClassAndMethod(buffer, info.Id.ToString());
-                    pluginInfos.Add(info);
-                }
+                        item.PluginRoute = Flg.PluginRoute;
+                        item.PluginSize = Flg.PluginSize;
+                        item.PluginVersion += 1;
+                        MongoDbCaches.UpdateMany(t => t.Id == item.Id, item);
+                        CopyInfo.RemoveAll(t => t.PluginName == item.PluginName);
+                    }
+                });
+                if (CopyInfo.Count > 0)
+                    MongoDbCaches.InsertMany(CopyInfo);
             }
-            if (pluginInfos.Count > 0)
-                MongoDbCaches.InsertMany(pluginInfos);
             return MilyMapperResult.DefaultSuccess(true);
         }
         [Actions]

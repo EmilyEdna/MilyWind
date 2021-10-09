@@ -228,7 +228,7 @@ var option = {
                 var template = [];
                 for (var i = 0; i < files.length; i++) {
                     var name = files[i].name;
-                    let reg = /(.*?).dll/g;
+                    let reg = /(.*?).(dll|zip)/g;
                     if (!reg.test(name)) {
                         $("#filecontent").attr("title", "文件类型错误，仅支持.dll的文件");
                         $("#filecontent").tooltip("show");

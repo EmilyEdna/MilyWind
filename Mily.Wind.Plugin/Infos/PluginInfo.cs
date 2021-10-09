@@ -20,6 +20,10 @@ namespace Mily.Wind.Plugin.Infos
         /// </summary>
         public string PluginName { get; set; }
         /// <summary>
+        /// 插件路由
+        /// </summary>
+        public string PluginRoute { get; set; }
+        /// <summary>
         /// 插件别名
         /// </summary>
         public string PluginAlias { get; set; } = string.Empty;
@@ -44,9 +48,5 @@ namespace Mily.Wind.Plugin.Infos
         /// </summary>
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? RegistTime { get; set; } = DateTime.Now;
-        /// <summary>
-        /// 文件内容
-        /// </summary>
-        public byte[] Files { get; set; }
     }
 }
