@@ -51,8 +51,6 @@ namespace Mily.Wind.Logic.Plugin
         [Actions]
         public MilyMapperResult GetPluginPage(PluginInput input)
         {
-            //PluginLoad.Excute("lib", "world");
-
             var query = MongoDbCaches.Query<PluginInfo>().AsQueryable();
             if (input.IsEable.HasValue)
                 query = query.Where(t => t.IsEable == input.IsEable);
