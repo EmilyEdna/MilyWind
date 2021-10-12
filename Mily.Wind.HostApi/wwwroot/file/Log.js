@@ -29,8 +29,8 @@ var option = {
                 Start: $("#Star").val(),
                 End: $("#End").val(),
                 LogLv: $("#LogLV").find("option:selected").val(),
-                PageIndex: 0,
-                PageSize: 20
+                PageIndex: 1,
+                PageSize: option.SearchData.PageSize
             };
             option.InitEvent.Search(req);
         });
@@ -71,7 +71,7 @@ var option = {
                 throw new Error("服务器异常");
             var val = res.Result.Detail;
             let total = Math.ceil(res.Result.Total / e.PageSize);
-            let page = total == 0 ? 0 : (e.PageIndex == 1 ? e.PageIndex : e.PageIndex + 1);
+            let page = total == 0 ? 0 : e.PageIndex;
             $("#TotalPage").text(total);
             $("#CurrentPage").val(page)
             $.each(val, (_, item) => {
@@ -109,7 +109,7 @@ var option = {
                 End: $("#End").val(),
                 LogLv: $("#LogLV").find("option:selected").val(),
                 PageIndex: $("#CurrentPage").val() - 1,
-                PageSize: 20
+                PageSize: option.SearchData.PageSize
             };
             option.InitEvent.Search(req);
         },
@@ -123,7 +123,7 @@ var option = {
                 End: $("#End").val(),
                 LogLv: $("#LogLV").find("option:selected").val(),
                 PageIndex: $("#CurrentPage").val() - 1,
-                PageSize: 20
+                PageSize: option.SearchData.PageSize
             };
             option.InitEvent.Search(req);
         },
@@ -138,7 +138,7 @@ var option = {
                 End: $("#End").val(),
                 LogLv: $("#LogLV").find("option:selected").val(),
                 PageIndex: $("#CurrentPage").val() - 1,
-                PageSize: 20
+                PageSize: option.SearchData.PageSize
             };
             option.InitEvent.Search(req);
         }
