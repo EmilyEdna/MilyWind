@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mily.Wind.VMod</name>
+    </assembly>
+    <members>
+        <member name="P:Mily.Wind.VMod.ACStatic.AC001">
+            <summary>
+            API
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.ACStatic.AC002">
+            <summary>
+            XML描述
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.ACStatic.AC003">
+            <summary>
+            异常识别码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.DataTransferObj.Output.MilyUserVMOutput.DSCode">
+            <summary>
+            系统代码
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.DS001">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.DS002">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.DS003">
+            <summary>
+            异常给出提示
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.Logics">
+            <summary>
+            业务
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.Logs">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="F:Mily.Wind.VMod.DSConst.Plugins">
+            <summary>
+            插件
+            </summary>
+        </member>
+        <member name="T:Mily.Wind.VMod.MilyCtrlResult`1">
+            <summary>
+            结果集
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Mily.Wind.VMod.MilyCtrlResult`1.Result">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.MilyCtrlResult`1.Code">
+            <summary>
+            系统代码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.MilyCtrlResult`1.HttpCode">
+            <summary>
+            Http状态码
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.VMod.MilyCtrlResult`1.CreateResult(System.Action{Mily.Wind.VMod.MilyCtrlResult{`0}})">
+            <summary>
+            创建结果
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.VMod.MilyCtrlResult`1.SetHttpCode(System.String)">
+            <summary>
+            设置错误码
+            </summary>
+            <param name="code"></param>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.StackTrace">
+            <summary>
+            堆栈
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.CreatedTime">
+            <summary>
+            日志时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.ErrorMsg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogLv">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.TraceId">
+            <summary>
+            日志链
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.SystemService">
+            <summary>
+            所属服务
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogEnv">
+            <summary>
+            系统环境
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.Start">
+            <summary>
+            起始时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.End">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.KeyWord">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.LogLv">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.LogEnv">
+            <summary>
+            日志环境
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.StackTrace">
+            <summary>
+            堆栈
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.CreatedTime">
+            <summary>
+            日志时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.ErrorMsg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.LogLv">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.TraceId">
+            <summary>
+            日志链
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.SystemService">
+            <summary>
+            所属服务
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogWriteInput.LogEnv">
+            <summary>
+            系统环境
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.PluginAlias">
+            <summary>
+            别名
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.Type">
+            <summary>
+            操作类型 1启用 0禁用 -1删除
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginClassMethodSearchInput.PluginId">
+            <summary>
+            插件Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginClassMethodSearchInput.SearchType">
+            <summary>
+            查询类型 1查询类2查询方法
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginExcuterAlterInput.Id">
+            <summary>
+            键Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginExcuterAlterInput.ExcuteKey">
+            <summary>
+            执行器键值
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PluginAlias">
+            <summary>
+            插件别名
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.IsEable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.PluginInput.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginName">
+            <summary>
+            插件原始名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginRoute">
+            <summary>
+            插件路由
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginAlias">
+            <summary>
+            插件别名
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginSize">
+            <summary>
+            插件大小
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginPath">
+            <summary>
+            组件路径
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.IsEable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginVersion">
+            <summary>
+            插件版本号
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.RegistTime">
+            <summary>
+            插件注册时间
+            </summary>
+        </member>
+    </members>
+</doc>

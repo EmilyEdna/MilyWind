@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Project\MilyWind\业务接口层\Mily.Wind.LogApplication\Mily.Wind.LogApplication.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\业务逻辑层\Mily.Wind.LogLogic\Mily.Wind.LogLogic.csproj" />
+  </ItemGroup>
+
+</Project>

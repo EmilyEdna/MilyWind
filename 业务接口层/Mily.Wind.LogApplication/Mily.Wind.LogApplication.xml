@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mily.Wind.LogApplication</name>
+    </assembly>
+    <members>
+        <member name="T:Mily.Wind.HostApi.Controllers.LogController">
+            <summary>
+            日志系统
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.LogController.GetLogPage(Mily.Wind.VMod.Mogo.Input.LogInput)">
+            <summary>
+            获取日志
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.LogController.DeleteLog(System.Guid)">
+            <summary>
+            删除日志
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.LogController.GetSystemService">
+            <summary>
+            获取服务类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.HostApi.Controllers.LogController.WriteLog(System.Collections.Generic.List{Mily.Wind.VMod.Mogo.Input.LogWriteInput})">
+            <summary>
+            写入日志
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
