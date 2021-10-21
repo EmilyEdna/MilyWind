@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Mily.Wind.Extens.SystemConfig;
 using Mily.Wind.Extens.SystemConfig.SystemExten;
+using Mily.Wind.LogPlugin;
 using Mily.Wind.VMod;
 using System;
 using System.IO;
@@ -81,9 +82,17 @@ namespace Mily.Wind.HostApi
                     }
                 });*/
             }
+
+
             app.UseStaticFiles();
 
             app.UseMiddleware<MilyMiddleWare>();
+
+            app.UseMilyLog(opt=> {
+                opt.IsDevelopment = env.IsDevelopment();
+                opt.Url = "http://127.0.0.1:9999";
+                opt.SystemService = "Main";
+            });
 
             app.UseRouting();
             //хож╓

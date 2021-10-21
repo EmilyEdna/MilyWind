@@ -9,6 +9,12 @@
             首页
             </summary>
         </member>
+        <member name="M:Mily.Wind.Application.Controllers.HomeController.Test">
+            <summary>
+            测试日志
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Mily.Wind.Application.Controllers.HomeController.Get">
             <summary>
             查询
@@ -26,6 +32,30 @@
             登录
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Mily.Wind.Application.Controllers.PluginController">
+            <summary>
+            插件系统
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.Application.Controllers.PluginController.UploadPlugin(System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            上传插件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.Application.Controllers.PluginController.GetPluginPage(Mily.Wind.VMod.Mogo.Input.PluginInput)">
+            <summary>
+            插件分页查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.Application.Controllers.PluginController.AlterPlugin(Mily.Wind.VMod.Mogo.Input.PluginAlterInput)">
+            <summary>
+            更新插件的别名
+            </summary>
             <returns></returns>
         </member>
     </members>

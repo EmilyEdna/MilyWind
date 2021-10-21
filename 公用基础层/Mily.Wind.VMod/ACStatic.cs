@@ -43,11 +43,5 @@ namespace Mily.Wind.VMod
                 return xml;
             }
         }
-
-        /// <summary>
-        /// 异常识别码
-        /// </summary>
-        public static string AC003 { get; set; }
-
     }
 }
