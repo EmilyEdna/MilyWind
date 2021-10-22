@@ -4,16 +4,28 @@
 var option = {
     SearchData: {
         KeyWord: null,
-        NameSpace: null,
+        SystemService: null,
         Start: null,
         End: null,
         LogLv: null,
+        LogEnv:0,
         PageIndex: 1,
         PageSize: 10
     },
     Init: () => {
         option.InitDom();
+        option.InitService();
         option.InitEvent.Search(option.SearchData);
+    },
+    InitService: () => {
+        var html = '<option value="" selected>全部</option>';
+        option.InitEvent.Ajax({
+            url: "/Log/GetSystemService",
+            type: "get"
+        }).forEach(item => {
+            html += `<option value="${item}">${item}服务</option>`;
+        });
+        $("#NameSpace").html(html);
     },
     InitDom: () => {
         laydate.render({
@@ -31,7 +43,8 @@ var option = {
             option.SearchData.Start = $("#Star").val();
             option.SearchData.End = $("#End").val();
             option.SearchData.LogLV = $("#LogLV").find("option:selected").val();
-            option.SearchData.NameSpace = $("#NameSpace").find("option:selected").val();
+            option.SearchData.SystemService = $("#NameSpace").find("option:selected").val();
+            option.SearchData.LogEnv = $("#SystemEnv").find("option:selected").val();
             option.SearchData.PageIndex = 1;
             option.InitEvent.Search(option.SearchData);
         });
@@ -40,7 +53,8 @@ var option = {
             option.SearchData.Start = null;
             option.SearchData.End = null;
             option.SearchData.LogLV = null;
-            option.SearchData.NameSpace = null;
+            option.SearchData.SystemService = null;
+            option.SearchData.LogEnv = 0;
             option.SearchData.PageIndex = 1;
 
             $("#KeyWord").val("");
@@ -80,23 +94,18 @@ var option = {
                 param: e,
                 type: "post"
             });
-            if (res.HttpCode != 200)
-                throw new Error("服务器异常");
-            var val = res.Result.Detail;
-            let total = Math.ceil(res.Result.Total / e.PageSize);
+            var val = res.Detail;
+            let total = Math.ceil(res.Total / e.PageSize);
             let page = total == 0 ? 0 : e.PageIndex;
             $("#TotalPage").text(total);
             $("#CurrentPage").val(page)
             $.each(val, (_, item) => {
-                $("tbody").append(option.Template.replace("{Trace}", option.InitEvent.Check(item.TraceId))
-                    .replace("{Method}", option.InitEvent.Check(item.Invoken))
-                    .replace("{Entity}", option.InitEvent.Check(item.EntityName))
-                    .replace("{Time}", option.InitEvent.Check(item.CreatedTime))
-                    .replace("{Msg}", option.InitEvent.Check(item.ErrorMsg))
-                    .replace("{Param}", option.InitEvent.Check(item.Param.replace('\\', '')))
-                    .replace("{Lv}", option.InitEvent.Check(option.InitEvent.Enum(item.LogLv)))
+                $("tbody").append(option.Template.replace("{TraceId}", option.InitEvent.Check(item.TraceId))
+                    .replace("{CreatedTime}", option.InitEvent.Check(item.CreatedTime))
+                    .replace("{ErrorMsg}", option.InitEvent.Check(item.ErrorMsg))
+                    .replace("{LogLv}", option.InitEvent.Check(option.InitEvent.Enum(item.LogLv)))
                     .replace("{Id}", option.InitEvent.Check(item.Id))
-                    .replace("{Service}", option.InitEvent.Check(item.SystemService))
+                    .replace("{SystemService}", option.InitEvent.Check(item.SystemService))
                     .replace("{Stack}", option.InitEvent.Check(item.StackTrace))
                     .replace("{Stack}", option.InitEvent.Check(item.StackTrace)));
             });
@@ -121,8 +130,9 @@ var option = {
             option.SearchData.KeyWord = $("#KeyWord").val();
             option.SearchData.Start = $("#Star").val();
             option.SearchData.End = $("#End").val();
+            option.SearchData.LogEnv = $("#SystemEnv").find("option:selected").val();
             option.SearchData.LogLV = $("#LogLV").find("option:selected").val();
-            option.SearchData.NameSpace = $("#NameSpace").find("option:selected").val();
+            option.SearchData.SystemService = $("#NameSpace").find("option:selected").val();
             option.SearchData.PageIndex = $("#CurrentPage").val();
             option.InitEvent.Search(option.SearchData);
         },
@@ -134,8 +144,9 @@ var option = {
             option.SearchData.KeyWord = $("#KeyWord").val();
             option.SearchData.Start = $("#Star").val();
             option.SearchData.End = $("#End").val();
+            option.SearchData.LogEnv = $("#SystemEnv").find("option:selected").val();
             option.SearchData.LogLV = $("#LogLV").find("option:selected").val();
-            option.SearchData.NameSpace = $("#NameSpace").find("option:selected").val();
+            option.SearchData.SystemService = $("#NameSpace").find("option:selected").val();
             option.SearchData.PageIndex = $("#CurrentPage").val();
             option.InitEvent.Search(option.SearchData);
         },
@@ -148,21 +159,19 @@ var option = {
             option.SearchData.KeyWord = $("#KeyWord").val();
             option.SearchData.Start = $("#Star").val();
             option.SearchData.End = $("#End").val();
+            option.SearchData.LogEnv = $("#SystemEnv").find("option:selected").val();
             option.SearchData.LogLV = $("#LogLV").find("option:selected").val();
-            option.SearchData.NameSpace = $("#NameSpace").find("option:selected").val();
+            option.SearchData.SystemService = $("#NameSpace").find("option:selected").val();
             option.SearchData.PageIndex = $("#CurrentPage").val();
             option.InitEvent.Search(option.SearchData);
         }
     },
     Template: `<tr>
-                        <td class="text-center">{Trace}</td>
-                        <td class="text-center">{Service}</td>
-                        <td class="text-center">{Method}</td>
-                        <td class="text-center">{Entity}</td>
-                        <td class="text-center">{Time}</td>
-                        <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{Msg}</td>
-                        <td class="text-center" style="color:blue;">{Lv}</td>
-                        <td class="text-center" style="color:darkorange;">{Param}</td>
+                        <td class="text-center">{TraceId}</td>
+                        <td class="text-center" style="color:red;" data-toggle="tooltip" title="{Stack}" data-placement="bottom">{ErrorMsg}</td>
+                        <td class="text-center" style="color:blue;">{LogLv}</td>
+                        <td class="text-center">{SystemService}</td>
+                        <td class="text-center">{CreatedTime}</td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-success" onclick="option.InitEvent.Copy(this)" data-stack="{Stack}" style="outline: none;">复制堆栈</button>
                             <button class="btn btn-sm btn-warning" onclick="option.InitEvent.Delete('{Id}')" style="outline: none;">删除</button>

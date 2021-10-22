@@ -21,61 +21,29 @@ namespace Mily.Wind.HostApi.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<LogOutput>> GetLogPage(LogInput input)
-        {
-            var data = LogLogic.GetLogPage(input).Result.Transfer<LogOutput>();
-            return MilyCtrlResult<LogOutput>.CreateResult(t =>
-            {
-                t.Code = data.DSCode;
-                t.Result = data;
-            });
-        }
+        [HttpPost]
+        public ActionResult<LogOutput> GetLogPage(LogInput input) => LogLogic.GetLogPage(input);
 
         /// <summary>
         /// 删除日志
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> DeleteLog(Guid Id)
-        {
-            var res = LogLogic.DeleteLog(Id);
-            return MilyCtrlResult<bool>.CreateResult(t =>
-            {
-                t.Code = res.Code;
-                t.Result = (bool)res.Result;
-            });
-        }
+        [HttpDelete]
+        public ActionResult<bool> DeleteLog(Guid Id) => LogLogic.DeleteLog(Id);
 
         /// <summary>
         /// 获取服务类型
         /// </summary>
         /// <returns></returns>
-        [HttpGet, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<List<string>>> GetSystemService()
-        {
-            var res = LogLogic.GetSystemService();
-            return MilyCtrlResult<List<string>>.CreateResult(t =>
-            {
-                t.Code = res.Code;
-                t.Result = (List<string>)res.Result;
-            });
-        }
+        [HttpGet]
+        public ActionResult<List<string>> GetSystemService() => LogLogic.GetSystemService();
 
         /// <summary>
         /// 写入日志
         /// </summary>
         /// <returns></returns>
-        [HttpPost, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> WriteLog(List<LogWriteInput> input)
-        {
-            var res = LogLogic.WriteLog(input);
-            return MilyCtrlResult<bool>.CreateResult(t =>
-            {
-                t.Code = res.Code;
-                t.Result = (bool)res.Result;
-            });
-        }
+        [HttpPost]
+        public ActionResult<bool> WriteLog(List<LogWriteInput> input) => LogLogic.WriteLog(input);
     }
 }

@@ -178,6 +178,11 @@
             日志环境
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.SystemService">
+            <summary>
+            所属服务
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.PageIndex">
             <summary>
             页码

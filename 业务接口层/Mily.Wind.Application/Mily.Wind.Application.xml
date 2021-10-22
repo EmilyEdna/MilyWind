@@ -9,13 +9,7 @@
             首页
             </summary>
         </member>
-        <member name="M:Mily.Wind.Application.Controllers.HomeController.Test">
-            <summary>
-            测试日志
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Mily.Wind.Application.Controllers.HomeController.Get(Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput)">
+        <member name="M:Mily.Wind.Application.Controllers.HomeController.Get">
             <summary>
             查询
             </summary>

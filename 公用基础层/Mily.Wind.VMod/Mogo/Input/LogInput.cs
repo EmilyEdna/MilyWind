@@ -29,6 +29,10 @@ namespace Mily.Wind.VMod.Mogo.Input
         /// </summary>
         public int LogEnv { get; set; } = 0;
         /// <summary>
+        /// 所属服务
+        /// </summary>
+        public string SystemService { get; set; }
+        /// <summary>
         /// 页码
         /// </summary>
         public int PageIndex { get; set; }

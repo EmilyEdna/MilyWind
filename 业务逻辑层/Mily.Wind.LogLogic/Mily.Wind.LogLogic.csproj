@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\公用基础层\Mily.Wind.Extens\Mily.Wind.Extens.csproj" />
+    <ProjectReference Include="..\..\组件服务层\Mily.Wind.QuartzPlugin\Mily.Wind.QuartzPlugin.csproj" />
   </ItemGroup>
 
 </Project>

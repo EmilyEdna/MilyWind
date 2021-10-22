@@ -17,7 +17,7 @@ namespace Mily.Wind.LogLogic.LogService
 {
     public class LogLogic : ILogLogic
     {
-        public virtual MilyMapperResult GetLogPage(LogInput input)
+        public virtual LogOutput GetLogPage(LogInput input)
         {
             var query = MongoDbCaches.Query<ExceptionLog>().AsQueryable();
             if (input.LogLv.HasValue)
@@ -28,33 +28,33 @@ namespace Mily.Wind.LogLogic.LogService
                 query = query.Where(t => t.CreatedTime < input.End);
             if (!input.KeyWord.IsNullOrEmpty())
                 query = query.Where(t => t.ErrorMsg.Contains(input.KeyWord) || t.StackTrace.Contains(input.KeyWord) || t.TraceId == input.KeyWord);
-            var detail = query.Where(t => t.LogEnv == (LogEnvEnum)input.LogEnv)
-                .OrderByDescending(t => t.CreatedTime)
-                .Skip(input.PageIndex * input.PageSize)
-                .Take(input.PageSize).ToList();
-            return MilyMapperResult.Success<LogOutput>(new LogOutput
+            if (!input.SystemService.IsNullOrEmpty())
+                query = query.Where(t => t.SystemService.Equals(input.SystemService));
+            query = query.Where(t => t.LogEnv == (LogEnvEnum)input.LogEnv);
+            var detail = query.OrderByDescending(t => t.CreatedTime).Skip((input.PageIndex-1) * input.PageSize).Take(input.PageSize).ToList();
+            return new LogOutput
             {
                 Detail = detail,
                 Total = query.Count()
-            });
+            };
         }
 
-        public virtual MilyMapperResult DeleteLog(Guid Id)
+        public virtual bool DeleteLog(Guid Id)
         {
             var res = MongoDbCaches.Delete<ExceptionLog>(t => t.Id == Id) > 0;
-            return MilyMapperResult.DefaultSuccess(res);
+            return res;
         }
 
-        public virtual MilyMapperResult GetSystemService() 
+        public virtual List<string> GetSystemService() 
         {
-            var res =  MongoDbCaches.Query<ExceptionLog>().AsQueryable().Select(t => t.SystemService).ToList();
-            return MilyMapperResult.DefaultSuccess(res);
+            var res =  MongoDbCaches.Query<ExceptionLog>().AsQueryable().Select(t => t.SystemService).Distinct().ToList();
+            return res;
         }
 
-        public virtual MilyMapperResult WriteLog(List<LogWriteInput> input)
+        public virtual bool WriteLog(List<LogWriteInput> input)
         {
             Caches.MongoDBCacheSet(input.ToMapest<List<ExceptionLog>>());
-           return MilyMapperResult.DefaultSuccess(true);
+            return true;
         }
     }
 }
