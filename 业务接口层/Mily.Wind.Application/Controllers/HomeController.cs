@@ -16,23 +16,6 @@ namespace Mily.Wind.Application.Controllers
     public class HomeController : BasicController
     {
         /// <summary>
-        /// 测试日志
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet, AllowAnonymous]
-        public ActionResult<MilyCtrlResult<bool>> Test() 
-        {
-            var log = Extens.DependencyInjection.IocManager.GetService<LogPlugin.ILog>();
-            log.WriteLog("测试");
-            return MilyCtrlResult<bool>.CreateResult(t =>
-            {
-                t.Code = DSConst.DS001;
-                t.Result = true;
-            });
-
-        }
-
-        /// <summary>
         /// 查询
         /// </summary>
         /// <returns></returns>

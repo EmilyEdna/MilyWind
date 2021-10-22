@@ -66,21 +66,21 @@ namespace Mily.Wind.HostApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseKnife4UI(c =>
+/*                app.UseKnife4UI(c =>
                 {
                     c.RoutePrefix = ""; // serve the UI at root
                     foreach (var item in ACStatic.AC001.Keys)
                     {
                         c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
                     }
-                });
-               /* app.UseSwaggerUI(c =>
+                });*/
+                app.UseSwaggerUI(c =>
                 {
                     foreach (var item in ACStatic.AC001.Keys)
                     {
                         c.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
                     }
-                });*/
+                });
             }
 
 

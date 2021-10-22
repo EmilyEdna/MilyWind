@@ -43,8 +43,6 @@ namespace Mily.Wind.LogApi
             });
 
             services.RegistLog();
-
-            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

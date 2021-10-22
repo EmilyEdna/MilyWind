@@ -14,11 +14,6 @@
             XML描述
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.ACStatic.AC003">
-            <summary>
-            异常识别码
-            </summary>
-        </member>
         <member name="P:Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput.Id">
             <summary>
             PK

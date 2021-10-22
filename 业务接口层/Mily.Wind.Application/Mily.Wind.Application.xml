@@ -15,7 +15,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Mily.Wind.Application.Controllers.HomeController.Get">
+        <member name="M:Mily.Wind.Application.Controllers.HomeController.Get(Mily.Wind.VMod.DataTransferObj.Input.MilyUserVMInput)">
             <summary>
             查询
             </summary>

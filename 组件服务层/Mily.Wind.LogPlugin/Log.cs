@@ -3,9 +3,6 @@ using Mily.Wind.LogPlugin.Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XExten.Advance.HttpFramework.MultiCommon;
 using XExten.Advance.HttpFramework.MultiFactory;
 using XExten.Advance.LinqFramework;
@@ -18,8 +15,9 @@ namespace Mily.Wind.LogPlugin
         public void WriteLog(string Message, LogLevelEnum Type = LogLevelEnum.Info, object Param = null, Exception exception = null)
         {
             if (Param != null)
-                Message = $"【{Message}】-参数【{Param}】";
-
+                Message = $"消息【{Message}】：参数【{Param.ToJson()}】";
+            else
+                Message = $"消息【{Message}】";
             MilyLogOption opts = LogIoc.Get<MilyLogOption>(nameof(MilyLogOption));
             if (opts == null) throw new Exception("未注册日志组件，请先注册后在使用!");
             if (opts.UseBatchLog)
@@ -46,7 +44,7 @@ namespace Mily.Wind.LogPlugin
             }
             else
             {
-                List<LogWriteInput> input = new List<LogWriteInput>() 
+                List<LogWriteInput> input = new List<LogWriteInput>()
                 {
                   new LogWriteInput{
                    CreatedTime = DateTime.Now,
@@ -67,11 +65,11 @@ namespace Mily.Wind.LogPlugin
         {
             MilyLogOption opts = LogIoc.Get<MilyLogOption>(nameof(MilyLogOption));
             IHttpMultiClient.HttpMulti.AddNode(opt =>
-            {
-                opt.ReqType = MultiType.POST;
-                opt.JsonParam = ojb.ToJson();
-                opt.NodePath = $"{opts.Url}{MilyLogOption.Route}";
-            }).Build().RunString();
+             {
+                 opt.ReqType = MultiType.POST;
+                 opt.JsonParam = ojb.ToJson();
+                 opt.NodePath = $"{opts.Url}{MilyLogOption.Route}";
+             }).Build().RunString();
         }
     }
 }

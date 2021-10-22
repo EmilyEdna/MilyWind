@@ -54,7 +54,7 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
                 opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 opt.SerializerSettings.Converters.Add(new MilyJsonConvert());
-            }).AddControllersAsServices();
+            });
 
             return services;
         }
@@ -63,16 +63,6 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
         {
             var AllAssemblies = SyncStatic.Assembly("Mily.Wind");
             var LogicServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILogic)))).ToList();
-            //var LogServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILog)))).ToList();
-            //日志
-            //LogServices.ForEach(item =>
-            //{
-            //    if (item.IsClass)
-            //    {
-            //        var interfaces = item.GetInterfaces().Where(imp => imp == typeof(ILog)).FirstOrDefault();
-            //        services.AddSingleton(interfaces, item);
-            //    }
-            //});
             //服务
             LogicServices.ForEach(item =>
             {

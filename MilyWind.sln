@@ -27,17 +27,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Plugin", "组件�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.HostApi", "业务入口层\Mily.Wind.HostApi\Mily.Wind.HostApi.csproj", "{F05623BD-1552-49AB-B773-C73EF88987D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.Application", "业务接口层\Mily.Wind.Application\Mily.Wind.Application.csproj", "{561F6E7B-7354-4545-B61E-6C5A75DDE423}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Application", "业务接口层\Mily.Wind.Application\Mily.Wind.Application.csproj", "{561F6E7B-7354-4545-B61E-6C5A75DDE423}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.Logic", "业务逻辑层\Mily.Wind.Logic\Mily.Wind.Logic.csproj", "{1E354A8F-B63F-47C4-A299-D746CF3BD0CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.LogApi", "业务入口层\Mily.Wind.LogApi\Mily.Wind.LogApi.csproj", "{9235F179-E471-4E2A-86D5-5417BE4DC611}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.LogApi", "业务入口层\Mily.Wind.LogApi\Mily.Wind.LogApi.csproj", "{9235F179-E471-4E2A-86D5-5417BE4DC611}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.LogApplication", "业务接口层\Mily.Wind.LogApplication\Mily.Wind.LogApplication.csproj", "{4F67073C-6402-4600-9B4A-3BBDD9B4506A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.LogApplication", "业务接口层\Mily.Wind.LogApplication\Mily.Wind.LogApplication.csproj", "{4F67073C-6402-4600-9B4A-3BBDD9B4506A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.LogLogic", "业务逻辑层\Mily.Wind.LogLogic\Mily.Wind.LogLogic.csproj", "{357588FE-C6D4-4256-B6C5-86A48D17749C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.LogLogic", "业务逻辑层\Mily.Wind.LogLogic\Mily.Wind.LogLogic.csproj", "{357588FE-C6D4-4256-B6C5-86A48D17749C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.LogPlugin", "组件服务层\Mily.Wind.LogPlugin\Mily.Wind.LogPlugin.csproj", "{CCDBD748-94D4-4483-8B40-8C9D141DE9A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.LogPlugin", "组件服务层\Mily.Wind.LogPlugin\Mily.Wind.LogPlugin.csproj", "{CCDBD748-94D4-4483-8B40-8C9D141DE9A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

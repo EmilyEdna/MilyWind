@@ -17,7 +17,7 @@ namespace Mily.Wind.LogPlugin
 
         public async Task Invoke(HttpContext Context)
         {
-            MilyLogOption.TraceNode = $"{DateTime.Now.Ticks}.{Context.Request.Path.ToString()}.{Guid.NewGuid().ToString().Replace("-", "")}";
+            MilyLogOption.TraceNode = $"{DateTime.Now.Ticks}.{Context.Request.Path}.{Guid.NewGuid().ToString().Replace("-", "")}";
             await _request(Context);
         }
     }
