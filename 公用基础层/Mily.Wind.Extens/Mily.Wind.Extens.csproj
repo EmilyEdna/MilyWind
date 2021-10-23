@@ -18,6 +18,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\组件服务层\Mily.Wind.LogPlugin\Mily.Wind.LogPlugin.csproj" />
 	  <ProjectReference Include="..\..\组件服务层\Mily.Wind.Plugin\Mily.Wind.Plugin.csproj" />
+	  <ProjectReference Include="..\..\组件服务层\Mily.Wind.QuartzPlugin\Mily.Wind.QuartzPlugin.csproj" />
 	  <ProjectReference Include="..\Mily.Wind.VMod\Mily.Wind.VMod.csproj" />
 	</ItemGroup>
 

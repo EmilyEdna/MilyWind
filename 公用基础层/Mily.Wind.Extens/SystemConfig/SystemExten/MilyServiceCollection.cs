@@ -36,13 +36,13 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
 
         public static IServiceCollection RegisterService(this IServiceCollection services)
         {
-            RegistApi(services);
+            services.RegistApi();
 
-            RegistJwt(services);
+            services.RegistJwt();
 
-            RegistCap(services);
+            services.RegistCap();
 
-            RegistIoc(services);
+            services.RegistIoc();
 
             return services;
         }

@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mily.Wind.Extens.DependencyInjection;
 using Mily.Wind.Extens.InternalInterface;
+using Mily.Wind.Extens.JobDetail;
+using Mily.Wind.QuartzPlugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -27,14 +29,16 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
 
         public static IServiceCollection RegistLog(this IServiceCollection services)
         {
-            RegistApi(services);
+            services.RegistLogApi();
 
-            RegistIoc(services);
+            services.AddQuartz().StartSimpleJob<ClearLogJob>(1).Complete();
+
+            services.RegistLogIoc();
 
             return services;
         }
 
-        public static IServiceCollection RegistApi(this IServiceCollection services)
+        public static IServiceCollection RegistLogApi(this IServiceCollection services)
         {
             services.Configure<ApiBehaviorOptions>(opt =>
             {
@@ -59,7 +63,7 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
             return services;
         }
 
-        public static IServiceCollection RegistIoc(this IServiceCollection services)
+        public static IServiceCollection RegistLogIoc(this IServiceCollection services)
         {
             var AllAssemblies = SyncStatic.Assembly("Mily.Wind");
             var LogicServices = AllAssemblies.SelectMany(t => t.ExportedTypes.Where(x => x.GetInterfaces().Contains(typeof(ILogic)))).ToList();

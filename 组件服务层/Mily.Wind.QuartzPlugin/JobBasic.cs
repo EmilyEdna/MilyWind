@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.QuartzPlugin
 {
-    public class LogClearJob : IJob
+    public class JobBasic : IJob
     {
-        public Task Execute(IJobExecutionContext context)
+        public virtual Task Execute(IJobExecutionContext context)
         {
-            Console.WriteLine("开始执行日志清理任务");
+            return Task.CompletedTask;
         }
     }
 }
