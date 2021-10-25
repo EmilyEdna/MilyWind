@@ -10,10 +10,10 @@ namespace Mily.Wind.QuartzPlugin
 {
     public static class QuartzExtension
     {
-        public static QuartzFactory AddQuartz(this IServiceCollection services) 
+        public static QuartzFactory AddQuartz(this IServiceCollection services,string assemblyName="") 
         {
             services.AddSingleton<IQuartzCorePlugin, QuartzCorePlugin>();
-            return new QuartzFactory(services);
+            return new QuartzFactory(services, assemblyName);
         }
     }
 }

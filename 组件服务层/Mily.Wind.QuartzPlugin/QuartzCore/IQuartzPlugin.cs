@@ -11,5 +11,7 @@ namespace Mily.Wind.QuartzPlugin.QuartzCore
     {
         Task CreateSimpleJob<T>(int minutes, string des = "") where T : JobBasic;
         Task CreateCronJob<T>(string cron, string des = "") where T : JobBasic;
+        Task CreateAllSimpleJob(Type type, int minutes, string des = "");
+        Task CreateAllCronJob(Type type,string cron, string des = "");
     }
 }
