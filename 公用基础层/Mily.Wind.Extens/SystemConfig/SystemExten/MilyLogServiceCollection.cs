@@ -31,7 +31,7 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
         {
             services.RegistLogApi();
 
-            services.AddQuartz().StartSimpleJob<ClearLogJob>(1440).Complete();
+            services.AddQuartz("Mily.Wind.Extens").StartSimpleJob<ClearLogJob>(1440).Complete();
 
             services.RegistLogIoc();
 

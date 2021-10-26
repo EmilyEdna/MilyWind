@@ -38,7 +38,7 @@ namespace Mily.Wind.QuartzPlugin
         public QuartzFactory StartAllSimpleJob(int minutes, string des = "")
         {
             IQuartzCorePlugin quartz = this.services.BuildServiceProvider().GetService<IQuartzCorePlugin>() ?? throw new NullReferenceException("please use QuartzExtension to initialize");
-            if (assemblyName.IsNullOrEmpty()) throw new Exception("请输入指定的程序集名称");
+            if (assemblyName.IsNullOrEmpty()) throw new ArgumentNullException("请输入指定的程序集名称");
             SyncStatic.Assembly(assemblyName).SelectMany(t => t.ExportedTypes.Where(x => x.BaseType == typeof(JobBasic))).ForEnumerEach(item =>
             {
                 quartz.CreateAllSimpleJob(item, minutes, des);
@@ -49,6 +49,7 @@ namespace Mily.Wind.QuartzPlugin
         public QuartzFactory StartAllCronJob(string cron, string des = "")
         {
             IQuartzCorePlugin quartz = this.services.BuildServiceProvider().GetService<IQuartzCorePlugin>() ?? throw new NullReferenceException("please use QuartzExtension to initialize");
+            if (assemblyName.IsNullOrEmpty()) throw new ArgumentNullException("请输入指定的程序集名称");
             SyncStatic.Assembly(assemblyName).SelectMany(t => t.ExportedTypes.Where(x => x.BaseType == typeof(JobBasic))).ForEnumerEach(item =>
             {
                 quartz.CreateAllCronJob(item, cron, des);
