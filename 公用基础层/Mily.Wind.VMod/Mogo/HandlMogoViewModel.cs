@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.VMod.Mogo
 {
-    public class HandleLog
+    public class HandlMogoViewModel
     {
         [BsonId(IdGenerator = typeof(GuidGenerator))]
         public Guid Id { get; set; }

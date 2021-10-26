@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.VMod.Enums
 {
-    public enum HandleLogEnum
+    public enum EnvEnum
     {
-        [Description("创建")]
-        Create,
-        [Description("删除")]
-        Delete,
-        [Description("更新")]
-        Update
+        [Description("开发")]
+        Dev,
+        [Description("正式")]
+        Pro,
     }
 }

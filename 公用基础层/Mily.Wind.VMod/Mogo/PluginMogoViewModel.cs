@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.VMod.Mogo
 {
-    public class PluginMapperInfo
+    public class PluginMogoViewModel
     {
         public Guid Id { get; set; }
         /// <summary>

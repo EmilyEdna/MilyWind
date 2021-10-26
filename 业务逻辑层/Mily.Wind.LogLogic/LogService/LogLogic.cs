@@ -19,7 +19,7 @@ namespace Mily.Wind.LogLogic.LogService
     {
         public virtual LogOutput GetLogPage(LogInput input)
         {
-            var query = MongoDbCaches.Query<ExceptionLog>().AsQueryable();
+            var query = MongoDbCaches.Query<LogMogoViewModel>().AsQueryable();
             if (input.LogLv.HasValue)
                 query = query.Where(t => t.LogLv == (LogLevelEnum)input.LogLv.Value);
             if (input.Start.HasValue)
@@ -30,7 +30,7 @@ namespace Mily.Wind.LogLogic.LogService
                 query = query.Where(t => t.ErrorMsg.Contains(input.KeyWord) || t.StackTrace.Contains(input.KeyWord) || t.TraceId == input.KeyWord);
             if (!input.SystemService.IsNullOrEmpty())
                 query = query.Where(t => t.SystemService.Equals(input.SystemService));
-            query = query.Where(t => t.LogEnv == (LogEnvEnum)input.LogEnv);
+            query = query.Where(t => t.LogEnv == (EnvEnum)input.LogEnv);
             var detail = query.OrderByDescending(t => t.CreatedTime).Skip((input.PageIndex-1) * input.PageSize).Take(input.PageSize).ToList();
             return new LogOutput
             {
@@ -41,19 +41,19 @@ namespace Mily.Wind.LogLogic.LogService
 
         public virtual bool DeleteLog(Guid Id)
         {
-            var res = MongoDbCaches.Delete<ExceptionLog>(t => t.Id == Id) > 0;
+            var res = MongoDbCaches.Delete<LogMogoViewModel>(t => t.Id == Id) > 0;
             return res;
         }
 
         public virtual List<string> GetSystemService() 
         {
-            var res =  MongoDbCaches.Query<ExceptionLog>().AsQueryable().Select(t => t.SystemService).Distinct().ToList();
+            var res =  MongoDbCaches.Query<LogMogoViewModel>().AsQueryable().Select(t => t.SystemService).Distinct().ToList();
             return res;
         }
 
         public virtual bool WriteLog(List<LogWriteInput> input)
         {
-            Caches.MongoDBCacheSet(input.ToMapest<List<ExceptionLog>>());
+            Caches.MongoDBCacheSet(input.ToMapest<List<LogMogoViewModel>>());
             return true;
         }
     }

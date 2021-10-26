@@ -36,6 +36,6 @@ namespace Mily.Wind.VMod.Mogo.Input
         /// <summary>
         /// 系统环境
         /// </summary>
-        public LogEnvEnum LogEnv { get; set; }
+        public EnvEnum LogEnv { get; set; }
     }
 }

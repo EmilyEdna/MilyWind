@@ -13,7 +13,7 @@ namespace Mily.Wind.Extens.JobDetail
         public override Task Execute(IJobExecutionContext context)
         {
             var Time = DateTime.Parse(DateTime.Now.AddDays(-7).ToFmtDate(3, "yyyy-MM-dd"));
-            MongoDbCaches.DeleteMany<ExceptionLog>(t => t.CreatedTime < Time);
+            MongoDbCaches.DeleteMany<LogMogoViewModel>(t => t.CreatedTime < Time);
             return base.Execute(context);
         }
     }

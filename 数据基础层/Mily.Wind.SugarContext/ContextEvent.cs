@@ -17,12 +17,12 @@ namespace Mily.Wind.SugarContext
 {
     public abstract class ContextEvent
     {
-        public HandleLog Mongo { get; private set; }
-        internal virtual void BeforeExecute<T>(T entity, HandleLogEnum handle) where T: BasicEntity, new()
+        public HandlMogoViewModel Mongo { get; private set; }
+        internal virtual void BeforeExecute<T>(T entity, HandlLogEnum handle) where T: BasicEntity, new()
         {
-            Mongo = new HandleLog
+            Mongo = new HandlMogoViewModel
             {
-                HandleLogs = handle.ToAttr<HandleLogEnum, DescriptionAttribute>(handle.ToString()).Description,
+                HandleLogs = handle.ToAttr<HandlLogEnum, DescriptionAttribute>(handle.ToString()).Description,
                 HandleTime = DateTime.Now,
                 TenantId = MilySession.GetSession<MilyUser>()?.TenantId,
                 UserId = MilySession.GetSession<MilyUser>()?.Id,

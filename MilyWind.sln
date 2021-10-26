@@ -39,7 +39,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.LogLogic", "业�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.LogPlugin", "组件服务层\Mily.Wind.LogPlugin\Mily.Wind.LogPlugin.csproj", "{CCDBD748-94D4-4483-8B40-8C9D141DE9A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.QuartzPlugin", "组件服务层\Mily.Wind.QuartzPlugin\Mily.Wind.QuartzPlugin.csproj", "{1A375D02-730E-492B-9B40-C5981250B3F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.QuartzPlugin", "组件服务层\Mily.Wind.QuartzPlugin\Mily.Wind.QuartzPlugin.csproj", "{1A375D02-730E-492B-9B40-C5981250B3F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.OptionLogic", "业务逻辑层\Mily.Wind.OptionLogic\Mily.Wind.OptionLogic.csproj", "{BEFF8AEB-05D2-4606-8EE4-F2306577D36C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.OptionApplication", "业务接口层\Mily.Wind.OptionApplication\Mily.Wind.OptionApplication.csproj", "{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,14 @@ Global
 		{1A375D02-730E-492B-9B40-C5981250B3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A375D02-730E-492B-9B40-C5981250B3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A375D02-730E-492B-9B40-C5981250B3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEFF8AEB-05D2-4606-8EE4-F2306577D36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEFF8AEB-05D2-4606-8EE4-F2306577D36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEFF8AEB-05D2-4606-8EE4-F2306577D36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEFF8AEB-05D2-4606-8EE4-F2306577D36C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +129,8 @@ Global
 		{357588FE-C6D4-4256-B6C5-86A48D17749C} = {17625B7A-AEB8-476F-98D0-32F3B3D428AA}
 		{CCDBD748-94D4-4483-8B40-8C9D141DE9A1} = {B5C61424-F0D9-476A-ACAE-979FF22E3B93}
 		{1A375D02-730E-492B-9B40-C5981250B3F8} = {B5C61424-F0D9-476A-ACAE-979FF22E3B93}
+		{BEFF8AEB-05D2-4606-8EE4-F2306577D36C} = {17625B7A-AEB8-476F-98D0-32F3B3D428AA}
+		{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B} = {DFEC1B2D-2709-4302-A8A1-C96A0CCAD004}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E82065E-2222-4621-A155-6C9A991F71E5}

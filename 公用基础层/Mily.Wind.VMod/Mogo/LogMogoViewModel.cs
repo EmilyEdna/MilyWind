@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Mily.Wind.VMod.Mogo
 {
-    public class ExceptionLog
+    public class LogMogoViewModel
     {
         /// <summary>
         /// Id
@@ -45,6 +45,6 @@ namespace Mily.Wind.VMod.Mogo
         /// <summary>
         /// 系统环境
         /// </summary>
-        public LogEnvEnum LogEnv { get; set; }
+        public EnvEnum LogEnv { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace Mily.Wind.SugarContext
         {
             return Trans(db =>
              {
-                 BeforeExecute(entity, HandleLogEnum.Create);
+                 BeforeExecute(entity, HandlLogEnum.Create);
                  var ret = db.Insertable(entity).CallEntityMethod(t => t.CreateAction(0)).ExecuteReturnEntity();
                  AfterExecute();
                  return ret;
@@ -82,7 +82,7 @@ namespace Mily.Wind.SugarContext
         {
             return Trans(db =>
             {
-                BeforeExecute(entity, HandleLogEnum.Update);
+                BeforeExecute(entity, HandlLogEnum.Update);
                 IUpdateable<T> alter = db.Updateable(entity);
                 bool ret;
                 if (expression != null)
@@ -98,7 +98,7 @@ namespace Mily.Wind.SugarContext
         {
             return Trans(db =>
             {
-                BeforeExecute(entity, HandleLogEnum.Update);
+                BeforeExecute(entity, HandlLogEnum.Update);
                 bool ret = Context(migration).Updateable(entity).CallEntityMethod(t => t.DeleteAction()).Where(expression).ExecuteCommandHasChange();
                 AfterExecute();
                 return ret;
@@ -107,7 +107,7 @@ namespace Mily.Wind.SugarContext
 
         public T Insert<T>(T entity, bool migration = false) where T : BasicEntity, new()
         {
-            BeforeExecute(entity, HandleLogEnum.Create);
+            BeforeExecute(entity, HandlLogEnum.Create);
             var ret = Context(migration).Insertable(entity).CallEntityMethod(t => t.CreateAction(0)).ExecuteReturnEntity();
             AfterExecute();
             return ret;
@@ -115,7 +115,7 @@ namespace Mily.Wind.SugarContext
 
         public bool Alter<T>(T entity, Expression<Func<T, bool>> expression = null, bool migration = false) where T : BasicEntity, new()
         {
-            BeforeExecute(entity, HandleLogEnum.Update);
+            BeforeExecute(entity, HandlLogEnum.Update);
             IUpdateable<T> alter = Context(migration).Updateable(entity);
             bool ret;
             if (expression != null)
@@ -128,7 +128,7 @@ namespace Mily.Wind.SugarContext
 
         public bool Delete<T>(T entity, Expression<Func<T, bool>> expression, bool migration = false) where T : BasicEntity, new()
         {
-            BeforeExecute(entity, HandleLogEnum.Update);
+            BeforeExecute(entity, HandlLogEnum.Update);
             bool ret = Context(migration).Updateable(entity).CallEntityMethod(t => t.DeleteAction()).Where(expression).ExecuteCommandHasChange();
             AfterExecute();
             return ret;

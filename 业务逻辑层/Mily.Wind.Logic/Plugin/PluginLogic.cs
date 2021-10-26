@@ -59,7 +59,7 @@ namespace Mily.Wind.Logic.Plugin
             var detail = query.OrderByDescending(t => t.RegistTime).Skip((input.PageIndex-1) * input.PageSize).Take(input.PageSize).ToList();
             return MilyMapperResult.Success<PluginOutput>(new PluginOutput
             {
-                Detail = detail.ToMapest<List<PluginMapperInfo>>(),
+                Detail = detail.ToMapest<List<PluginMogoViewModel>>(),
                 Total = query.Count()
             });
         }

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\业务逻辑层\Mily.Wind.OptionLogic\Mily.Wind.OptionLogic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contollers\" />
+  </ItemGroup>
+
+</Project>
