@@ -25,6 +25,10 @@ namespace Mily.Wind.VMod.Mogo
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime AlterTime { get; set; }
         /// <summary>
+        /// 版本号
+        /// </summary>
+        public int Version { get; set; }
+        /// <summary>
         /// 变更内容
         /// </summary>
         public string AlterJson { get; set; }

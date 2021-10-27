@@ -29,6 +29,10 @@ namespace Mily.Wind.VMod
         /// </summary>
         public const string Logs = "Logs";
         /// <summary>
+        /// 配置
+        /// </summary>
+        public const string Options = "Options";
+        /// <summary>
         /// 插件
         /// </summary>
         public const string Plugins = "Plugins";

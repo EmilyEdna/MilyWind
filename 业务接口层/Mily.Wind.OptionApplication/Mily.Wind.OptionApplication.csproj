@@ -4,12 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\业务逻辑层\Mily.Wind.OptionLogic\Mily.Wind.OptionLogic.csproj" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Project\MilyWind\业务接口层\Mily.Wind.OptionApplication\Mily.Wind.OptionApplication.xml</DocumentationFile>
+  </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contollers\" />
+    <ProjectReference Include="..\..\业务逻辑层\Mily.Wind.OptionLogic\Mily.Wind.OptionLogic.csproj" />
   </ItemGroup>
 
 </Project>

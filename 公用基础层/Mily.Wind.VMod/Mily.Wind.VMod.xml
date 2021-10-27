@@ -74,6 +74,11 @@
             日志
             </summary>
         </member>
+        <member name="F:Mily.Wind.VMod.DSConst.Options">
+            <summary>
+            配置
+            </summary>
+        </member>
         <member name="F:Mily.Wind.VMod.DSConst.Plugins">
             <summary>
             插件
@@ -112,46 +117,6 @@
             设置错误码
             </summary>
             <param name="code"></param>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.Id">
-            <summary>
-            Id
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.StackTrace">
-            <summary>
-            堆栈
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.CreatedTime">
-            <summary>
-            日志时间
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.ErrorMsg">
-            <summary>
-            错误信息
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogLv">
-            <summary>
-            日志级别
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.TraceId">
-            <summary>
-            日志链
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.SystemService">
-            <summary>
-            所属服务
-            </summary>
-        </member>
-        <member name="P:Mily.Wind.VMod.Mogo.ExceptionLog.LogEnv">
-            <summary>
-            系统环境
-            </summary>
         </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.LogInput.Start">
             <summary>
@@ -228,6 +193,21 @@
             系统环境
             </summary>
         </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.OptionConfInput.NameSpace">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.OptionConfInput.OptionJson">
+            <summary>
+            配置项
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.Input.OptionConfInput.Env">
+            <summary>
+            环境
+            </summary>
+        </member>
         <member name="P:Mily.Wind.VMod.Mogo.Input.PluginAlterInput.Id">
             <summary>
             主键
@@ -283,42 +263,132 @@
             每页数量
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginName">
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.StackTrace">
+            <summary>
+            堆栈
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.CreatedTime">
+            <summary>
+            日志时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.ErrorMsg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.LogLv">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.TraceId">
+            <summary>
+            日志链
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.SystemService">
+            <summary>
+            所属服务
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.LogMogoViewModel.LogEnv">
+            <summary>
+            系统环境
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfMogoViewModel.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfMogoViewModel.NameSpace">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfMogoViewModel.OptionJson">
+            <summary>
+            配置项
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfMogoViewModel.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfMogoViewModel.Env">
+            <summary>
+            环境
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfVerMogoViewModel.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfVerMogoViewModel.OptionConfId">
+            <summary>
+            配置Id
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfVerMogoViewModel.AlterTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfVerMogoViewModel.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.OptionConfVerMogoViewModel.AlterJson">
+            <summary>
+            变更内容
+            </summary>
+        </member>
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.PluginName">
             <summary>
             插件原始名称
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginRoute">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.PluginRoute">
             <summary>
             插件路由
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginAlias">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.PluginAlias">
             <summary>
             插件别名
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginSize">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.PluginSize">
             <summary>
             插件大小
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginPath">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.PluginPath">
             <summary>
             组件路径
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.IsEable">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.IsEable">
             <summary>
             是否启用
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.PluginVersion">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.PluginVersion">
             <summary>
             插件版本号
             </summary>
         </member>
-        <member name="P:Mily.Wind.VMod.Mogo.PluginMapperInfo.RegistTime">
+        <member name="P:Mily.Wind.VMod.Mogo.PluginMogoViewModel.RegistTime">
             <summary>
             插件注册时间
             </summary>

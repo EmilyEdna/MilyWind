@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mily.Wind.OptionApplication</name>
+    </assembly>
+    <members>
+        <member name="T:Mily.Wind.OptionApplication.Controllers.OptionConfController">
+            <summary>
+            配置服务
+            </summary>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.WriteOptionConf(Mily.Wind.VMod.Mogo.Input.OptionConfInput)">
+            <summary>
+            写入配置
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.SearchOptionConf">
+            <summary>
+            查询配置列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.AlterOptionConf(Mily.Wind.VMod.Mogo.Input.OptionConfInput)">
+            <summary>
+            修改配置
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.SearchOptionConfVer(System.String)">
+            <summary>
+            获取配置记录
+            </summary>
+            <param name="CId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.RemoveAndSearchOptionConfVer(System.Guid,System.String)">
+            <summary>
+            删除配置记录并获取
+            </summary>
+            <param name="Id"></param>
+            <param name="CId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.RestoreOptionConf(System.Guid)">
+            <summary>
+            还原记录
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
