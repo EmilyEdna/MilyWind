@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.OptionLogic", "�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.OptionApplication", "业务接口层\Mily.Wind.OptionApplication\Mily.Wind.OptionApplication.csproj", "{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.OptionApi", "业务入口层\Mily.Wind.OptionApi\Mily.Wind.OptionApi.csproj", "{ADACA21F-0A35-4116-8143-AE24C83C8998}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.OptionApi", "业务入口层\Mily.Wind.OptionApi\Mily.Wind.OptionApi.csproj", "{ADACA21F-0A35-4116-8143-AE24C83C8998}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
