@@ -1,6 +1,7 @@
 ﻿using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
 using Mily.Wind.VMod.Mogo.Output;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,6 +90,18 @@ namespace Mily.Wind.OptionLogic.OptionService
             res.Version = ver.Version;
             MongoDbCaches.UpdateMany(t => t.Id == Cid, res);
             return true;
+        }
+        public virtual int GetChange(OptionConfInput input)
+        {
+            return Caches.MongoDBCacheGet<OptionConfMogoViewModel>(t => t.Env == input.Env && t.NameSpace == input.NameSpace).Version;
+        }
+        public virtual object GetOptionConf(OptionConfInput input)
+        {
+            List<JObject> res = new List<JObject>();
+            var  data =  Caches.MongoDBCacheGet<OptionConfMogoViewModel>(t => t.Env == input.Env && t.NameSpace == input.NameSpace);
+            res.Add(data.OptionJson.ToModel<JObject>());
+            res.Add(JObject.FromObject(new { OptionVersion = data.Version }));
+            return res;
         }
     }
 }

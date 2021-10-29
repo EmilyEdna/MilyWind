@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.OptionApplication
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mily.Wind.OptionApi", "业务入口层\Mily.Wind.OptionApi\Mily.Wind.OptionApi.csproj", "{ADACA21F-0A35-4116-8143-AE24C83C8998}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mily.Wind.OptionPlugin", "组件服务层\Mily.Wind.OptionPlugin\Mily.Wind.OptionPlugin.csproj", "{8A7A0D0A-AA3E-402E-BDE1-B5BF3B649C81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{ADACA21F-0A35-4116-8143-AE24C83C8998}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADACA21F-0A35-4116-8143-AE24C83C8998}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADACA21F-0A35-4116-8143-AE24C83C8998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7A0D0A-AA3E-402E-BDE1-B5BF3B649C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7A0D0A-AA3E-402E-BDE1-B5BF3B649C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7A0D0A-AA3E-402E-BDE1-B5BF3B649C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7A0D0A-AA3E-402E-BDE1-B5BF3B649C81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{BEFF8AEB-05D2-4606-8EE4-F2306577D36C} = {17625B7A-AEB8-476F-98D0-32F3B3D428AA}
 		{D1D937B0-20D0-4FE2-B1AF-5E8A54002E8B} = {DFEC1B2D-2709-4302-A8A1-C96A0CCAD004}
 		{ADACA21F-0A35-4116-8143-AE24C83C8998} = {52B02919-FB44-4066-84EF-383F4B06E70D}
+		{8A7A0D0A-AA3E-402E-BDE1-B5BF3B649C81} = {B5C61424-F0D9-476A-ACAE-979FF22E3B93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E82065E-2222-4621-A155-6C9A991F71E5}

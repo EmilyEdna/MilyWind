@@ -19,5 +19,7 @@ namespace Mily.Wind.OptionLogic.OptionService
         OptionConfVerPageOutput SearchOptionConfVer(OptionConfVerPageInput input);
         bool RemoveAndSearchOptionConfVer(Guid Id);
         bool RestoreOptionConf(Guid Id);
+         int GetChange(OptionConfInput input);
+         object GetOptionConf(OptionConfInput input);
     }
 }

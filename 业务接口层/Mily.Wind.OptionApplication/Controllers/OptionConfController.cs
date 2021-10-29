@@ -55,7 +55,6 @@ namespace Mily.Wind.OptionApplication.Controllers
         /// 删除配置记录并获取
         /// </summary>
         /// <param name="Id"></param>
-        /// <param name="CId"></param>
         /// <returns></returns>
         [HttpDelete]
         public ActionResult<bool> RemoveAndSearchOptionConfVer(Guid Id) => OptionLogic.RemoveAndSearchOptionConfVer(Id);
@@ -66,5 +65,19 @@ namespace Mily.Wind.OptionApplication.Controllers
         /// <returns></returns>
         [HttpGet]
         public ActionResult<bool> RestoreOptionConf(Guid Id) => OptionLogic.RestoreOptionConf(Id);
+        /// <summary>
+        /// 获取版本变动
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<int> GetChange(OptionConfInput input)=> OptionLogic.GetChange(input);
+        /// <summary>
+        /// 获取指定的配置
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<object> GetOptionConf(OptionConfInput input)=> OptionLogic.GetOptionConf(input);
     }
 }

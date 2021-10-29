@@ -48,7 +48,6 @@
             删除配置记录并获取
             </summary>
             <param name="Id"></param>
-            <param name="CId"></param>
             <returns></returns>
         </member>
         <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.RestoreOptionConf(System.Guid)">
@@ -56,6 +55,20 @@
             还原记录
             </summary>
             <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.GetChange(Mily.Wind.VMod.Mogo.Input.OptionConfInput)">
+            <summary>
+            获取版本变动
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mily.Wind.OptionApplication.Controllers.OptionConfController.GetOptionConf(Mily.Wind.VMod.Mogo.Input.OptionConfInput)">
+            <summary>
+            获取指定的配置
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
     </members>
