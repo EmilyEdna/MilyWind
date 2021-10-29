@@ -1,5 +1,6 @@
 ﻿using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
+using Mily.Wind.VMod.Mogo.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,10 @@ namespace Mily.Wind.OptionLogic.OptionService
             Caches.MongoDBCacheSet(ver);
             return vm;
         }
+        public virtual OptionConfMogoViewModel GetOptionConfFirst(Guid Id)
+        {
+            return Caches.MongoDBCacheGet<OptionConfMogoViewModel>(t => t.Id == Id);
+        }
         public virtual Dictionary<string, List<OptionConfMogoViewModel>> SearchOptionConf()
         {
             List<OptionConfMogoViewModel> query = MongoDbCaches.Query<OptionConfMogoViewModel>().ToList();
@@ -57,14 +62,23 @@ namespace Mily.Wind.OptionLogic.OptionService
             Caches.MongoDBCacheSet(ver);
             return vm;
         }
-        public virtual List<OptionConfVerMogoViewModel> SearchOptionConfVer(string CId)
+        public virtual OptionConfVerPageOutput SearchOptionConfVer(OptionConfVerPageInput input)
         {
-            return MongoDbCaches.Query<OptionConfVerMogoViewModel>().Where(t => t.OptionConfId == CId).OrderByDescending(t => t.AlterTime).ToList();
+            var query = MongoDbCaches.Query<OptionConfVerMogoViewModel>()
+                 .Where(t => t.OptionConfId == input.CId)
+                 .OrderByDescending(t => t.AlterTime);
+
+            return new OptionConfVerPageOutput
+            {
+                Data = query.Skip((input.PageIndex - 1) * input.PageSize)
+                 .Take(input.PageSize).ToList(),
+                Total = query.Count()
+            };
         }
-        public virtual List<OptionConfVerMogoViewModel> RemoveAndSearchOptionConfVer(Guid Id, string CId)
+        public virtual bool RemoveAndSearchOptionConfVer(Guid Id)
         {
             Caches.MongoDBCacheRemove<OptionConfVerMogoViewModel>(t => t.Id == Id);
-            return MongoDbCaches.Query<OptionConfVerMogoViewModel>().Where(t => t.OptionConfId == CId).OrderByDescending(t => t.AlterTime).ToList();
+            return true;
         }
         public virtual bool RestoreOptionConf(Guid Id)
         {

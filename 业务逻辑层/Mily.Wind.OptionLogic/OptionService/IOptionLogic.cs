@@ -1,6 +1,7 @@
 ﻿using Mily.Wind.Extens.InternalInterface;
 using Mily.Wind.VMod.Mogo;
 using Mily.Wind.VMod.Mogo.Input;
+using Mily.Wind.VMod.Mogo.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,11 @@ namespace Mily.Wind.OptionLogic.OptionService
     public interface IOptionLogic : ILogic
     {
         OptionConfMogoViewModel WriteOptionConf(OptionConfInput input);
-
+        OptionConfMogoViewModel GetOptionConfFirst(Guid Id);
         Dictionary<string, List<OptionConfMogoViewModel>> SearchOptionConf();
-
         OptionConfMogoViewModel AlterOptionConf(OptionConfInput input);
-
-        List<OptionConfVerMogoViewModel> SearchOptionConfVer(string CId);
-
-        List<OptionConfVerMogoViewModel> RemoveAndSearchOptionConfVer(Guid Id, string CId);
-
+        OptionConfVerPageOutput SearchOptionConfVer(OptionConfVerPageInput input);
+        bool RemoveAndSearchOptionConfVer(Guid Id);
         bool RestoreOptionConf(Guid Id);
-
     }
 }

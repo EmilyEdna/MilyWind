@@ -32,8 +32,6 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
         {
             services.RegistConfApi();
 
-            
-
             services.RegistConfIoc();
 
             return services;

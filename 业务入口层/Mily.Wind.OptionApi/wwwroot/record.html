@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <script src="file/jquery.min.js"></script>
+    <script src="file/bootstrap.min.js"></script>
+    <link href="file/bootstrap.min.css" rel="stylesheet" />
+    <script src="file/configrecord.js"></script>
+    <title>配置中心</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <h4 class="text-center" style="color:deeppink;">分布式配置中心-历史版本</h4>
+        <div class="row" style="margin-top:30px;">
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="text-center">历史</th>
+                            <th class="text-center">时间</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9"></div>
+            <div class="col-sm-3">
+                <button class="btn btn-info" style="outline: none;" onclick="option.InitEvent.Last()">上一页</button>
+                <input style="border: none; width: 30px; color: deeppink; font-size: 18px; outline:none" type="text" value="" class="text-center" id="CurrentPage" />
+                <b>/</b>
+                <span style="color:deeppink;font-size:18px;" class="text-center" id="TotalPage"></span>
+                <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Next()">下一页</button>
+                <button class="btn btn-info" style="margin-left:15px;outline:none;" onclick="option.InitEvent.Ret()">跳转</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
