@@ -1,5 +1,7 @@
 ﻿using Mily.Wind.OptionPlugin.Settings;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NMyVision;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,10 +35,22 @@ namespace Mily.Wind.OptionPlugin
                      node.JsonParam = (new { Option.NameSpace, Option.Env }).ToJson();
                  }).Build().RunString().FirstOrDefault();
 
+                DataDictionary DataDic = new DataDictionary();
+
                 data.ToModel<List<JObject>>().ForEach(item =>
                 {
-                    kv.AddRange(JsonXml(item.ToJson(), new List<KeyValue>()));
+
+                    DataDic.AddRange(DataDictionary.ParseJson(item.ToJson()));
                 });
+
+                DataDic.Flatten().ForDicEach((Key, Value) =>
+                 {
+                     kv.Add(new KeyValue
+                     {
+                         Key = Key.Replace(".",":"),
+                         Value = Value.ToString()
+                     });
+                 });
                 return kv.ToDictionary(t => t.Key, t => t.Value);
             }, ex => ReadFile<Dictionary<string, string>>());
         }
@@ -67,34 +81,80 @@ namespace Mily.Wind.OptionPlugin
             var data = File.ReadAllText(LocalConfig());
             if (string.IsNullOrEmpty(data))
                 return new T();
-            return data.ToModel<T>();
+            return DataDictionary.ParseJson(data).Flatten().ToJson().Replace(".",":").ToModel<T>();
         }
 
-        internal static void WriteFile<T>(T args)
+        internal static void WriteFile(IDictionary<string,string> args)
         {
-            var res = args.ToJson();
-            File.WriteAllText(LocalConfig(), res);
+            File.WriteAllText(LocalConfig(), ToFlattenJson(args));
         }
 
-
-        private static List<KeyValue> JsonXml(string json, List<KeyValue> kv)
+        /// <summary>
+        /// 复杂Json还原成配置文件样式
+        /// </summary>
+        /// <param name="dict"></param>
+        /// <returns></returns>
+        internal static string ToFlattenJson(IDictionary<string, string> dict)
         {
-            json = json.Replace("\r\n", string.Empty).Replace("[", string.Empty).Replace("]", string.Empty);
-            var obj = json.ToModel<JObject>();
-            foreach (var item in obj)
+            Dictionary<string, object> root = new Dictionary<string, object>();
+            foreach (var kv in dict)
             {
-                var target = item.Value.GetType();
-                if (target == typeof(JObject) || target == typeof(JArray))
-                    JsonXml(item.Value.ToString(), kv);
+                Generate(kv.Key, kv.Value, root);
+            }
+
+            return DictToJsonString(root);
+        }
+
+        private static string DictToJsonString(Dictionary<string, object> dict)
+        {
+          return  dict.ToJson(new JsonSerializerSettings { Formatting = Formatting.Indented });
+        }
+
+        /// <summary>
+        /// 把扁平化的键值对还原成字典嵌套字典的模式
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="parent"></param>
+        private static void Generate(string key, string value, Dictionary<string, object> parent)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            var groupArr = key.Split(':');
+            if (groupArr.Length > 1)
+            {
+                var sonKey = groupArr[0];
+                var newArr = new string[groupArr.Length - 1];
+                for (int i = 1; i < groupArr.Length; i++)
+                {
+                    newArr[i - 1] = groupArr[i];
+                }
+                var otherKeys = string.Join(':', newArr);
+                if (parent.ContainsKey(sonKey))
+                {
+                    //如果已经有子字典
+                    var son = parent[sonKey] as Dictionary<string, object>;
+                    if (son != null)
+                    {
+                        Generate(otherKeys, value, son);
+                    }
+                }
                 else
                 {
-                    KeyValue md = new KeyValue();
-                    md.Key = item.Key;
-                    md.Value = item.Value.ToString();
-                    kv.Add(md);
+                    var son = new Dictionary<string, object>();
+                    Generate(otherKeys, value, son);
+                    parent.Add(sonKey, son);
                 }
+
             }
-            return kv;
+            else
+            {
+                parent.Add(key, value);
+            }
+
         }
     }
 }

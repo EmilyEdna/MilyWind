@@ -26,7 +26,7 @@ namespace Mily.Wind.SugarContext
             {
                 IsAutoCloseConnection = true,
                 DbType = DbType.MySql,
-                ConnectionString = IocManager.Configuration.GetConnectionString("MySql")
+                ConnectionString = IocManager.Configuration["ConnectionStrings:MySql"]
             });
             db.Aop.OnLogExecuting = (sql, pars) =>
             {

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\业务接口层\Mily.Wind.LogApplication\Mily.Wind.LogApplication.csproj" />
+    <ProjectReference Include="..\..\组件服务层\Mily.Wind.OptionPlugin\Mily.Wind.OptionPlugin.csproj" />
   </ItemGroup>
 
 </Project>

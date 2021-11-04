@@ -14,17 +14,6 @@ namespace Mily.Wind.OptionPlugin
 
         public static IConfigurationBuilder UseConfiguration(this IConfigurationBuilder builder,Action<ConfigurationOption> action)
         {
-
-           /* .ConfigureAppConfiguration((context, builder) =>
-             {
-                 builder.UseConfiguration(opt =>
-                 {
-                     opt.Env = EnvEnum.Dev;
-                     opt.NameSpace = "Test";
-                     opt.Url = "http://127.0.0.1:9998";
-                 });
-             })*/
-
             ConfigurationOption opt = new ConfigurationOption();
             action(opt);
             ConfigurationIoc.Set(opt);
