@@ -21,8 +21,8 @@ namespace Mily.Wind.Extens.SystemConfig.SystemExten
         private static IConfiguration Configuration { get; set; }
         public static IConfiguration RegisterLogConfiguration(this IConfiguration configuration)
         {
-            Caches.DbName = configuration.GetConnectionString("MongoName");
-            Caches.MongoDBConnectionString = configuration.GetConnectionString("Mongo");
+            Caches.DbName = configuration["ConnectionStrings:MongoName"];
+            Caches.MongoDBConnectionString = configuration["ConnectionStrings:Mongo"];
             Configuration = configuration;
             return configuration;
         }
