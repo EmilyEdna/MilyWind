@@ -6,7 +6,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="NMyVision.DataDictionary" Version="1.0.3.9" />
-		<PackageReference Include="XExten.Advance" Version="1.1.0.15" />
+		<PackageReference Include="XExten.Advance" Version="1.1.1" />
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 </Project>
